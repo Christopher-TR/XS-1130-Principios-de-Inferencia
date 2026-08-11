@@ -1,2 +1,22 @@
 # XS-1130-Principios-de-Inferencia
 Curso Principios de Inferencia
+
+**Profesor:**
+
+-   **Grupo 1:** Christopher Torres Rojas
+    (<christopher.torres@ucr.ac.cr>)
+
+## DESCRIPCION:
+
+Éste es un curso introductorio de estadística inferencial, en el que se desarrollan los 
+temas de distribuciones de probabilidad (discretas y continuas), distribuciones de muestreo, 
+tipos de muestreo y estimación de parámetros. Además, se brinda una introducción a la 
+verificación de hipótesis y su aplicación
+
+
+
+## Presentaciones
+
+| Tema                                                                                  | Clase    |
+|---------------------------------------------------------------------------------------|----------|
+| Introducción                                                                          | [Clase 1]   |
