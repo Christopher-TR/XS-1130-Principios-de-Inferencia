@@ -19,4 +19,4 @@ verificación de hipótesis y su aplicación
 
 | Tema                                                                                  | Clase    |
 |---------------------------------------------------------------------------------------|----------|
-| Introducción                                                                          | [Clase 1]   |
+| Introducción                                                                          | [Clase 1](XS-1130_01.html)    |
