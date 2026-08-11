@@ -1,6 +1,3 @@
-# XS-1130-Principios-de-Inferencia
-Curso Principios de Inferencia
-
 **Profesor:**
 
 -   **Grupo 1:** Christopher Torres Rojas
