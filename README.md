@@ -17,3 +17,4 @@ verificación de hipótesis y su aplicación
 | Tema                                                                                  | Clase    |
 |---------------------------------------------------------------------------------------|----------|
 | Introducción - Conceptos Básicos de Probabilidad                                      | [Clase 1](XS-1130_01.html)    |
+| Introducción - Métodos de Conteo                                                      | [Clase 2](XS-1130_02.html)    |
