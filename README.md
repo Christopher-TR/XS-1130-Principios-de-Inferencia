@@ -18,4 +18,4 @@ verificación de hipótesis y su aplicación
 |---------------------------------------------------------------------------------------|----------|
 | Introducción - Conceptos Básicos de Probabilidad                                      | [Clase 1](XS-1130_01.html)    |
 | Introducción - Métodos de Conteo                                                      | [Clase 2](XS-1130_02.html)    |
-| Introducción - Probabilidad Condicional & Teorema de Bayes                            | [Clase 3](XS-1130_03.html)    |
+| Introducción - Teorema de Bayes (Probabilidad Condicional)                            | [Clase 3](XS-1130_03.html)    |
