@@ -16,6 +16,6 @@ verificación de hipótesis y su aplicación
 
 | Tema                                                                                  | Clase    | Actividades | 
 |---------------------------------------------------------------------------------------|----------|----------|
-| Introducción - Conceptos Básicos de Probabilidad                                      | [Clase 1](XS-1130_01.html)    |  Tema 1 Antología    |
-| Introducción - Métodos de Conteo                                                      | [Clase 2](XS-1130_02.html)    |  Tema 1 Antología    |
-| Introducción - Teorema de Bayes (Probabilidad Condicional)                            | [Clase 3](XS-1130_03.html)    |  Tema 1 Antología    |
+| Introducción - Conceptos Básicos de Probabilidad                                      | [Clase 1](XS-1130_01.html)    |  Tema 1 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
+| Introducción - Métodos de Conteo                                                      | [Clase 2](XS-1130_02.html)    |  Tema 1 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
+| Introducción - Teorema de Bayes (Probabilidad Condicional)                            | [Clase 3](XS-1130_03.html)    |  Tema 1 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
