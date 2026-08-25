@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="XS-1130_04_files/libs/clipboard/clipboard.min.js"></script>
+<script src="XS-1130_04_files/libs/quarto-html/tabby.min.js"></script>
+<script src="XS-1130_04_files/libs/quarto-html/popper.min.js"></script>
+<script src="XS-1130_04_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="XS-1130_04_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="XS-1130_04_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="XS-1130_04_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <meta name="author" content="Christopher Torres Rojas">
+  <title>Fundamentos: Variable Aleatoria y Distribución de Probabilidad</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="XS-1130_04_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="XS-1130_04_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="XS-1130_04_files/libs/revealjs/dist/theme/quarto-9eb768afb8c6a1b6b3ca03240ed62dd7.css">
+  <link href="XS-1130_04_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="XS-1130_04_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="XS-1130_04_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="XS-1130_04_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Fundamentos: Variable Aleatoria y Distribución de Probabilidad</h1>
+  <p class="subtitle">[XS-1130 Principios de Inferencia]</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://christopher-tr.github.io/">Christopher Torres Rojas</a> 
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:christopher.torres@ucr.ac.cr">christopher.torres@ucr.ac.cr</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.estadistica.ucr.ac.cr/">
+            Escuela de Estadística, Universidad de Costa Rica
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="variable-aleatoria" class="slide level2">
+<h2>Variable Aleatoria</h2>
+<h3 id="definición">Definición:</h3>
+<p>Sea <span class="math inline">\((\Omega, \mathcal{A}, P),\)</span> un espacio de probabilidad, se define una variable aleatoria <span class="math inline">\(X\)</span> como una función con dominio <span class="math inline">\(\Omega\)</span> y codominio al conjunto de <span class="math inline">\(\mathbb{R}\)</span>, es decir,</p>
+<p><span class="math display">\[X:\Omega \rightarrow \mathbb{R}\]</span></p>
+<p>Se dice que la variable <span class="math inline">\(X\)</span> es aleatoria debido a que involucra la probabilidad de los resultado del espacio muestral <span class="math inline">\(\Omega\)</span>, y esta es una función definida sobre dicho espacio muestral, de manera que transforma a todos los posibles resultados de <span class="math inline">\(\Omega\)</span> en cantidad numéricas.</p>
+</section>
+<section id="variable-aleatoria-1" class="slide level2">
+<h2>Variable Aleatoria</h2>
+<p>Por ejemplo suponga que se tienen 4 bolas en una caja (2 Azules, 1 Roja, 1 Verde) y se extraen sin reemplazo 2 bolas de esa caja (sin importar el orden).</p>
+<p>Podríamos definir <span class="math inline">\(X = \text{El número de bolas Azules Extraídas}\)</span>.</p>
+<p>Ahora bien. Definamos el espacio <span class="math inline">\(\small \Omega = \{  (Azul_1, Azul_2), (Azul_1, Roja), (Azul_1, Verde), (Roja, Verde), (Azul_2, Roja), (Azul_2, Verde) \}\)</span></p>
+<p>¿Cuáles valores puede tomar <span class="math inline">\(X\)</span>?</p>
+<p><span class="math inline">\(x = 0  : \small\{(Roja, Verde)\}\)</span>.</p>
+<p><span class="math inline">\(x = 1  : \small\{(Azul_1, Roja), (Azul_2, Roja), (Azul_1, Verde), (Azul_2, Verde)\}\)</span>.</p>
+<p><span class="math inline">\(x = 2  : \small\{(Azul_1, Azul_2)\}\)</span>.</p>
+<p><span class="math inline">\(x = 3  : \small\emptyset\)</span>.</p>
+<p><strong>Note como</strong> <span class="math inline">\(X\)</span> <strong>es una función de</strong> <span class="math inline">\(\Omega \rightarrow \mathbb{R}\)</span></p>
+</section>
+<section id="variable-aleatoria-2" class="slide level2">
+<h2>Variable Aleatoria</h2>
+<p>Cada valor posible de una variable aleatoria hace una correspondencia con un o una colección de resultados posibles del espacio muestral.</p>
+<p>Cada resultado de una variable aleatoria está asociado a mínimo algún evento del espacio muestral.</p>
+<p><strong>Note que la variable aleatoria no es una función de probabilidad, pero si es una función.</strong></p>
+<p>Ahora bien dada la variable aleatoria y suponiendo que cada resultado presenta la misma probabilidad se puede definir la siguientes probabilidades para los distintos valores de <span class="math inline">\(X\)</span>.</p>
+<p><span class="math display">\[\small\underbrace{
+\begin{aligned}
+x = 0  &amp;: \tiny\{(Roja, Verde)\} \\
+x = 1  &amp;: \tiny\{(Azul_1, Roja), (Azul_2, Roja), (Azul_1, Verde), (Azul_2, Verde)\} \\
+x = 2  &amp;: \tiny\{(Azul_1, Azul_2)\} \\
+x = 3  &amp;: \tiny\emptyset
+\end{aligned}
+}_{\text{Mapeo de la Variable Aleatoria}}
+\small \quad \xrightarrow{\quad P(X=x) \quad} \quad
+\underbrace{
+P(X=x) = \begin{cases}
+\frac{1}{6}, &amp; \text{si } x = 0. \\
+\frac{4}{6}, &amp; \text{si } x = 1. \\
+\frac{1}{6}, &amp; \text{si } x = 2. \\
+0, &amp; \text{en otro caso}.
+\end{cases}
+}_{\text{Función de Probabilidad}}\]</span></p>
+</section>
+<section id="variable-aleatoria-definición" class="slide level2">
+<h2>Variable Aleatoria (Definición)</h2>
+<p>Si el rango de una variable aleatoria <span class="math inline">\(X\)</span> es numerable, entonces <span class="math inline">\(X\)</span> es una **variable aleatoria discreta.<br>
+** Si el rango de una variable aleatoria <span class="math inline">\(X\)</span> es un conjunto no numerable (por ejemplo, un intervalo o una unión de intervalos en el conjunto de los números reales <span class="math inline">\(\mathbb{R}\)</span>), entonces <span class="math inline">\(X\)</span> es una <strong>variable aleatoria continua.</strong></p>
+<p><strong>Ejemplos:</strong></p>
+<p><strong><em>Variable Discreta:</em></strong> Seleccionar diez estudiantes de un grupo y aplicarles un examen corto sorpresa).<br>
+Sea<span class="math inline">\(X\)</span>: El número de estudiantes que aprueban el examen.</p>
+<p><strong><em>Variable Discreta:</em></strong> Observar una estación de peaje durante un período de una hora)<br>
+Sea <span class="math inline">\(Y\)</span>: El número de vehículos que pasan por la estación en ese lapso.</p>
+<p><strong><em>Variable Continua:</em></strong> Llevar un registro de los clientes que llegan a una sucursal bancaria)<br>
+Sea <span class="math inline">\(Z\)</span>: El tiempo (en minutos) que esperan los clientes hasta ser atendidos.</p>
+</section>
+<section id="función-de-probabilidad-discreta-definición" class="slide level2">
+<h2>Función de Probabilidad Discreta (Definición)</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta con espacio muestral <span class="math inline">\(\Omega\)</span> y sea <span class="math inline">\(P\)</span> una medida de probabilidad sobre <span class="math inline">\(\Omega\)</span>. La función <span class="math inline">\(f_X: R_X \rightarrow \mathbb{R}\)</span>, está definida como:</p>
+<h4 id="para-una-variable-discreta-función-de-probabilidad-o-masa"><strong>Para una variable discreta (Función de Probabilidad o Masa):</strong></h4>
+<p><span class="math display">\[f_X(x) = P(X = x)\]</span> Donde se cumple que <span class="math inline">\(f_X(x) \ge 0\)</span> y la suma de todas las probabilidades es igual a 1, es decir, <span class="math inline">\(\sum f_X(x) = 1\)</span>.</p>
+</section>
+<section id="función-de-probabilidad-continua-definición" class="slide level2">
+<h2>Función de Probabilidad Continua (Definición)</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua con espacio muestral <span class="math inline">\(\Omega\)</span> y sea <span class="math inline">\(P\)</span> una medida de probabilidad sobre <span class="math inline">\(\Omega\)</span>. La función <span class="math inline">\(f_X: R_X \rightarrow \mathbb{R}\)</span>, está definida como:</p>
+<h4 id="para-una-variable-continua-función-de-densidad-de-probabilidad"><strong>Para una variable continua (Función de Densidad de Probabilidad):</strong></h4>
+<p>Una función tal que la probabilidad de que <span class="math inline">\(X\)</span> tome un valor en el intervalo <span class="math inline">\([a, b]\)</span> es el área bajo la curva: <span class="math display">\[P(a \le X \le b) = \int_{a}^{b} f_X(x) dx\]</span> Donde se cumple que <span class="math inline">\(f_X(x) \ge 0\)</span> y el área total bajo la curva es igual a 1, es decir, <span class="math inline">\(\int_{-\infty}^{\infty} f_X(x) dx = 1\)</span>.</p>
+</section>
+<section id="ejemplo" class="slide level2">
+<h2>Ejemplo:</h2>
+<p>(Continuación) Sea <span class="math inline">\(\small X = \text{El número de bolas Azules Extraídas}\)</span>.</p>
+<p><span class="math display">\[\small\underbrace{
+\begin{aligned}
+x = 0  &amp;: \tiny\{(Roja, Verde)\} \\
+x = 1  &amp;: \tiny\{(Azul_1, Roja), (Azul_2, Roja), (Azul_1, Verde), (Azul_2, Verde)\} \\
+x = 2  &amp;: \tiny\{(Azul_1, Azul_2)\} \\
+x = 3  &amp;: \tiny\emptyset
+\end{aligned}
+}_{\text{Mapeo de la Variable Aleatoria}}
+\small \quad \xrightarrow{\quad P(X=x) \quad} \quad
+\underbrace{
+P(X=x) = \begin{cases}
+\frac{1}{6}, &amp; \text{si } x = 0. \\
+\frac{4}{6}, &amp; \text{si } x = 1. \\
+\frac{1}{6}, &amp; \text{si } x = 2. \\
+0, &amp; \text{en otro caso}.
+\end{cases}
+}_{\text{Función de Probabilidad}}\]</span></p>
+<p>(Continuación) Sea <span class="math inline">\(\small Z = \text{El tiempo (en minutos) que espera un cliente hasta ser atendido}\)</span>.</p>
+<p><span class="math display">\[\small\underbrace{
+\begin{aligned}
+z &lt; 0  &amp;: \tiny\emptyset \text{ (No existen tiempos negativos)} \\
+z \in [0, 5)  &amp;: \tiny\{\omega \in \Omega \mid \text{Atención rápida}\} \\
+z \in [5, 15]  &amp;: \tiny\{\omega \in \Omega \mid \text{Atención normal}\} \\
+z &gt; 15  &amp;: \tiny\emptyset \text{ (Todos son atendidos en máximo 15 min)}
+\end{aligned}
+}_{\text{Mapeo de la Variable Aleatoria (Intervalos)}}
+\small \quad \xrightarrow{\quad P(a \le Z \le b) = \int_{a}^{b} f_Z(z) dz \quad} \quad
+\underbrace{
+f_Z(z) = \begin{cases}
+\frac{1}{15}, &amp; \text{si } 0 \le z \le 15. \\
+0, &amp; \text{en otro caso}.
+\end{cases}
+}_{\text{Función de Densidad de Probabilidad}}\]</span></p>
+</section>
+<section id="propiedades" class="slide level2">
+<h2>Propiedades:</h2>
+<ul>
+<li><p>Si se tienen dos eventos disjuntos <span class="math inline">\(X=a\)</span> y <span class="math inline">\(X=b\)</span>, entonces:</p>
+<p><span class="math display">\[\small P(X=a \cup X=b)= P(X=a) + P(X=b)\]</span></p></li>
+</ul>
+<h3 id="ejemplo-1">Ejemplo:</h3>
+<p>Calcule la probabilidad de tener 1 o 2 bolas azules:</p>
+<p><span class="math inline">\(\small P(X=1 \cup X=2)= P(X=1) + P(X=2) = \frac{4}{6}+ \frac{1}{6} = \frac{5}{6} = 0.8333\)</span></p>
+<p>¿Calcule la probabilidad de tener 1 o ninguna bola azul?</p>
+</section>
+<section id="propiedades-1" class="slide level2">
+<h2>Propiedades:</h2>
+<p><span class="math display">\[\small P(X=x) = \begin{cases}\frac{1}{6}, &amp; \text{si } x = 0. \\\frac{4}{6}, &amp; \text{si } x = 1. \\\frac{1}{6}, &amp; \text{si } x = 2. \\0, &amp; \text{en otro caso}.\end{cases} \]</span></p>
+<ul>
+<li><p>También, es importante definir el evento <span class="math inline">\(X \leq a\)</span> de modo que:</p>
+<p><span class="math inline">\(\small P(X\leq a)= P(X &lt; a \cup X=a) =  P(X&lt;a) + P(X=a)\)</span></p></li>
+</ul>
+<h3 id="ejemplo-2"><strong>Ejemplo:</strong></h3>
+<p>Calcule la probabilidad de tener a lo sumo 2 bolas azules:</p>
+<p><span class="math inline">\(\small P(X \leq 2)= P(X=0) + P(X=1) + P(X=2) = \frac{1}{6} + \frac{4}{6}+ \frac{1}{6} =  1\)</span></p>
+<p>¿Calcule la probabilidad de tener más de una bola azul?</p>
+<h4 id="nota-observe-que-px-leq-2-neq-px2-en-el-caso-de-una-variable-discreta-en-el-caso-continuo-ambas-probabilidades-son-iguales.">NOTA: Observe que <span class="math inline">\(P(X \leq 2) \neq P(X&lt;2)\)</span> en el caso de una variable discreta, en el caso continuo ambas probabilidades son iguales.</h4>
+</section>
+<section id="variable-aleatoria-discreta" class="slide level2">
+<h2>Variable Aleatoria Discreta</h2>
+<p>Considere el experimento que consiste en lanzar tres veces una moneda equilibrada al aire. Se define la variable aleatoria <span class="math inline">\(X\)</span>: número de escudos obtenidos, entonces, el espacio muestral es</p>
+<p><span class="math inline">\(\Omega = \{CCC, CCE, CEC, ECC, EEC, ECE, CEE, EEE\}\)</span> y <span class="math inline">\(X\)</span> puede asumir los valores 0,1,2 y 3. Estos valores se asocian con probabilidades de la siguiente manera:</p>
+<p><span class="math inline">\(P(X=0) = P(\{C,C,C\}) = \tfrac{1}{8}\)</span></p>
+<p><span class="math inline">\(P(X=1) = P(\{C,C,E\} \cup \{C,E,C\} \cup \{E,C,C\}) = \tfrac{1}{8} + \tfrac{1}{8} + \tfrac{1}{8} = \tfrac{3}{8}\)</span></p>
+<p><span class="math inline">\(P(X=2) = P(\{E,E,C\} \cup \{E,C,E\} \cup \{C,E,E\})= \tfrac{1}{8} + \tfrac{1}{8} + \tfrac{1}{8} = \tfrac{3}{8}\)</span></p>
+<p><span class="math inline">\(P(X=3) = P(\{E,E,E\}) = \tfrac{1}{8}\)</span></p>
+</section>
+<section id="variable-aleatoria-discreta-1" class="slide level2">
+<h2>Variable Aleatoria Discreta</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Por ende la función de probabilidad es:</strong><br>
+<br>
+</p>
+<p><span class="math display">\[P(X=x) =\begin{cases}\frac{1}{8}, &amp; \text{si } x = 0. \\ \frac{3}{8}, &amp; \text{si } x = 1. \\ \frac{3}{8}, &amp; \text{si } x = 2.\\ \frac{1}{8}, &amp; \text{si } x = 3. \\ 0, &amp; \text{en otro caso }.  \end{cases}\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_04_files/figure-revealjs/unnamed-chunk-1-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="variable-aleatoria-continua" class="slide level2">
+<h2>Variable Aleatoria Continua</h2>
+<p>Considere el experimento que consiste en llevar un registro de los clientes que llegan a una sucursal bancaria. Se define la variable aleatoria <span class="math inline">\(Z\)</span>: el tiempo (en minutos) que esperan los clientes hasta ser atendidos. Asumiendo una distribución uniforme donde el tiempo máximo de espera es de 15 minutos, el espacio muestral es <span class="math inline">\(\Omega = [0, 15]\)</span> y <span class="math inline">\(Z\)</span> puede asumir cualquier valor real continuo dentro de este intervalo.</p>
+<p>A diferencia del caso discreto, estos valores se agrupan en intervalos y se asocian con probabilidades mediante la integral de su función de densidad (<span class="math inline">\(f_Z(z) = \frac{1}{15}\)</span>) de la siguiente manera:</p>
+<p><span class="math inline">\(P(Z = z) = P(\{\omega \in \Omega \mid \text{Tiempo exacto}\}) = 0\)</span> (para cualquier valor exacto <span class="math inline">\(z\)</span>)</p>
+<p><span class="math inline">\(P(0 \le Z &lt; 5) = P(\{\omega \in \Omega \mid \text{Atención rápida}\}) = \int_{0}^{5} \frac{1}{15} dz = \frac{5}{15} = \frac{1}{3}\)</span></p>
+<p><span class="math inline">\(P(5 \le Z \le 15) = P(\{\omega \in \Omega \mid \text{Atención normal}\}) = \int_{5}^{15} \frac{1}{15} dz = \frac{10}{15} = \frac{2}{3}\)</span></p>
+</section>
+<section id="variable-aleatoria-continua-1" class="slide level2">
+<h2>Variable Aleatoria Continua</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Por ende la función de densidad de probabilidad es:</strong><br>
+<span class="math display">\[f_Z(z) =\begin{cases}\frac{1}{15}, &amp; \text{si } 0 \le z \le 15. \\ 0, &amp; \text{en otro caso }.  \end{cases}\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_04_files/figure-revealjs/unnamed-chunk-2-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="función-de-distribución-acumulada" class="slide level2">
+<h2>Función de distribución acumulada</h2>
+<p>El caso de ir acumulando las probabilidades, ya hemos estudiado cuando determinamos la probabilidad de ocurrencia de los eventos del tipo <span class="math inline">\(\{X\leq x\}\)</span>. La función de distribución acumulada de probabilidad se define de la siguiente forma:</p>
+<p><strong>Definición:</strong> Sea <span class="math inline">\(X\)</span> una variable aleatoria con función de probabilidad <span class="math inline">\(f_X\)</span>. A la función definida en <span class="math inline">\(f_X: R_X \rightarrow \mathbb{R}\)</span>, dada por:</p>
+<p><span class="math display">\[\text{(caso discreto):} \qquad
+F_X(x) = P(X \leq x) = \sum_{k \in R_X, \; k \leq x} P(X = k)\]</span></p>
+<p><span class="math display">\[\text{(caso continuo):} \qquad
+F_X(x) = P(X \leq x) = \int_{- \infty}^{x} f_X(t)dt\]</span></p>
+<p>Se le llama <strong>función de distribución acumulada</strong> de <span class="math inline">\(X\)</span></p>
+</section>
+<section id="función-de-distribución-acumulada-discreta" class="slide level2">
+<h2>Función de distribución acumulada discreta</h2>
+<p>Continuando con el experimento anterior. La función de distribución acumulada de <span class="math inline">\(X\)</span> se da por trozos:</p>
+<p>Si <span class="math inline">\(x &lt; 0\)</span>, entonces <span class="math inline">\(\small F_X(x) = 0\)</span>.</p>
+<p>Si <span class="math inline">\(0 \leq x &lt; 1\)</span>, entonces <span class="math inline">\(\small F_X(x) = f_X(0) = \tfrac{1}{8}\)</span>.</p>
+<p>Si <span class="math inline">\(1 \leq x &lt; 2\)</span>, entonces <span class="math inline">\(\small F_X(x) = f_X(0) + f_X(1) = \tfrac{1}{8} + \tfrac{3}{8} = \tfrac{1}{2}\)</span></p>
+<p>Si <span class="math inline">\(2 \leq x &lt; 3\)</span>, entonces <span class="math inline">\(\small F_X(x) = f_X(0) + f_X(1) + f_X(2) = \tfrac{1}{8} + \tfrac{3}{8} + \tfrac{3}{8} = \tfrac{7}{8}\)</span>.</p>
+<p>Si <span class="math inline">\(x \geq 3\)</span>, entonces <span class="math inline">\(\small F_X(x) = f_X(0) + f_X(1) + f_X(2) + f_X(3) = \tfrac{1}{8} + \tfrac{3}{8} + \tfrac{3}{8} + \tfrac{1}{8} = 1\)</span></p>
+<p><span class="math display">\[\small
+F_X(x) = P(X\leq x) =
+\begin{cases}
+0, &amp; \text{si } x &lt; 0 \\
+\frac{1}{8}, &amp; \text{si } 0 \leq x &lt; 1 \\
+\frac{1}{2}, &amp; \text{si } 1 \leq x &lt; 2 \\
+\frac{7}{8}, &amp; \text{si } 2 \leq x &lt; 3 \\
+1, &amp; \text{si } x \geq 3
+\end{cases}\]</span></p>
+</section>
+<section id="función-de-distribución-acumulada-discreta-1" class="slide level2">
+<h2>Función de distribución acumulada discreta</h2>
+
+<img data-src="XS-1130_04_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="480"><h4 id="la-función-de-distribución-en-este-caso-para-valores-menores-a-cero-es-cero-y-para-valores-mayores-o-iguales-a-4-es-1">La función de distribución en este caso para valores menores a cero es cero, y para valores mayores o iguales a 4 es 1</h4>
+</section>
+<section id="función-de-distribución-acumulada-continua" class="slide level2">
+<h2>Función de distribución acumulada continua</h2>
+<p>Continuando con el experimento de la sucursal bancaria. La función de distribución acumulada de <span class="math inline">\(Z\)</span> (tiempo de espera) se obtiene integrando su función de densidad y se da por trozos:</p>
+<p>Si <span class="math inline">\(z &lt; 0\)</span>, entonces <span class="math inline">\(\small F_Z(z) = \int_{-\infty}^{z} 0 \, dt = 0\)</span>.</p>
+<p>Si <span class="math inline">\(0 \le z \le 15\)</span>, entonces <span class="math inline">\(\small F_Z(z) = \int_{0}^{z} \frac{1}{15} dt = \frac{z}{15}\)</span>.</p>
+<p>Si <span class="math inline">\(z &gt; 15\)</span>, entonces <span class="math inline">\(\small F_Z(z) = \int_{0}^{15} \frac{1}{15} dt + \int_{15}^{z} 0 \, dt = 1 + 0 = 1\)</span>.</p>
+<p><span class="math display">\[\small
+F_Z(z) = P(Z \leq z) = \int_{-\infty}^{z} f_Z(t) dt =
+\begin{cases}
+0, &amp; \text{si } z &lt; 0 \\
+\frac{z}{15}, &amp; \text{si } 0 \le z \le 15 \\
+1, &amp; \text{si } z &gt; 15
+\end{cases}\]</span></p>
+</section>
+<section id="función-de-distribución-acumulada-continua-1" class="slide level2">
+<h2>Función de distribución acumulada continua</h2>
+
+<img data-src="XS-1130_04_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" width="480"></section>
+<section id="función-de-distribución-acumulada-propiedades" class="slide level2">
+<h2>Función de distribución acumulada (Propiedades)</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta con función de distribución acumulada de probabilidad <span class="math inline">\(F_X\)</span>.</p>
+<p>Entonces, esta función cumple con las siguientes propiedades:</p>
+<ol type="1">
+<li><p><span class="math inline">\(F_X(x) \geq 0, \ \forall x \in \mathbb{R}.\)</span></p></li>
+<li><p>Si <span class="math inline">\(x \leq y\)</span>, entonces <span class="math inline">\(F_X(x) \leq F_X(y)\)</span> (es creciente).</p></li>
+<li><p><span class="math inline">\(P(X &gt; x) = 1 - F_X(x), \ \forall x \in \mathbb{R}.\)</span></p></li>
+<li><p><span class="math inline">\(P(a &lt; X \leq b) = F_X(b) - F_X(a) \quad \text{para cualesquiera } a \text{ y } b \text{ reales tales que } a &lt; b.\)</span></p></li>
+<li><p><span class="math inline">\(\lim_{x \to -\infty} F_X(x) = 0 \quad \text{y} \quad \lim_{x \to +\infty} F_X(x) = 1.\)</span></p></li>
+</ol>
+</section>
+<section id="función-de-distribución-acumulada-1" class="slide level2">
+<h2>Función de distribución acumulada</h2>
+<h3 id="ejemplo-binomial-negativa">Ejemplo Binomial Negativa</h3>
+<p>Se sabe que de un grupo de cuatro componentes electrónicos dos son defectuosos. Un inspector prueba los componentes uno por uno hasta encontrar los dos componentes en mal estado, tome en cuenta que una vez que el inspector encuentre el segundo componente defectuoso las pruebas concluyen.</p>
+<p>Sea <span class="math inline">\(X\)</span> el número de pruebas realizadas hasta encontrar el segundo componente defectuoso. Establezca una distribución de probabilidad y distribución acumulada para la variable <span class="math inline">\(X\)</span>.</p>
+<p><span class="math inline">\(X: \Omega= \{(1,1) , (0,1,1) , (1,0,1) , (0,0,1,1) , (0,1,0,1) , (1,0,0,1)\}\)</span></p>
+<p><span class="math inline">\(X: \{2,3,4\}\)</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[\small
+f_X(x) =\begin{cases}\frac{1}{6}, &amp; \text{si } x = 2. \\ \frac{1}{3}, &amp; \text{si } x = 3. \\ \frac{1}{2}, &amp; \text{si } x = 4. \\ 0, &amp; \text{en otro caso }.  \end{cases}\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="math display">\[\small
+F_X(x) =
+\begin{cases}
+0, &amp; \text{si } x &lt; 2 \\
+\frac{1}{6}, &amp; \text{si } 2 \leq x &lt; 3 \\
+\frac{1}{2}, &amp; \text{si } 3 \leq x &lt; 4 \\
+1, &amp; \text{si } x \geq 4
+\end{cases}\]</span></p>
+</div></div>
+</section>
+<section id="esperanza-o-valor-esperado-definición" class="slide level2">
+<h2>Esperanza o Valor Esperado (Definición)</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta con función de probabilidad <span class="math inline">\(f_X\)</span>, entonces se define la esperanza o valor esperado de <span class="math inline">\(X\)</span> por:</p>
+<p><span class="math display">\[\small \text{(caso discreto):} \qquad E(X)    = \sum_{x_i \in R_X} x_i P(X = x_i)\]</span></p>
+<p><span class="math display">\[\small \text{(caso continuo):} \qquad E(X) = \int_{-\infty}^{\infty} x \cdot f_X(x) dx\]</span></p>
+<p>Siempre que exista.</p>
+<h4 id="el-valor-esperado-se-suele-denotar-por-small-quad-ex-quad-text-ó-quad-mu_x.">El valor esperado se suele denotar por: <span class="math inline">\(\small \quad E(X) \quad \text{ ó } \quad  \mu_X\)</span>.</h4>
+<p>En general si <span class="math inline">\(g(X)\)</span> es una transformación de <span class="math inline">\(X\)</span>, entonces:</p>
+<p><span class="math display">\[\small \underbrace{E[g(X)] = \sum_{x_i \in R_X} g(x_i) f_X(x_i)}_{\text{Caso discreto}} \quad \text{ó} \quad \underbrace{E[g(X)] = \int_{-\infty}^{\infty} g(x) f_X(x) dx}_{\text{Caso continuo}}\]</span></p>
+<p>Siempre que exista.</p>
+</section>
+<section id="esperanza-caso-discreto" class="slide level2">
+<h2>Esperanza (caso discreto)</h2>
+<p>Considere el experimento que consiste en lanzar tres veces una moneda equilibrada al aire.<br>
+Se define la variable aleatoria <span class="math inline">\(X\)</span>: número de escudos obtenidos.<br>
+Entonces, la función de probabilidad para esta variable aleatoria discreta es:</p>
+<p><span class="math display">\[ \small
+P(X = x) =
+\begin{cases}
+\frac{1}{8}, &amp; \text{si } x = 0 \\
+\frac{3}{8}, &amp; \text{si } x = 1 \\
+\frac{3}{8}, &amp; \text{si } x = 2 \\
+\frac{1}{8}, &amp; \text{si } x = 3
+\end{cases}\]</span></p>
+<p>El valor esperado o esperanza de <span class="math inline">\(X\)</span> está determinado por:</p>
+<p><span class="math display">\[\small E(X) = \sum_{x_i \in R_X} x_i f_X(x_i)  =
+     0 \cdot \tfrac{1}{8}
+     + 1 \cdot \tfrac{3}{8}
+     + 2 \cdot \tfrac{3}{8}
+     + 3 \cdot \tfrac{1}{8}
+     = \tfrac{3}{2}\]</span></p>
+<p>Del resultado anterior se concluye que el valor promedio o esperado de escudos, al lanzar tres veces una moneda, es: <span class="math inline">\(\frac{3}{2}\)</span></p>
+</section>
+<section id="esperanza-de-una-transformación-caso-discreto" class="slide level2">
+<h2>Esperanza de una transformación (caso discreto)</h2>
+<p>También, si se desea determinar <span class="math inline">\(E(X^2)\)</span> se procede de la siguiente forma:</p>
+<p><span class="math display">\[E(X^2) = 0^2 \cdot \tfrac{1}{8}
+       + 1^2 \cdot \tfrac{3}{8}
+       + 2^2 \cdot \tfrac{3}{8}
+       + 3^2 \cdot \tfrac{1}{8}
+       = 3\]</span></p>
+<p>El <span class="math inline">\(3\)</span> obtenido anteriormente es el valor esperado de la variable aleatoria <span class="math inline">\(X^2\)</span>;<br>
+esta variable se utilizará más adelante para determinar la varianza.</p>
+<p>Note que aquí estamos usando la anterior definición:</p>
+<p><span class="math display">\[E[g(X)] = \sum_{x_i \in R_X} g(x_i) f_X(x_i)\]</span></p>
+</section>
+<section id="esperanza-caso-continuo" class="slide level2">
+<h2>Esperanza (caso continuo)</h2>
+<p>Considere el experimento que consiste en llevar un registro de los clientes que llegan a una sucursal bancaria. Se define la variable aleatoria <span class="math inline">\(X\)</span>: el tiempo (en minutos) que esperan los clientes hasta ser atendidos. Asumiendo una distribución uniforme donde el tiempo máximo de espera es de 15 minutos, el espacio muestral es <span class="math inline">\(\Omega = [0, 15]\)</span> y <span class="math inline">\(X\)</span> puede asumir cualquier valor real continuo dentro de este intervalo.</p>
+<p>Entonces, la función de probabilidad para esta variable aleatoria continua es:</p>
+<p><span class="math display">\[f_X(x) =\begin{cases}\frac{1}{15}, &amp; \text{si } 0 \le x \le 15. \\ 0, &amp; \text{en otro caso }.  \end{cases}\]</span></p>
+<p>El valor esperado o esperanza de <span class="math inline">\(X\)</span> está determinado por:</p>
+<p><span class="math display">\[E(X) = \int_{-\infty}^{\infty} x \cdot f_X(x) dx = \int_{0}^{15} x \cdot \frac{1}{15} dx = \frac{x^2}{2\cdot15} \Big|_{x=0}^{x=15} = \frac{15^2}{30} = 7.5\]</span></p>
+</section>
+<section id="varianza-definición" class="slide level2">
+<h2>Varianza (Definición)</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta con función de probabilidad <span class="math inline">\(f_X\)</span> y valor esperado <span class="math inline">\(E(X) = \mu_X\)</span>, se define la varianza o variancia de <span class="math inline">\(X\)</span> por:</p>
+<p><span class="math display">\[\small \text{(caso discreto):}  \operatorname{Var}(X) = \sum_{x_i \in R_X} (x_i - \mu_X)^2 f_X(x_i) \]</span></p>
+<p><span class="math display">\[\small \text{(caso continuo):}  \operatorname{Var}(X) = \int_{-\infty}^{\infty} (x - \mu_X)^2 f_X \ dx\]</span></p>
+<p>Usualmente, se denota por: <span class="math inline">\(Var(X)\)</span>, <span class="math inline">\(\sigma_X^2\)</span>.</p>
+<h4 id="colorario"><strong>Colorario:</strong></h4>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta para la cual existen los valores esperados <span class="math inline">\(E(X)\)</span> y <span class="math inline">\(E(X^2)\)</span>, entonces:</p>
+<p><span class="math display">\[Var(X) = E(X^2) - \big(E(X)\big)^2\]</span></p>
+</section>
+<section id="varianza" class="slide level2">
+<h2>Varianza</h2>
+<p><strong>Ejemplo:</strong></p>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria, con la siguiente función de densidad:</p>
+<p><span class="math display">\[f_X(x) =
+\begin{cases}
+\dfrac{1}{6}, &amp; x \in \{1,2,\ldots,6\} \\
+0, &amp; \text{en otro caso}
+\end{cases}\]</span></p>
+<p>La varianza o variancia de <span class="math inline">\(X\)</span> está determinada, por:</p>
+<p><span class="math inline">\(E(X) = 1 \cdot \tfrac{1}{6} + 2 \cdot \tfrac{1}{6} + 3 \cdot \tfrac{1}{6}
+      + 4 \cdot \tfrac{1}{6} + 5 \cdot \tfrac{1}{6} + 6 \cdot \tfrac{1}{6}
+      = \tfrac{7}{2}\)</span></p>
+<p><span class="math inline">\(E(X^2) = 1^2 \cdot \tfrac{1}{6} + 2^2 \cdot \tfrac{1}{6} + 3^2 \cdot \tfrac{1}{6}
+       + 4^2 \cdot \tfrac{1}{6} + 5^2 \cdot \tfrac{1}{6} + 6^2 \cdot \tfrac{1}{6}
+       = \tfrac{91}{6}\)</span></p>
+<p><span class="math inline">\(Var(X) = E(X^2) - \big(E(X)\big)^2
+= \tfrac{91}{6} - \left(\tfrac{7}{2}\right)^2
+= \tfrac{35}{12}\)</span></p>
+<p>Del resultado anterior, los datos varían en promedio <span class="math inline">\(\tfrac{35}{12}\)</span> alrededor del valor esperado.</p>
+</section>
+<section id="desviación-estándar" class="slide level2">
+<h2>Desviación Estándar</h2>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria discreta, se define la desviación estándar o típica de <span class="math inline">\(X\)</span> por:</p>
+<p><span class="math display">\[\sigma_X = \sqrt{\operatorname{Var}(X)}\]</span></p>
+<p><strong>Ejemplo</strong></p>
+<p>En el ejemplo anterior, se determinó la varianza de una variable aleatoria <span class="math inline">\(X\)</span>, la cual es:</p>
+<p><span class="math display">\[\operatorname{Var}(X) = \tfrac{35}{12}
+\;\;\Rightarrow\;\;
+\sigma_X = \sqrt{\tfrac{35}{12}}\]</span></p>
+</section>
+<section id="propiedades-de-la-esperanza-y-varianza-de-una-variable-aleatoria" class="slide level2">
+<h2>Propiedades de la Esperanza y Varianza de una variable aleatoria</h2>
+<div title="Propiedades de la Esperanza Matemática">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propiedades de la Esperanza Matemática</strong></p>
+</div>
+<div class="callout-content">
+<p>Sean <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dos variables aleatorias y sea <span class="math inline">\(c\)</span> una constante, entonces:</p>
+<ul>
+<li><span class="math inline">\(E(c) = c\)</span></li>
+<li><span class="math inline">\(E(X + c) = E(X) + c\)</span></li>
+<li><span class="math inline">\(E(cX) = c E(X)\)</span></li>
+<li><span class="math inline">\(E(X + Y) = E(X) + E(Y)\)</span> <em>(Nota: la linealidad de la suma se cumple siempre, sean independientes o no).</em></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div title="Propiedades de la Varianza">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propiedades de la Varianza</strong></p>
+</div>
+<div class="callout-content">
+<p>Sean <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> dos variables aleatorias y sea <span class="math inline">\(c\)</span> una constante, entonces:</p>
+<ul>
+<li><span class="math inline">\(Var(c) = 0\)</span></li>
+<li><span class="math inline">\(Var(X + c) = Var(X)\)</span></li>
+<li><span class="math inline">\(Var(cX) = c^2 Var(X)\)</span></li>
+<li>Si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son variables aleatorias independientes, entonces: <span class="math display">\[Var(X + Y) = Var(X) + Var(Y)\]</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-prácticos-esperanza-y-varianza" class="slide level2">
+<h2>Ejercicios Prácticos: Esperanza y Varianza</h2>
+<p><strong>Ejercicio 1:</strong> Considere el experimento de lanzar dos dados de seis caras al aire y sea <span class="math inline">\(X\)</span> la suma de ambos resultados.</p>
+<p>Encuentre la función de probabilidad <span class="math inline">\(f_X\)</span>, la función de distribución acumulada <span class="math inline">\(F_X\)</span>, el valor esperado <span class="math inline">\(E(X)\)</span> y la varianza <span class="math inline">\(Var(X)\)</span>.</p>
+<p><strong>Ejercicio 2*:</strong> Se selecciona una muestra aleatoria de 3 personas del padrón de votantes de la última elección. Sea <span class="math inline">\(X\)</span> el número de personas que votaron por el Partido A. Suponga que la probabilidad de que una persona del padrón vote por el Partido A es de 0,40, y que la selección de los tres votantes representa pruebas completamente independientes.</p>
+<p>Encuentre la función de probabilidad <span class="math inline">\(f_X\)</span>, la función de distribución acumulada <span class="math inline">\(F_X\)</span>, el valor esperado <span class="math inline">\(E(X)\)</span> y la varianza <span class="math inline">\(Var(X)\)</span>.</p>
+</section>
+<section id="ejercicios-prácticos-esperanza-y-varianza-1" class="slide level2">
+<h2>Ejercicios Prácticos: Esperanza y Varianza</h2>
+<p><strong>Ejercicio 3:</strong> El tiempo <span class="math inline">\(X\)</span> (en minutos) que un estudiante espera el autobús de la universidad varía de forma completamente aleatoria y uniforme entre 0 y 10 minutos.</p>
+<p>Sabiendo que la probabilidad se reparte de manera constante a lo largo de este intervalo: Defina formalmente la función de densidad <span class="math inline">\(f_X\)</span>, y encuentre la función de distribución acumulada <span class="math inline">\(F_X\)</span>, el tiempo esperado de espera <span class="math inline">\(E(X)\)</span> y la varianza <span class="math inline">\(Var(X)\)</span>.</p>
+<p><strong>Ejercicio 4*:</strong> El tiempo <span class="math inline">\(X\)</span> (en horas) que tarda en completarse una actualización crítica en los servidores de un hospital tiene una función de densidad dada por <span class="math inline">\(f_X(x) = \frac{x}{2}\)</span> siempre que el valor de <span class="math inline">\(x\)</span> esté entre 0 y 2 horas (y es 0 en cualquier otro caso).</p>
+<p>Plantee la función de densidad <span class="math inline">\(f_X\)</span>, y encuentre la función de distribución acumulada <span class="math inline">\(F_X\)</span>, el tiempo de actualización esperado <span class="math inline">\(E(X)\)</span> y la varianza <span class="math inline">\(Var(X)\)</span>.</p>
+</section>
+<section id="videos" class="slide level2">
+<h2>Videos</h2>
+<p><strong>Teoría</strong></p>
+<p>a- <a href="https://www.youtube.com/watch?v=9qGRU9soP4A">El traductor de ingeniería - Variables Aleatorias: Explicación para todos!</a><br>
+b- <a href="https://www.youtube.com/watch?v=_wonmKS4Blk">Matemóvil - Variables aleatorias discretas y continuas | Ejemplos</a><br>
+c- <a href="https://www.youtube.com/watch?v=HJC5CGfDJw4">Roberto Kleiner - Variable aleatoria - Esperanza y Varianza</a></p>
+<p><strong>Resolución de Problemas (Ejemplos Prácticos)</strong></p>
+<p>Caso Discreto<br>
+1- <a href="https://www.youtube.com/watch?v=7mF89j-rCoE">Matemóvil - Función de probabilidad | Intro</a><br>
+2- <a href="https://www.youtube.com/watch?v=9NicRz7xPU0">Matemóvil - Función de probabilidad | Ejercicio</a><br>
+3- <a href="https://www.youtube.com/watch?v=OftL6S127wc">Matemóvil - Función de distribución acumulativa | Intro |</a><br>
+4- <a href="https://www.youtube.com/watch?v=sz2McfcbX1U">Matemóvil - Función de distribución acumulativa | Ejercicio |</a></p>
+<p>Caso Continuo<br>
+5- <a href="https://www.youtube.com/watch?v=2gI8Ri792ig">Matemóvil - Función de densidad de probabilidad</a><a href="https://www.youtube.com/watch?v=sz2McfcbX1U">| Intro y Ejercicio |</a><br>
+6- <a href="https://www.youtube.com/watch?v=DGvGIwWz_sQ">Matemóvil - Función de distribución acumulativa</a><a href="https://www.youtube.com/watch?v=sz2McfcbX1U">| Intro y Ejercicio |</a></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="XS-1130_04_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="XS-1130_04_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="XS-1130_04_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="XS-1130_04_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"right","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"wide","numbers":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
