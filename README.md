@@ -1,6 +1,6 @@
 **Profesor:**
 
--   **Grupo 1:** Christopher Torres Rojas
+- Christopher Torres Rojas
     (<christopher.torres@ucr.ac.cr>)
 
 ## DESCRIPCION:
