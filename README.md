@@ -20,4 +20,6 @@ verificación de hipótesis y su aplicación
 | Introducción - Métodos de Conteo                                                      | [Clase 2](XS-1130_02.html)    |  |
 | Introducción - Teorema de Bayes (Probabilidad Condicional)                            | [Clase 3](XS-1130_03.html)    |  |
 | Distribuciones de Probabilidad - Fundamentos                                          | [Clase 4](XS-1130_04.html)    |  Tema 2 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
-| Distribución Binomial e Hipergeométrica                                               | [Clase 5](XS-1130_05.html)    |  [Lab Distribución Binomial]([https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf](https://github.com/Christopher-TR/XS-1130-Principios-de-Inferencia/blob/main/Lab%20-%20Distribuci%C3%B3n%20Binomial.qmd))    |
+| Distribución Binomial e Hipergeométrica                                               | [Clase 5](XS-1130_05.html)    |  [Lab Distribución Binomial](https://github.com/Christopher-TR/XS-1130-Principios-de-Inferencia/blob/main/Lab%20-%20Distribuci%C3%B3n%20Binomial.qmd)|
+
+
