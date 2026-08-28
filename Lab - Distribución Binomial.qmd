@@ -1,0 +1,186 @@
+---
+title: "Lab 1 Distribución Binomial"
+subtitle: " [XS-1130 Principios de Inferencia]"
+format: html
+Author: Christopher Torres
+lang: es  
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Distribución Binomial
+
+**Función de probabilidad:**\
+
+$$\Large
+P(X = x) =  \begin{cases} \binom{n}{x} p^x (1-p)^{n-x}, \quad x = 0,1,\dots,n  \\ \\
+0 \quad \text{en otro caso}
+\end{cases}$$
+
+- **Esperanza:**$\quad E[X] = np$
+
+- **Varianza:** $\quad \operatorname{Var}(X) = np(1-p)$
+
+## Distribución Binomial
+
+#### En R tenemos las funciones:
+
+1.  **dbinom(x, size, prob):** calcula la probabilidad exacta $P(X=x)$
+    que la variable tome el valor **"x"**.
+
+    ```{r}
+    #dbinom(x=valor exacto, size = n, prob = probabilidad de éxito)
+    ```
+
+2.  **pbinom(q, size, prob):** calcula la probabilidad acumulada
+    $P(X \le q)$ hasta el valor **"q"**.
+
+    ```{r}
+    #dbinom(x=valor acumulado, size = n, prob = probabilidad de éxito)
+    ```
+
+3.  **qbinom(p, size, prob):** calcula el número de éxitos para alcanzar
+    una cierta deseada. (Es como el inverso de pbinom - No devuelve una
+    probabilidad, sino el valor de X). ***Básicamente calcula el cuantil
+    p de la variable aleatoria.***
+
+    ```{r}
+    #qbinom(p = probabilidad deseada, size = n, prob = probabilidad de éxito)
+    ```
+
+    - Si $lower.tail=TRUE$ entonces las probabilidades son acumuladas
+      hacia abajo $P[X \leq x]$, si se define $lower.tail=FALSE$
+      entonces se obtiene el complemento, es decir $P[X > x]$.
+
+4.  **rbinom(n, size, prob):** Genera un vector de valores aleatorios de
+    una distribución binomial. Donde $n$ es la cantidad de observaciones
+    a generar.
+
+    ```{r}
+    #rbinom(n = cantidad de observaciones deseadas, size = n, prob = probabildiad de éxito)
+    ```
+
+## **Ejemplo 1:**
+
+En una fábrica una máquina produce 3 pieza defectuosa por cada 100. Si
+un inspector revisa un lote de la semana anterior con 50 piezas.
+
+**A) ¿Cuál es la probabilidad de encontrar 3 piezas defectuosas o más?**
+
+$P(X \ge 3) = 1- \left[ P(X=0) + P(X=1) + P(X=2)\right]$
+
+Usando **dbinom(x, size, p):**
+
+```{r, echo = T}
+1-(dbinom(x=0, size=50, p=0.03)+ dbinom(x=1, size=50, p=0.03)+ dbinom(x=2, size=50, p=0.03))
+```
+
+Usando **pbinom(q, size, p):** *(con* $lower.tail=TRUE$ *- Opción por
+defecto)*
+
+```{r, echo = T}
+1-(pbinom(q=2, size=50, p=0.03))
+```
+
+Usando **pbinom(q, size, p):** *(con* $lower.tail=FALSE$)
+
+```{r}
+pbinom(q=2, size=50, p=0.03, lower.tail = FALSE)
+```
+
+**B) ¿Cuál es la probabilidad de encontrar a lo sumo 2 piezas
+defectuosas o más?**
+
+```{r}
+
+```
+
+**C) ¿Cuál es la probabilidad de encontrar al menos 5 piezas defectuosas
+o más?**
+
+```{r}
+
+```
+
+**D) ¿Cuál es la probabilidad de encontrar entre 2 y 4 piezas
+defectuosas (ambas inclusive)?**
+
+$P(2 \le X\le 4)$
+
+```{r}
+
+```
+
+**E) ¿Cuál es la probabilidad de encontrar 2 o más piezas defectuosas,
+pero menos de 7?**
+
+```{r}
+
+```
+
+**F) ¿Cuál es la probabilidad de encontrar más de 1 pieza defectuosas,
+pero menos de 5?**
+
+```{r}
+
+```
+
+**G) ¿Cuál es la probabilidad de encontrar menos de 2 piezas defectuosas
+o más de 5 piezas?**
+
+```{r}
+
+```
+
+**H) ¿Cuál es la esperanza y varianza de piezas defectuosas?**
+
+```{r}
+
+```
+
+**I) Grafique la distribución de probabilidad asociada al ejercicio.**
+
+```{r}
+n = 50
+prob_éxito = 3/100
+
+plot(0:n, dbinom(0:n, size=n, prob= prob_éxito),type='h', main='Distribución binomial (n=50, p=0.03)',
+     ylab='Probabilidad',
+     xlab ='Piezas Defectuosas',
+     lwd=2)
+```
+
+## **Ejemplo 2:**
+
+Un análisis comercial de Amazon revela que el 25% de los productos
+agregados al carrito de compras terminan siendo comprados. Si un cliente
+tiene 15 artículos distintos en su carrito
+
+**A) ¿Cuál es la probabilidad de que el cliente realice la compra de al
+menos 4 artículos?**
+
+**B) ¿Cuál es la probabilidad de que el cliente compre a lo sumo 3
+artículos?**
+
+**C) Determine la esperanza matemática** $E(X)$ **y la varianza**
+$Var(X)$ **del número de artículos no comprados en la selección de 15
+productos.**
+
+**D) ¿Cuál es la probabilidad de que termine comprando más de 2
+artículos, pero menos de 6?**
+
+**E) ¿Cuál es la probabilidad de que el cliente concrete la compra de
+exactamente 5 artículos?**
+
+**F) Realice la representación gráfica de la función de probabilidad
+asociada a este experimento de 15 artículos.**
+
+**G) ¿Cuál es la probabilidad de que compre entre 3 y 7 artículos (ambos
+inclusive)?**
+
+**H) ¿Cuál es la probabilidad de que realice la compra de menos de 3
+artículos o más de 6 artículos?**
+
+**I) ¿Cuál es la probabilidad de que el cliente termine comprando 2 o
+más artículos, pero como máximo 5?**
