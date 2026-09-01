@@ -2,7 +2,7 @@
 title: "Lab 1 Distribución Binomial"
 subtitle: " [XS-1130 Principios de Inferencia]"
 format: html
-Author: Christopher Torres
+Author: "Christopher Torres"
 lang: es  
 editor: 
   markdown: 

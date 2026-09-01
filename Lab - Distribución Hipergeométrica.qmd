@@ -1,9 +1,9 @@
 ---
-title: "Lab 1 Distribución Hipergeométrica"
+title: "Lab 2 Distribución Hipergeométrica"
 subtitle: " [XS-1130 Principios de Inferencia]"
 format: html
-Author: Christopher Torres
-lang: es  
+author: "Christopher Torres"
+lang: es
 editor: 
   markdown: 
     wrap: 72
