@@ -1,0 +1,221 @@
+---
+title: "Lab 1 Distribución Hipergeométrica"
+subtitle: " [XS-1130 Principios de Inferencia]"
+format: html
+Author: Christopher Torres
+lang: es  
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Distribución Hipergeométrica
+
+**Función de probabilidad:**\
+
+$$ \Large P(X = x) =  \begin{cases} \frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}}, \quad \small{\text{si: } \max(0, n-[N-K]) \le x \le \min(n, K)}  \\ \\ 0 \quad \text{en otro caso} \end{cases} $$
+
+Donde:
+
+- $N$: tamaño de la población
+
+- $K$: número de elementos "éxito" en la población
+
+- $n$: tamaño de la muestra (extraída **sin reemplazo**)
+
+- $x$: número de éxitos observados en la muestra
+
+- **Esperanza:**$\quad E[X] = n\dfrac{K}{N}$
+
+- **Varianza:**
+  $\quad \operatorname{Var}(X) = n\dfrac{K}{N}\left(1-\dfrac{K}{N}\right)\left(\dfrac{N-n}{N-1}\right)$
+
+> El factor $\dfrac{N-n}{N-1}$ se llama **factor de corrección por
+> población finita**. Es lo que distingue a la varianza hipergeométrica
+> de la varianza binomial, ya que al no haber reemplazo las extracciones
+> no son independientes entre sí.
+
+## Distribución Hipergeométrica
+
+#### En R tenemos las funciones:
+
+1.  **dhyper(x, m, n, k):** calcula la probabilidad exacta $P(X=x)$ que
+    la variable tome el valor **"x"**.
+
+    ```{r}
+    #dhyper(x = valor exacto, 
+    #       m = éxitos en la población (K),
+    #       n = fracasos en la población (N-K),
+    #       k = tamaño de la muestra)
+    ```
+
+2.  **phyper(q, m, n, k):** calcula la probabilidad acumulada
+    $P(X \le q)$ hasta el valor **"q"**.
+
+    ```{r}
+    #phyper(q = valor acumulado, 
+    #       m = éxitos en la población (K), 
+    #       n = fracasos en la población (N-K), 
+    #       k = tamaño de la muestra)
+    ```
+
+3.  **qhyper(p, m, n, k):** calcula el número de éxitos para alcanzar
+    una cierta probabilidad deseada. (Es como el inverso de phyper - No
+    devuelve una probabilidad, sino el valor de X). ***Básicamente
+    calcula el cuantil p de la variable aleatoria.***
+
+    ```{r}
+    #qhyper(p = probabilidad deseada, 
+    #       m = éxitos en la población (K), 
+    #       n = fracasos en la población (N-K),
+    #       k = tamaño de la muestra)
+    ```
+
+    - Si $lower.tail=TRUE$ entonces las probabilidades son acumuladas
+      hacia abajo $P[X \leq x]$, si se define $lower.tail=FALSE$
+      entonces se obtiene el complemento, es decir $P[X > x]$.
+
+4.  **rhyper(nn, m, n, k):** Genera un vector de valores aleatorios de
+    una distribución hipergeométrica. Donde $nn$ es la cantidad de
+    observaciones a generar.
+
+    ```{r}
+    #rhyper(nn = cantidad de observaciones deseadas, 
+    #       m = éxitos en la población (K),
+    #       n = fracasos en la población (N-K),
+    #       k = tamaño de la muestra)
+    ```
+
+    - Nota importante: a diferencia de `dbinom`/`pbinom`/`qbinom`, en
+      las funciones `*hyper` de R **no** se usan los parámetros `size`
+      ni `prob`. En su lugar se describen los dos grupos que componen la
+      población (`m` y `n`) y el tamaño de la muestra (`k`).
+
+## **Ejemplo 1:**
+
+En un lote de 200 piezas producidas por una fábrica se sabe que 20 son
+defectuosas. Un inspector selecciona una muestra aleatoria de 50 piezas
+**sin reemplazo** para inspeccionar.
+
+**A) ¿Cuál es la probabilidad de encontrar 3 piezas defectuosas o más?**
+
+$P(X \ge 3) = 1- \left[ P(X=0) + P(X=1) + P(X=2)\right]$
+
+Usando **dhyper(x, m, n, k):**
+
+```{r, echo = T}
+1-(dhyper(x=0, m=20, n=180, k=50)+ dhyper(x=1, m=20, n=180, k=50)+ dhyper(x=2, m=20, n=180, k=50))
+```
+
+Usando **phyper(q, m, n, k):** *(con* $lower.tail=TRUE$ *- Opción por
+defecto)*
+
+```{r, echo = T}
+1-(phyper(q=2, m=20, n=180, k=50))
+```
+
+Usando **phyper(q, m, n, k):** *(con* $lower.tail=FALSE$)
+
+```{r}
+phyper(q=2, m=20, n=180, k=50, lower.tail = FALSE)
+```
+
+**B) ¿Cuál es la probabilidad de encontrar a lo sumo 2 piezas
+defectuosas?**
+
+```{r}
+
+```
+
+**C) ¿Cuál es la probabilidad de encontrar al menos 5 piezas
+defectuosas?**
+
+```{r}
+
+```
+
+**D) ¿Cuál es la probabilidad de encontrar entre 2 y 4 piezas
+defectuosas (ambas inclusive)?**
+
+$P(2 \le X\le 4)$
+
+```{r}
+
+```
+
+**E) ¿Cuál es la probabilidad de encontrar 2 o más piezas defectuosas,
+pero menos de 7?**
+
+```{r}
+
+```
+
+**F) ¿Cuál es la probabilidad de encontrar más de 1 pieza defectuosa,
+pero menos de 5?**
+
+```{r}
+
+```
+
+**G) ¿Cuál es la probabilidad de encontrar menos de 2 piezas defectuosas
+o más de 5 piezas?**
+
+```{r}
+
+```
+
+**H) ¿Cuál es la esperanza y varianza de piezas defectuosas en la
+muestra?**
+
+```{r}
+
+```
+
+**I) Grafique la distribución de probabilidad asociada al ejercicio.**
+
+```{r}
+N = 200
+K = 20
+n = 50
+
+x_vals = max(0, n-(N-K)):min(n,K)
+
+plot(x_vals, dhyper(x_vals, m=K, n=N-K, k=n), type='h', main='Distribución hipergeométrica (N=200, K=20, n=50)',
+     ylab='Probabilidad',
+     xlab ='Piezas Defectuosas',
+     lwd=2)
+```
+
+## **Ejemplo 2:**
+
+Un almacén tiene un inventario de 40 productos, de los cuales 10
+presentan un defecto de fábrica. Se seleccionan aleatoriamente (sin
+reemplazo) 12 productos para un control de calidad.
+
+**A) ¿Cuál es la probabilidad de que se encuentren al menos 4 productos
+defectuosos entre los seleccionados?**
+
+**B) ¿Cuál es la probabilidad de encontrar a lo sumo 3 productos
+defectuosos?**
+
+**C) Determine la esperanza matemática** $E(X)$ **y la varianza**
+$Var(X)$ **del número de productos NO defectuosos en la selección de 12
+productos.**
+
+**D) ¿Cuál es la probabilidad de encontrar más de 2 productos
+defectuosos, pero menos de 6?**
+
+**E) ¿Cuál es la probabilidad de encontrar exactamente 5 productos
+defectuosos?**
+
+**F) Realice la representación gráfica de la función de probabilidad
+asociada a este experimento de 12 productos seleccionados.**
+
+**G) ¿Cuál es la probabilidad de encontrar entre 3 y 7 productos
+defectuosos (ambos inclusive)?**
+
+**H) ¿Cuál es la probabilidad de encontrar menos de 3 productos
+defectuosos o más de 6 productos defectuosos?**
+
+**I) ¿Cuál es la probabilidad de encontrar 2 o más productos
+defectuosos, pero como máximo 5?**
