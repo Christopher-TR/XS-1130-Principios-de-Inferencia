@@ -373,8 +373,8 @@ P(X = x) =  \begin{cases} \dfrac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0,1,2,\do
 <section id="distribución-binomial-negativa-1" class="slide level2">
 <h2>Distribución Binomial Negativa</h2>
 <p><strong>Función de probabilidad:</strong><br>
-<span class="math display">\[ \Large P(X = x) =  \begin{cases} \binom{x+r-1}{x} p^r (1-p)^{x}, \quad x = r,r+1,r+2,\dots  \\ \\ 0 \quad \text{en otro caso} \end{cases} \]</span></p>
-<p>Donde <span class="math inline">\(X\)</span> = número de fracasos antes de lograr el <span class="math inline">\(r\)</span>-ésimo éxito.</p>
+<span class="math display">\[ \Large P(X = x) =  \begin{cases} \binom{x+r-1}{x} p^r (1-p)^{x}, \quad x = 0,1,2,\dots  \\ \\ 0 \quad \text{en otro caso} \end{cases} \]</span></p>
+<p>Donde <span class="math inline">\(X\)</span> = <em>número de fracasos</em> antes de lograr el <span class="math inline">\(r\)</span><strong>-ésimo éxito</strong>.</p>
 <ul>
 <li><p><strong>Esperanza:</strong><span class="math inline">\(\quad E[X] = r\dfrac{1-p}{p}\)</span></p></li>
 <li><p><strong>Varianza:</strong><span class="math inline">\(\quad \operatorname{Var}(X) = r\dfrac{1-p}{p^2}\)</span></p></li>
@@ -410,7 +410,7 @@ P(X = x) =  \begin{cases} \dfrac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0,1,2,\do
 </section>
 <section id="distribución-binomial-negativa-2" class="slide level2">
 <h2>Distribución Binomial Negativa</h2>
-<p><strong>Ejemplo:</strong> En un proceso de control de calidad, la probabilidad de que una pieza sea defectuosa es 0.1. Si se inspeccionan las piezas una por una, ¿cuál es la probabilidad de hallar exactamente 5 piezas buenas antes de encontrar la segunda pieza defectuosa? (En este ejemplo mi <strong><em>éxito</em></strong> es la pieza defectuosa).</p>
+<p><strong>Ejemplo:</strong> En un proceso de control de calidad, la probabilidad de que una pieza sea defectuosa es 0.1. Si se inspeccionan las piezas una por una, ¿cuál es la probabilidad de hallar exactamente 5 piezas buenas antes de encontrar la segunda pieza defectuosa? <em>(En este ejemplo mi éxito es la pieza defectuosa)</em>.</p>
 <p><strong>Solución:</strong> Note que <span class="math inline">\(r = 2 \text{ , } p = 0.1 \text{ , } x = 5\)</span></p>
 <p><span class="math inline">\(\small P(X = 5) = \binom{5+2-1}{5} (0.1)^2 (0.9)^{5} = \binom{6}{5}(0.1)^2(0.9)^5 \approx 0.0354\)</span></p>
 <p><strong>Solución en R:</strong></p>
@@ -420,14 +420,8 @@ P(X = x) =  \begin{cases} \dfrac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0,1,2,\do
 <pre><code>[1] 0.0354294</code></pre>
 </div>
 </div>
-<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout callout-important no-icon callout-style-simple">
 <div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Importante</strong></p>
-</div>
 <div class="callout-content">
 <p><strong>1 - dnbinom(x, size, prob):</strong> calcula la probabilidad exacta <span class="math inline">\(P(X=x)\)</span> que la variable tome el valor <strong>“x”</strong>.</p>
 <p><strong>2 - pnbinom(q, size, prob):</strong> calcula la probabilidad acumulada <span class="math inline">\(P(X \le q)\)</span> hasta el valor <strong>“q”</strong>.</p>
@@ -561,6 +555,21 @@ P(X = x) =  \begin{cases} \dfrac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0,1,2,\do
 </div>
 </div>
 </div>
+</section>
+<section id="videos" class="slide level2">
+<h2>Videos</h2>
+<h4 id="teoría"><strong>Teoría</strong></h4>
+<p><strong>Poisson</strong><br>
+a- <a href="https://www.youtube.com/watch?v=D-MV0DpDQCY">Universitat Politècnica de València - Distribución de Poisson</a><br>
+b- <a href="https://www.youtube.com/watch?v=jmqZG6roVqU">jbstatistics - An Introduction to the Poisson Distribution</a></p>
+<p><strong>Binomial Negativa</strong><br>
+a- <a href="https://www.youtube.com/watch?v=H-gjEzS_jgA">Lawrence Leemis - Distribución binomial negativa</a></p>
+<h4 id="resolución-de-problemas-ejemplos-prácticos"><strong>Resolución de Problemas (Ejemplos Prácticos)</strong></h4>
+<p><strong>Poisson</strong><br>
+1- <a href="https://www.youtube.com/watch?v=PMX75m4-s9A&amp;feature=youtu.be">Matemóvil - Distribución Poisson</a><br>
+2- <a href="https://youtube.com/playlist?list=PLaJK82VXGZpRh4_nDiVM1lKF1yvjR3hjN&amp;si=5U7ulrldgoL1toYt">FisicayMates - Distribución de Poisson</a></p>
+<p><strong>Binomial Negativa</strong><br>
+</p>
 
 </section>
     </div>
