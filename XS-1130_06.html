@@ -556,6 +556,58 @@ P(X = x) =  \begin{cases} \dfrac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0,1,2,\do
 </div>
 </div>
 </section>
+<section id="otra-parametrización-de-la-binomial-negativa" class="slide level2">
+<h2>Otra Parametrización de la Binomial Negativa</h2>
+<h4 id="relación-con-el-número-total-de-ensayos-segunda-forma">Relación con el número total de ensayos (Segunda Forma)</h4>
+<p>Algunos textos definen la variable <span class="math inline">\(Y\)</span> como el <strong>número total de ensayos</strong> hasta el <span class="math inline">\(r\)</span>-ésimo éxito. Ambas versiones describen el mismo experimento y se relacionan de forma directa:</p>
+<p><span class="math display">\[\Large Y = X + r \qquad \qquad X = Y - r\]</span></p>
+<p>donde <span class="math inline">\(X\)</span> cuenta <strong>fracasos</strong> (la que usaremos en este laboratorio) y <span class="math inline">\(Y\)</span> cuenta <strong>ensayos totales</strong>.</p>
+<p><strong>por ende la otra parametrización (la más extendida) es:</strong></p>
+<p><span class="math display">\[\Large
+P(Y = y) =  \begin{cases} \binom{y-1}{r-1} p^r (1-p)^{x-r}, \quad y = r, r+1, r+2, \dots  \\ \\
+0 \quad \text{en otro caso}
+\end{cases}\]</span></p>
+</section>
+<section id="otra-parametrización-de-la-binomial-negativa-1" class="slide level2">
+<h2>Otra Parametrización de la Binomial Negativa</h2>
+<p>Un operador de ventas telefónicas concreta una afiliación en el <strong>18% de sus llamadas</strong>. Su meta diaria es lograr <strong>3 afiliaciones</strong>.</p>
+<p><strong>¿Cuál es la probabilidad de que la tercera afiliación la logre exactamente en la llamada número 10?</strong></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Note que no se pregunta por el número de fracasos, sino por el <strong>número de intentos (Y).</strong></p>
+</div>
+</div>
+</div>
+<p><strong>Solución:</strong> Note que <span class="math inline">\(r = 3 \text{ , } p = 0.18\)</span></p>
+<p><span class="math inline">\(P(Y = 10) = \binom{10-1}{3-1}(0.18)^3(0.82)^{10-3} = \binom{9}{2}(0.18)^3(0.82)^{7}\)</span></p>
+<p><span class="math inline">\(P(Y =10) \approx 0.0523\)</span></p>
+<p>La probabilidad de que la tercera afiliación se logre exactamente en la llamada número 10 es de aproximadamente <strong>5.23%</strong>.</p>
+</section>
+<section id="otra-parametrización-de-la-binomial-negativa-2" class="slide level2">
+<h2>Otra Parametrización de la Binomial Negativa</h2>
+<p><span class="math display">\[\small \Large Y = X + r \qquad \qquad X = Y - r\]</span></p>
+<p>donde <span class="math inline">\(X\)</span> cuenta <strong>fracasos</strong> (la que usaremos en este laboratorio) y <span class="math inline">\(Y\)</span> cuenta <strong>ensayos totales</strong>.</p>
+<p><strong>por ende la otra parametrización (la más extendida) es:</strong></p>
+<p><span class="math display">\[\small \Large P(Y = y) =  \begin{cases} \binom{y-1}{r-1} p^r (1-p)^{x-r}, \quad y = r, r+1, r+2, \dots  \\ \\ 0 \quad \text{en otro caso} \end{cases}\]</span></p>
+<p><strong>Solución en R:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>y <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb15-2"><a href=""></a>r <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb15-3"><a href=""></a>x <span class="ot">=</span> y<span class="sc">-</span>r <span class="co">#7</span></span>
+<span id="cb15-4"><a href=""></a></span>
+<span id="cb15-5"><a href=""></a><span class="fu">dnbinom</span>(x, r, <span class="at">prob =</span> <span class="fl">0.18</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05233798</code></pre>
+</div>
+</div>
+</section>
 <section id="videos" class="slide level2">
 <h2>Videos</h2>
 <h4 id="teoría"><strong>Teoría</strong></h4>
@@ -569,7 +621,8 @@ a- <a href="https://www.youtube.com/watch?v=H-gjEzS_jgA">Lawrence Leemis - Distr
 1- <a href="https://www.youtube.com/watch?v=PMX75m4-s9A&amp;feature=youtu.be">Matemóvil - Distribución Poisson</a><br>
 2- <a href="https://youtube.com/playlist?list=PLaJK82VXGZpRh4_nDiVM1lKF1yvjR3hjN&amp;si=5U7ulrldgoL1toYt">FisicayMates - Distribución de Poisson</a></p>
 <p><strong>Binomial Negativa</strong><br>
-</p>
+1- <a href="https://www.youtube.com/watch?v=Rz2Cd5nOL6E">WissenSync - Distribución binomial negativa | Ejemplo 1</a><br>
+*El ejemplo del video es con la parametrización de ensayos totales.</p>
 
 </section>
     </div>
