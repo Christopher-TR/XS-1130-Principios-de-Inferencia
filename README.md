@@ -25,3 +25,4 @@ verificación de hipótesis y su aplicación
 | Distribución Poisson e Binomial Negativa                                              | [Clase 6](XS-1130_06.html) | [Lab - Distribución Poisson](https://christopher-tr.github.io/XS-1130-Principios-de-Inferencia/Lab%20-%20Distribuci%C3%B3n%20Poisson.qmd) |
 |                                                                                       |                            | [Lab - Distribución Binomial Negativa](https://christopher-tr.github.io/XS-1130-Principios-de-Inferencia/Lab%20-%20Distribuci%C3%B3n%20Binomial%20Negativa.qmd) |
 | Distribución Normal, Chi Cuadrado y T-Student                                         | [Clase 7](XS-1130_07.html) | [Lab - Distribución Continuas](https://christopher-tr.github.io/XS-1130-Principios-de-Inferencia/Lab%20-%20Distribuciones%20Continuas.qmd)|
+| Ejercicios Tema 2                                                    | [Ejercicios Tema 2](XS-1130_92.html)    |  |
