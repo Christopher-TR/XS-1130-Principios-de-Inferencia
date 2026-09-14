@@ -1,0 +1,804 @@
+---
+title: "Lab 2 Distribuciones Continuas: Normal, Ji-cuadrado y t-Student"
+subtitle: " [XS-1130 Principios de Inferencia]"
+format: html
+Author: "Christopher Torres"
+lang: es  
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Distribución Normal
+
+**Función de densidad:**\
+
+$$\Large
+f(x) = \frac{1}{\sigma\sqrt{2\pi}} \; e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}, \quad -\infty < x < \infty$$
+
+- **Esperanza:** $\quad E[X] = \mu$
+
+- **Varianza:** $\quad \operatorname{Var}(X) = \sigma^2$
+
+- **Notación:** $\quad X \sim N(\mu, \sigma^2)$
+
+### Diferencia con el caso discreto
+
+En una variable continua la probabilidad en un punto es cero:
+
+$$P(X = x) = 0$$
+
+Aquí no existe una función que calcule "la probabilidad exacta" como lo
+hacía `dbinom, dpois, dhyper`. Todo se trabaja con áreas bajo la curva,
+es decir, con probabilidades acumuladas:
+
+$$P(a \le X \le b) = P(X \le b) - P(X \le a)$$
+
+Además, como el punto no aporta probabilidad, los signos son
+intercambiables:
+
+$$P(X \le a) = P(X < a) \qquad \qquad P(X \ge a) = P(X > a)$$
+
+## Distribución Normal
+
+#### En R tenemos las funciones:
+
+1.  dnorm(x, mean, sd): evalúa la densidad $f(x)$ en el punto "x". ***No
+    es una probabilidad***, únicamente sirve para graficar la curva.
+
+    ```{r}
+    #dnorm(x = valor, mean = media, sd = desviación estándar)
+    ```
+
+2.  **pnorm(q, mean, sd):** calcula la probabilidad acumulada
+    $P(X \le q)$ hasta el valor **"q"** (el área a la izquierda).
+
+    ```{r}
+    #pnorm(q = valor acumulado, mean = media, sd = desviación estándar)
+    ```
+
+    - Si $lower.tail=TRUE$ entonces las probabilidades son acumuladas
+      hacia abajo $P[X \leq x]$, si se define $lower.tail=FALSE$
+      entonces se obtiene el complemento, es decir $P[X > x]$.
+
+3.  **qnorm(p, mean, sd):** calcula el **cuantil** $p$, es decir, el
+    valor $x_0$ que acumula una probabilidad deseada. (Es el inverso de
+    `pnorm` - No devuelve una probabilidad, sino el valor de X).
+
+    ```{r}
+    #qnorm(p = probabilidad deseada, mean = media, sd = desviación estándar)
+    ```
+
+4.  **rnorm(n, mean, sd):** Genera un vector de valores aleatorios de
+    una distribución normal. Donde $n$ es la cantidad de observaciones a
+    generar.
+
+    ```{r}
+    #rnorm(n = cantidad de observaciones deseadas, mean = media, sd = desviación estándar)
+    ```
+
+**Importante:** si se omiten `mean` y `sd`, R usa por defecto $\mu = 0$
+y $\sigma = 1$, es decir, la **normal estándar**.
+
+## Estandarización
+
+Si $X \sim N(\mu, \sigma^2)$, al restarle la media y dividir entre la
+desviación estándar se obtiene la **normal estándar**:
+
+$$\Large Z = \frac{X - \mu}{\sigma} \sim N(0,1)$$
+
+- El valor $z$ indica **cuántas desviaciones estándar se aleja un dato
+  de su media**. Al no tener unidades, permite comparar mediciones en
+  escalas distintas.
+
+- La transformación **no cambia las probabilidades**:
+
+$$P(X \le a) = P\left(Z \le \frac{a-\mu}{\sigma}\right)$$
+
+- El proceso inverso se llama **destandarizar** y recupera la escala
+  original:
+
+$$x = \mu + z \cdot \sigma$$
+
+## Cuantiles
+
+Un **cuantil** $p$ es el valor $x_0$ que deja a su izquierda una
+probabilidad de $p$:
+
+$$P(X \le x_0) = p$$
+
+- Con `pnorm` uno **entra con un valor** y **obtiene una probabilidad**.
+
+- Con `qnorm` uno **entra con una probabilidad** y **obtiene un valor**.
+
+```{r, echo = T}
+# El valor que deja el 90% de los datos por debajo en una N(500, 6^2)
+qnorm(p = 0.90, mean = 500, sd = 6)
+```
+
+::: callout-tip
+Cuando el enunciado dice *"el 10% superior"*, *"el 5% que más dura"* o
+*"el puntaje mínimo para ser admitido"*, están pidiendo un **cuantil** y
+se usa `qnorm`. Recuerde que R siempre trabaja con el área a la
+**izquierda**, así que un 10% superior equivale al cuantil $0.90$.
+:::
+
+## **Ejemplo 1:**
+
+La estatura de los estudiantes de una universidad se distribuye normal
+con media 170 cm y desviación estándar 8 cm.
+
+**A) ¿Cuál es la probabilidad de que un estudiante mida más de 180 cm?**
+
+$P(X > 180) = 1 - P(X \le 180)$
+
+Usando **pnorm(q, mean, sd):** *(con* $lower.tail=TRUE$ *- Opción por
+defecto)*
+
+```{r, echo = T}
+1 - pnorm(q = 180, mean = 170, sd = 8)
+```
+
+Usando **pnorm(q, mean, sd):** *(con* $lower.tail=FALSE$)
+
+```{r, echo = T}
+pnorm(q = 180, mean = 170, sd = 8, lower.tail = FALSE)
+```
+
+Estandarizando primero: $\;z = \frac{180-170}{8} = 1.25$
+
+```{r, echo = T}
+1 - pnorm(q = 1.25)  #Estandarizando
+```
+
+**B) ¿Cuál es la probabilidad de que un estudiante mida menos de 160
+cm?**
+
+```{r}
+
+```
+
+**C) ¿Cuál es la probabilidad de que un estudiante mida entre 165 y 180
+cm?**
+
+$P(165 \le X\le 180)$
+
+```{r}
+
+```
+
+**D) ¿Cuál es la probabilidad de que un estudiante mida menos de 160 cm
+o más de 185 cm?**
+
+```{r}
+
+```
+
+**E) Estandarice la estatura 186 cm e interprete el valor obtenido.**
+
+```{r}
+
+```
+
+**F) ¿Cuál es la estatura que supera únicamente el 5% de los
+estudiantes? (cuantil 0.95)**
+
+```{r}
+
+```
+
+**G) Encuentre las dos estaturas que dejan al 90% central de los
+estudiantes.**
+
+```{r}
+
+```
+
+**H) ¿Cuál es la esperanza y la varianza de la estatura?**
+
+```{r}
+
+```
+
+**I) Grafique la función de densidad asociada al ejercicio.**
+
+```{r}
+media = 170
+desv = 8
+
+curve(dnorm(x, mean = media, sd = desv),
+      from = media - 4*desv, to = media + 4*desv,
+      main = 'Distribución Normal (media = 170, sd = 8)',
+      ylab = 'Densidad',
+      xlab = 'Estatura (cm)',
+      lwd = 2)
+```
+
+## **Ejemplo 2:**
+
+El peso de los paquetes que despacha una empresa de mensajería se
+distribuye normal con media 8 kg y desviación estándar 1.5 kg.
+
+**A) ¿Cuál es la probabilidad de que un paquete pese más de 10.4 kg?**
+
+**B) ¿Cuál es la probabilidad de que un paquete pese a lo sumo 6 kg?**
+
+**C) ¿Cuál es la probabilidad de que un paquete pese entre 6 y 9 kg
+(ambos inclusive)?**
+
+**D) Estandarice el valor 10.4 kg e interprete el resultado.**
+
+**E) ¿Cuál es la probabilidad de que un paquete pese menos de 5 kg o más
+de 11 kg?**
+
+**F) La empresa cobra una tarifa extra al 5% de paquetes más pesados. ¿A
+partir de cuántos kilogramos se cobra esa tarifa?**
+
+**G) Encuentre el peso que solo es superado por el 75% de los
+paquetes.**
+
+**H) Determine la esperanza matemática** $E(X)$ **y la varianza**
+$Var(X)$ **del peso de los paquetes.**
+
+**I) Realice la representación gráfica de la función de densidad.**
+
+## Distribución Normal Estándar
+
+Es el caso particular de la normal con $\mu = 0$ y $\sigma = 1$. Se
+denota con la letra $Z$:
+
+$$\Large Z \sim N(0,1)$$
+
+- **Esperanza:** $\quad E[Z] = 0 \qquad$ **Varianza:**
+  $\quad \operatorname{Var}(Z) = 1$
+
+**Propiedades por simetría respecto al 0:**
+
+- $P(Z \le -z) = P(Z \ge z) = 1 - P(Z \le z)$
+
+- $P(-z \le Z \le z) = 2\,P(Z \le z) - 1$
+
+En R se usan **las mismas funciones**, simplemente omitiendo `mean` y
+`sd`:
+
+```{r, echo = T}
+pnorm(1.96)          # P(Z <= 1.96)
+qnorm(0.975)         # cuantil 0.975
+```
+
+## **Ejemplo 3:**
+
+Sea $Z \sim N(0,1)$.
+
+**A) Calcule** $P(Z \le 1.64)$**.**
+
+```{r, echo = T}
+pnorm(1.64)
+```
+
+**B) Calcule** $P(Z > -0.85)$**.**
+
+```{r}
+
+```
+
+**C) Calcule** $P(-1.96 \le Z \le 1.96)$**.**
+
+```{r}
+
+```
+
+**D) Verifique numéricamente la propiedad de simetría**
+$P(Z \le -1.5) = 1 - P(Z \le 1.5)$**.**
+
+```{r}
+
+```
+
+**E) Encuentre el valor** $z_0$ **tal que** $P(Z \le z_0) = 0.99$**.**
+
+```{r}
+
+```
+
+**F) Encuentre el valor** $z_0$ **tal que**
+$P(-z_0 \le Z \le z_0) = 0.98$**.**
+
+```{r}
+
+```
+
+**G) Grafique la densidad de la normal estándar junto con la de una**
+$N(0, 3^2)$ **y comente las diferencias.**
+
+```{r}
+curve(dnorm(x, mean = 0, sd = 1),  #grafica la normal con media 0 y desviación 1
+      from = -10, to = 10,
+      main = 'Comparación de dos normales',
+      ylab = 'Densidad',
+      xlab = 'z',
+      lwd = 2)
+
+curve(dnorm(x, mean = 0, sd = 3),
+      add = TRUE,     # agrega la curva (con media 0 y desviación 3) al gráfico anterior
+      col = 'red',
+      lwd = 2)
+
+legend('topright',
+       legend = c('N(0,1)', 'N(0,9)'),
+       col = c('black', 'red'),
+       lwd = 2)
+```
+
+## Distribución Ji-cuadrado
+
+**Función de densidad:**\
+
+$$\Large f(x) = \begin{cases} \dfrac{1}{2^{k/2}\,\Gamma(k/2)}\; x^{\frac{k}{2}-1} e^{-x/2}, \quad x > 0 \\ \\ 0 \quad \text{en otro caso} \end{cases}$$
+
+- **Esperanza:** $\quad E[X] = k$
+
+- **Varianza:** $\quad \operatorname{Var}(X) = 2k$
+
+- **Notación:** $\quad X \sim \chi^2_{(k)}$
+
+Donde $k$ son los **grados de libertad** y es el **único parámetro** de
+la distribución. Note que:
+
+- Solo toma valores positivos ($x > 0$).
+
+- Es asimétrica a la derecha, y esa asimetría disminuye conforme aumenta
+  $k$.
+
+- Al no ser simétrica, cada cola debe buscarse por separado cuando se
+  calculan cuantiles.
+
+## Distribución Ji-cuadrado
+
+#### En R tenemos las funciones:
+
+1.  **dchisq(x, df):** evalúa la **densidad** $f(x)$ (solo para
+    graficar).
+
+    ```{r}
+    #dchisq(x = valor, df = grados de libertad)
+    ```
+
+2.  **pchisq(q, df):** calcula la probabilidad acumulada $P(X \le q)$.
+
+    ```{r}
+    #pchisq(q = valor acumulado, df = grados de libertad)
+    ```
+
+3.  **qchisq(p, df):** calcula el **cuantil** $p$ de la distribución.
+
+    ```{r}
+    #qchisq(p = probabilidad deseada, df = grados de libertad)
+    ```
+
+4.  **rchisq(n, df):** genera $n$ valores aleatorios de la distribución.
+
+    ```{r}
+    #rchisq(n = cantidad de observaciones deseadas, df = grados de libertad)
+    ```
+
+## **Ejemplo 4:**
+
+Sea $X \sim \chi^2_{(10)}$ una variable con distribución ji-cuadrado con
+10 grados de libertad.
+
+**A) ¿Cuál es la probabilidad de que la variable supere el valor
+18.31?**
+
+$P(X > 18.31) = 1 - P(X \le 18.31)$
+
+```{r, echo = T}
+1 - pchisq(q = 18.31, df = 10)
+```
+
+O de manera equivalente:
+
+```{r, echo = T}
+pchisq(q = 18.31, df = 10, lower.tail = FALSE)
+```
+
+**B) ¿Cuál es la probabilidad de que la variable sea menor que 4.87?**
+
+```{r}
+
+```
+
+**C) ¿Cuál es la probabilidad de que la variable esté entre 5 y 18?**
+
+```{r}
+
+```
+
+**D) Encuentre el cuantil 0.95 de la distribución.**
+
+```{r}
+
+```
+
+**E) Encuentre el valor que deja un 2.5% de área en la cola derecha y un
+2.5% en la cola izquierda .**
+
+```{r}
+
+```
+
+**F) ¿Cuál es la esperanza y la varianza de esta variable?**
+
+```{r}
+
+```
+
+**G) Grafique la función de densidad.**
+
+```{r}
+gl = 10
+
+curve(dchisq(x, df = gl),
+      from = 0, to = 40,
+      main = 'Distribución Ji-cuadrado (k = 10)',
+      ylab = 'Densidad',
+      xlab = 'x',
+      lwd = 2)
+```
+
+**H) Grafique en un mismo gráfico las densidades para** $k = 2$**,**
+$k = 5$**,** $k = 10$ **y** $k = 20$**. ¿Qué le ocurre a la forma de la
+curva conforme aumentan los grados de libertad?**
+
+```{r}
+curve(dchisq(x, df = 2), from = 0.1, to = 40, ylim = c(0, 0.25),
+      main = 'Ji-cuadrado con distintos grados de libertad',
+      ylab = 'Densidad', xlab = 'x', lwd = 2)
+
+curve(dchisq(x, df = 5),  add = TRUE, col = 'red',   lwd = 2)  #agrega otra curva
+curve(dchisq(x, df = 10), add = TRUE, col = 'blue',  lwd = 2)  #agrega otra curva
+curve(dchisq(x, df = 20), add = TRUE, col = 'green', lwd = 2)  #agrega otra curva
+
+legend('topright',
+       legend = c('k = 2', 'k = 5', 'k = 10', 'k = 20'),
+       col = c('black', 'red', 'blue', 'green'),
+       lwd = 2)
+```
+
+## Distribución t-Student
+
+**Función de densidad:**\
+
+$$\Large f(t) = \frac{\Gamma\!\left(\frac{k+1}{2}\right)}{\sqrt{k\pi}\;\Gamma\!\left(\frac{k}{2}\right)} \left(1 + \frac{t^2}{k}\right)^{-\frac{k+1}{2}}, \quad -\infty < t < \infty$$
+
+- **Esperanza:** $\quad E[T] = 0, \quad \text{si } k > 1$
+
+- **Varianza:**
+  $\quad \operatorname{Var}(T) = \dfrac{k}{k-2}, \quad \text{si } k > 2$
+
+- **Notación:** $\quad T \sim t_{(k)}$
+
+Note que:
+
+- Es simétrica alrededor de 0, igual que la normal estándar.
+
+- Tiene colas más pesadas: los valores extremos son más probables que en
+  la $N(0,1)$.
+
+- Su varianza es siempre mayor que 1. Conforme $k$ crece, la varianza se
+  acerca a 1 y la $t$ se parece cada vez más a la $N(0,1)$.
+
+## Distribución t-Student
+
+#### En R tenemos las funciones:
+
+1.  **dt(x, df):** evalúa la **densidad** $f(t)$ (solo para graficar).
+
+    ```{r}
+    #dt(x = valor, df = grados de libertad)
+    ```
+
+2.  **pt(q, df):** calcula la probabilidad acumulada $P(T \le q)$.
+
+    ```{r}
+    #pt(q = valor acumulado, df = grados de libertad)
+    ```
+
+3.  **qt(p, df):** calcula el **cuantil** $p$ de la distribución.
+
+    ```{r}
+    #qt(p = probabilidad deseada, df = grados de libertad)
+    ```
+
+4.  **rt(n, df):** genera $n$ valores aleatorios de la distribución.
+
+    ```{r}
+    #rt(n = cantidad de observaciones deseadas, df = grados de libertad)
+    ```
+
+## **Ejemplo 5:**
+
+Sea $T \sim t_{(15)}$ una variable con distribución t-Student con 15
+grados de libertad.
+
+**A) ¿Cuál es la probabilidad de que la variable sea mayor que 1.753?**
+
+```{r, echo = T}
+1 - pt(q = 1.753, df = 15)
+```
+
+**B) ¿Cuál es la probabilidad de que la variable sea menor que -2.131?**
+
+```{r}
+
+```
+
+**C) Verifique la simetría comparando** $P(T \le -1.753)$ **con**
+$P(T \ge 1.753)$**.**
+
+```{r}
+
+```
+
+**D) ¿Cuál es la probabilidad de que la variable esté entre -2 y 2?**
+
+```{r}
+
+```
+
+**E) Encuentre el valor** $t_0$ **tal que**
+$P(-t_0 \le T \le t_0) = 0.95$**. (Recuerde que por simetría el 5%
+restante se reparte en 2.5% por cola).**
+
+```{r}
+
+```
+
+**F) Compare el cuantil anterior con el cuantil 0.975 de una**
+$t_{(30)}$ **y con el de una** $N(0,1)$**. ¿Qué observa?**
+
+```{r}
+
+```
+
+**G) ¿Cuál es la esperanza y la varianza de esta variable?**
+
+```{r}
+
+```
+
+**H) Grafique la densidad de la t-Student con 1, 5 y 30 grados de
+libertad, junto con la normal estándar.**
+
+```{r}
+curve(dt(x, df = 1), from = -5, to = 5, ylim = c(0, 0.42),
+      main = 't-Student vs Normal estándar',
+      ylab = 'Densidad', xlab = 't', lwd = 2)
+
+curve(dt(x, df = 5),  add = TRUE, col = 'red',  lwd = 2)
+curve(dt(x, df = 30), add = TRUE, col = 'blue', lwd = 2)
+curve(dnorm(x), add = TRUE, col = 'green', lwd = 2, lty = 2)
+
+legend('topright',
+       legend = c('t (k = 1)', 't (k = 5)', 't (k = 30)', 'N(0,1)'),
+       col = c('black', 'red', 'blue', 'green'),
+       lty = c(1, 1, 1, 2),
+       lwd = 2)
+```
+
+## Relaciones entre las distribuciones
+
+Estas tres distribuciones **no son independientes entre sí**: la
+ji-cuadrado y la t-Student se construyen a partir de la normal.
+
+**1. De la normal a la normal estándar (estandarización):**
+
+$$X \sim N(\mu, \sigma^2) \quad \Longrightarrow \quad Z = \frac{X-\mu}{\sigma} \sim N(0,1)$$
+
+**2. De la normal estándar a la ji-cuadrado:**
+
+$$Z \sim N(0,1) \quad \Longrightarrow \quad Z^2 \sim \chi^2_{(1)}$$
+
+$$Z_1, Z_2, \dots, Z_k \;\text{independientes } N(0,1) \quad \Longrightarrow \quad Z_1^2 + Z_2^2 + \cdots + Z_k^2 \sim \chi^2_{(k)}$$
+
+**3. Suma de ji-cuadradas independientes:**
+
+$$V_1 \sim \chi^2_{(k_1)}, \quad V_2 \sim \chi^2_{(k_2)} \quad \Longrightarrow \quad V_1 + V_2 \sim \chi^2_{(k_1 + k_2)}$$
+
+**4. De la normal y la ji-cuadrado a la t-Student:**
+
+$$Z \sim N(0,1), \quad V \sim \chi^2_{(k)} \;\text{ independientes} \quad \Longrightarrow \quad T = \frac{Z}{\sqrt{V/k}} \sim t_{(k)}$$
+
+**5. Convergencia de la t a la normal:**
+
+$$T \sim t_{(k)} \quad \longrightarrow \quad N(0,1) \quad \text{cuando } k \text{ crece}$$
+
+**6. Cocientes de Varianzas en poblaciones normales (Muestral /
+Poblacional).**
+
+Si $X_i \stackrel{\text{iid}}{\sim} N(\mu,\sigma^2)$,
+
+$$\dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1} \quad \text{donde n es el tamaño de muestra}.$$
+
+## **Ejemplo 6: Simulación de la relación normal → ji-cuadrado**
+
+Vamos a **comprobar con simulación** la relación
+$Z^2 \sim \chi^2_{(1)}$.
+
+**A) Genere 10000 valores de una normal estándar y elévelos al
+cuadrado.**
+
+```{r, echo = T}
+set.seed(2024)   # para que todos obtengamos el mismo resultado
+
+z <- rnorm(n = 10000, mean = 0, sd = 1)   # 10000 normales estándar
+z2 <- z^2                                 # cada una elevada al cuadrado
+
+head(z)     # primeros valores de z
+head(z2)    # primeros valores de z al cuadrado
+```
+
+**B) Observe que los valores al cuadrado son todos positivos. Calcule su
+promedio y su varianza, y compárelos con** $E(X) = k$ **y**
+$Var(X) = 2k$ **para** $k = 1$**.**
+
+```{r, echo = T}
+mean(z2)   # debería acercarse a k = 1
+var(z2)    # debería acercarse a 2k = 2
+```
+
+**C) Grafique el histograma de los valores al cuadrado y superponga la
+densidad teórica de una** $\chi^2_{(1)}$**.**
+
+```{r, echo = T}
+hist(z2,
+     breaks = 100,
+     freq = FALSE,        # para que el eje Y sea densidad y no frecuencia
+     xlim = c(0, 8),
+     main = 'Simulación: Z al cuadrado vs Ji-cuadrado(1)',
+     ylab = 'Densidad',
+     xlab = 'Z al cuadrado',
+     col = 'gray90')
+
+curve(dchisq(x, df = 1),   # densidad teórica
+      add = TRUE,
+      col = 'red',
+      lwd = 2)
+```
+
+**D) Ahora sume 5 normales estándar al cuadrado y compare con una**
+$\chi^2_{(5)}$**.**
+
+```{r, echo = T}
+set.seed(2024)
+
+z1 <- rnorm(10000)
+z2 <- rnorm(10000)
+z3 <- rnorm(10000)
+z4 <- rnorm(10000)
+z5 <- rnorm(10000)
+
+suma <- z1^2 + z2^2 + z3^2 + z4^2 + z5^2   # suma de 5 cuadrados
+
+mean(suma)   # debería acercarse a k = 5
+var(suma)    # debería acercarse a 2k = 10
+
+hist(suma,
+     breaks = 60,
+     freq = FALSE,
+     main = 'Simulación: suma de 5 normales al cuadrado vs Ji-cuadrado(5)',
+     ylab = 'Densidad',
+     xlab = 'Suma de cuadrados',
+     col = 'gray90')
+
+curve(dchisq(x, df = 5),
+      add = TRUE,
+      col = 'red',
+      lwd = 2)
+```
+
+**E) Repita el procedimiento del inciso D) pero sumando 10 normales
+estándar al cuadrado y compare contra una** $\chi^2_{(10)}$**. ¿Qué
+ocurre con la asimetría del histograma?**
+
+```{r}
+
+```
+
+**F) Usando los objetos ya creados, construya la variable**
+$T = \dfrac{Z_1}{\sqrt{W/4}}$ **donde** $W$ **es una chi cuadrado con 5
+grados de libertad, y compruebe gráficamente que sigue una t-Student.
+(Complete el código).**
+
+```{r}
+# set.seed(2024)
+# z_num <- rnorm(10000)                     # la normal estándar del numerador
+# w <- rnorm(10000)^2 + rnorm(10000)^2 + rnorm(10000)^2 + rnorm(10000)^2 + rnorm(10000)^2
+# t_sim <- z_num / sqrt(w/5)
+#
+# hist(t_sim, breaks = 200, freq = FALSE, xlim = c(-6, 6), col = 'gray90',
+#      main = 'Simulación de la t-Student', xlab = 't')
+# curve(dt(x, df = 5), add = TRUE, col = 'red', lwd = 2)
+```
+
+## **Ejemplo 7:**
+
+Resuelva los siguientes ejercicios utilizando lo visto en el
+laboratorio.
+
+**A) Las calificaciones de un examen de admisión se distribuyen normal
+con media 620 puntos y desviación estándar 45 puntos. ¿Cuál es la
+probabilidad de que un postulante obtenga menos de 550 puntos?**
+
+**B) La universidad admite únicamente al 15% con mejor puntaje. ¿Cuál es
+el puntaje mínimo de admisión?**
+
+**C) Un postulante obtuvo un puntaje estandarizado de** $z = -1.2$**.
+¿Cuál fue su calificación original?**
+
+**D) María obtuvo 78 en un examen con distribución** $N(70, 5^2)$ **y
+Luis obtuvo 85 en otro examen con distribución** $N(80, 10^2)$**.
+Estandarice ambos puntajes y determine quién tuvo el mejor desempeño
+relativo dentro de su propio grupo.**
+
+**E) Sea** $X \sim \chi^2_{(12)}$**. Calcule** $P(X > 21.03)$ **y
+encuentre el cuantil 0.99 de la distribución.**
+
+**F) Sean** $V_1 \sim \chi^2_{(7)}$ **y** $V_2 \sim \chi^2_{(13)}$
+**independientes. ¿Qué distribución sigue** $V_1 + V_2$**? Calcule**
+$P(V_1 + V_2 > 31.41)$**.**
+
+**G) Sean** $Z_1, \dots, Z_8$ **normales estándar independientes. ¿Qué
+distribución sigue** $W = Z_1^2 + \cdots + Z_8^2$**? Calcule**
+$P(W > 15.51)$ **y determine** $E(W)$ **y** $Var(W)$**.**
+
+**H) Si** $Z \sim N(0,1)$ **y** $W$ **es la variable del inciso anterior
+(independiente de** $Z$**), ¿qué distribución sigue**
+$T = \dfrac{Z}{\sqrt{W/8}}$**? Calcule** $P(T > 2.306)$**.**
+
+**I) Sea** $T \sim t_{(9)}$**. Encuentre el valor** $t_0$ **tal que**
+$P(-t_0 \le T \le t_0) = 0.99$ **y compárelo con el cuantil equivalente
+de la normal estándar. Explique por qué son diferentes.**
+
+**J) Simule 10000 valores de una** $t_{(3)}$ **con la función `rt()` y
+otros 10000 de una** $N(0,1)$ **con `rnorm()`. Compare ambos histogramas
+y comente qué observa en las colas.**
+
+```{r}
+
+```
+
+**K) El contenido de unas botellas se distribuye normal con varianza
+poblacional** $\sigma^2 = 9$ **ml². Se toma una muestra aleatoria de 16
+botellas. ¿Qué distribución sigue** $\dfrac{(n-1)S^2}{\sigma^2}$**?
+Determine sus grados de libertad, su esperanza y su varianza.**
+
+```{r}
+
+```
+
+**L) Con la información del inciso anterior, calcule la probabilidad de
+que la varianza muestral supere los 15 ml².**
+
+```{r}
+
+```
+
+**M) Con la misma información, encuentre los dos valores de** $S^2$
+**que dejan un 2.5% de área en cada cola. (Sugerencia: halle primero los
+cuantiles del estadístico y luego devuélvalos a la escala de**
+$S^2$**).**
+
+```{r}
+
+```
+
+**N) Se toman dos muestras independientes, una de tamaño 10 y otra de
+tamaño 13, ambas de poblaciones normales con la misma varianza**
+$\sigma^2$**. ¿Qué distribución sigue la suma de los dos estadísticos**
+$\dfrac{(n_1-1)S_1^2}{\sigma^2} + \dfrac{(n_2-1)S_2^2}{\sigma^2}$**?
+Calcule la probabilidad de que esa suma supere 32.67.**
+
+```{r}
+
+```
