@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="XS-1130_08_files/libs/clipboard/clipboard.min.js"></script>
+<script src="XS-1130_08_files/libs/quarto-html/tabby.min.js"></script>
+<script src="XS-1130_08_files/libs/quarto-html/popper.min.js"></script>
+<script src="XS-1130_08_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="XS-1130_08_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="XS-1130_08_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="XS-1130_08_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Christopher Torres Rojas">
+  <title>Muestreo Probabilístico - Parte 1</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="XS-1130_08_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="XS-1130_08_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="XS-1130_08_files/libs/revealjs/dist/theme/quarto-9eb768afb8c6a1b6b3ca03240ed62dd7.css">
+  <link href="XS-1130_08_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="XS-1130_08_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="XS-1130_08_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="XS-1130_08_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Muestreo Probabilístico - Parte 1</h1>
+  <p class="subtitle">[XS-1130 Principios de Inferencia]</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://christopher-tr.github.io/">Christopher Torres Rojas</a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:christopher.torres@ucr.ac.cr">christopher.torres@ucr.ac.cr</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.estadistica.ucr.ac.cr/">
+            Escuela de Estadística, Universidad de Costa Rica
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="motivación" class="slide level2">
+<h2>MOTIVACIÓN</h2>
+
+<img data-src="figs/Est_Inferencial.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Estadística Inferencial</p></section>
+<section id="censo-vs-muestra" class="slide level2">
+<h2>Censo vs Muestra</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Censo</strong></p>
+<p>Se observan <strong>todas</strong> las unidades de la población.</p>
+<ul>
+<li>No hay error de muestreo.</li>
+<li>Costoso y lento.</li>
+<li>Más expuesto a errores de medición y de registro (mucho personal, poco control).</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Muestra</strong></p>
+<p>Se observa <strong>una parte</strong> de la población.</p>
+<ul>
+<li>Existe error de muestreo, pero <strong>se puede cuantificar</strong>.</li>
+<li>Rápida y económica.</li>
+<li>Permite mayor control de calidad en la medición.</li>
+</ul>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Estadística descriptiva vs inferencial<strong>.</strong> La descriptiva resume lo observado; la <strong>inferencial</strong> usa lo observado en la muestra para concluir sobre la población, <strong>acompañando la conclusión de una medida del error</strong>. Este tema es el punto de partida de la inferencia.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="razones-para-muestrear" class="slide level2">
+<h2>Razones para muestrear</h2>
+<ol type="1">
+<li><p>Establecer contacto con toda la población requiere mucho tiempo.</p></li>
+<li><p>El costo de estudiar todos los elementos resulta prohibitivo.</p></li>
+<li><p>Es imposible verificar físicamente todos los elementos.</p></li>
+<li><p>Algunas pruebas son de naturaleza destructiva (probar la resistencia de un cable lo inutiliza).</p></li>
+<li><p>Los resultados de la muestra son adecuados: bien diseñada, una muestra da respuestas suficientemente precisas para decidir.</p></li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La pregunta central del tema no es <em>“¿cómo consigo una muestra?”</em> sino:</p>
+<blockquote>
+<p><strong><em>¿Cómo debo seleccionar la muestra para poder cuantificar el error que cometo al usarla?</em></strong></p>
+</blockquote>
+<p>La respuesta es: <strong>Usando el azar de forma controlada</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conceptos-básicos" class="slide level2">
+<h2>Conceptos básicos</h2>
+<ul>
+<li><p><strong>Población de estudio:</strong> conjunto de todas las unidades sobre las que se desea concluir.</p></li>
+<li><p><strong>Unidad de estudio:</strong> el elemento del que interesa medir la característica.</p></li>
+<li><p><strong>Unidad informante:</strong> quien proporciona la información (puede no coincidir con la unidad de estudio).</p></li>
+<li><p><strong>Unidad de muestreo:</strong> el elemento que efectivamente se selecciona (por ejemplo, una unidad geográfica mínima).</p></li>
+<li><p><strong>Marco muestral:</strong> listado o material que permite identificar y ubicar a las unidades de muestreo.</p></li>
+</ul>
+<div title="Ejemplo integrador">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ejemplo integrador</strong></p>
+</div>
+<div class="callout-content">
+<p>Encuesta sobre rendimiento escolar en Costa Rica:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>En este estudio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Población de estudio</td>
+<td>Niños de 7 a 12 años del país</td>
+</tr>
+<tr class="even">
+<td>Unidad de estudio</td>
+<td>El niño</td>
+</tr>
+<tr class="odd">
+<td>Unidad informante</td>
+<td>La madre, el padre o encargado</td>
+</tr>
+<tr class="even">
+<td>Unidad de muestreo</td>
+<td>La vivienda (dentro de una UPM)</td>
+</tr>
+<tr class="odd">
+<td>Marco muestral</td>
+<td>Marco de áreas del INEC (UPM)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="los-tres-valores-de-un-parámetro" class="slide level2">
+<h2>Los tres valores de un parámetro</h2>
+<p>Para una misma característica poblacional —por ejemplo el <strong>ingreso promedio</strong>— coexisten tres cantidades distintas:</p>
+<ol type="1">
+<li><p><strong>Valor real:</strong> lo que se obtendría al recolectar la información de toda la población sin omisiones ni errores. Es inalcanzable en la práctica.</p></li>
+<li><p><strong>Valor poblacional:</strong> lo que se obtiene al censar la población, sujeto a errores de recolección. Es una aproximación al valor real.</p></li>
+<li><p><strong>Valor muestral (estimación puntual):</strong> lo que se obtiene de la muestra. Es una aproximación al valor poblacional y cambia según las unidades que hayan caído en la muestra.</p></li>
+</ol>
+<p><span class="math display">\[\tiny \underbrace{\text{Ingreso promedio real}}_{\text{inalcanzable}} \;\longrightarrow\; \underbrace{\text{Ingreso promedio poblacional}}_{\text{censo}} \;\longrightarrow\; \underbrace{\text{Ingreso promedio muestral} = \text{₡}800\,000}_{\text{lo que reportamos}}\]</span></p>
+</section>
+<section id="notación-de-población-finita" class="slide level2">
+<h2>Notación de población finita</h2>
+<p>Sea la población</p>
+<p><span class="math display">\[U = \{1, 2, \dots, k, \dots, N\}\]</span></p>
+<p>y sea <span class="math inline">\(y_k\)</span> el valor de la variable de interés en el indivuo <span class="math inline">\(k\)</span>. Definimos los <strong>parámetros</strong>:</p>
+<p><span class="math display">\[\small \underbrace{T_y = \sum_{k=1}^{N} y_k}_{\text{Total}} \quad \, \underbrace{\bar{Y} = \frac{1}{N}\sum_{k=1}^{N} y_k}_{\text{Media Poblacional}} \quad \, \underbrace{S^2 = \frac{1}{N-1}\sum_{k=1}^{N}\left(y_k - \bar{Y}\right)^2}_{\text{Cuasivarianza Poblacional}} \quad \, \underbrace{\sigma^2 = \frac{1}{N}\sum_{k=1}^{N}\left(y_k - \bar{Y}\right)^2}_{\text{Varianza Poblacional}}\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Estos valores son constantes desconocidas de la población.</p>
+<p><strong><em>La única fuente de aleatoriedad es cuáles unidades entran en la muestra.</em></strong> Sobre esa aleatoriedad se construye toda la teoría.</p>
+</div>
+</div>
+</div>
+<p>Usamos <strong>mayúsculas</strong> para parámetros (<span class="math inline">\(\bar{Y}\)</span>, <span class="math inline">\(S^2\)</span>) y <strong>minúsculas</strong> para lo calculado en la muestra (<span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(s^2\)</span>).</p>
+</section>
+<section id="qué-es-el-error-de-muestreo" class="slide level2">
+<h2>¿Qué es el error de muestreo?</h2>
+<div title="Definición">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Definición</strong></p>
+</div>
+<div class="callout-content">
+<p>El <strong>error de muestreo</strong> es la diferencia entre el valor muestral y el valor poblacional, debida a haber seleccionado un conjunto particular de elementos:</p>
+<p><span class="math display">\[\text{Error de muestreo} = \bar{y}_s - \bar{Y}\]</span></p>
+<p><span class="math display">\[\text{Error de muestreo} = \text{Valor Muestral} - \text{Valor Poblacional}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>¿Qué problema tiene esta definición?</strong></p>
+<p>Para conocerlo habría que hacer un <strong>censo</strong>… que es justamente lo que queríamos evitar.</p>
+<p><strong>Entonces, ¿cómo se calculan los errores de muestreo?</strong></p>
+<p>Usando el <strong>cálculo de probabilidades</strong>: si sabemos con qué probabilidad se pudo haber obtenido cada muestra posible, podemos describir el comportamiento de todos los errores posibles sin calcularlos uno a uno.</p>
+</section>
+<section id="errores-de-muestreo-y-de-no-muestreo" class="slide level2">
+<h2>Errores de muestreo y de no muestreo</h2>
+<p><span class="math display">\[\tiny \text{ERROR DE ESTIMACIÓN} = \text{ERROR DE MUESTREO} + \text{ERRORES DE NO MUESTREO}\]</span></p>
+<p>En términos de los tres valores de un parámetro:</p>
+<p><span class="math display">\[\underbrace{\bar{y}_s - Y_{\text{real}}}_{\text{error de estimación}} = \underbrace{\left(\bar{y}_s - \bar{Y}\right)}_{\text{error de muestreo}} + \underbrace{\left(\bar{Y} - Y_{\text{real}}\right)}_{\text{errores de no muestreo}}\]</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Error de muestreo</strong></th>
+<th><strong>Errores de no muestreo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Origen</td>
+<td>Observar solo una parte de la población</td>
+<td>Marco, recolección, medición y procesamiento</td>
+</tr>
+<tr class="even">
+<td>¿Ocurre en un censo?</td>
+<td>No</td>
+<td>Sí</td>
+</tr>
+<tr class="odd">
+<td>¿Disminuye al aumentar <span class="math inline">\(n\)</span>?</td>
+<td>Sí</td>
+<td>No; suele aumentar</td>
+</tr>
+<tr class="even">
+<td>¿Se puede cuantificar?</td>
+<td>Sí, con probabilidades</td>
+<td>Difícilmente; se previene con el diseño y la supervisión</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>¿Por qué los errores de no muestreo suelen <strong>aumentar</strong> con <span class="math inline">\(n\)</span>? Porque una operación más grande requiere más entrevistadores, más cuestionarios que digitar y menos tiempo de supervisión por unidad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tipos-de-errores-de-no-muestreo" class="slide level2 smaller">
+<h2>Tipos de errores de no muestreo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>1. Errores de cobertura</strong></p>
+<p>Provienen del marco muestral: blancos, duplicados o elementos faltantes.</p>
+<p><em>Ej.:</em> una encuesta telefónica que solo marca líneas fijas deja fuera a los hogares que únicamente tienen celular.</p>
+<p><strong>2. Errores de no respuesta</strong></p>
+<ul>
+<li><em>Total:</em> la unidad seleccionada no participa (no se localiza, está ausente o se niega).</li>
+<li><em>Parcial:</em> la unidad participa, pero deja preguntas sin contestar.</li>
+</ul>
+<p><em>Ej.:</em> un hogar responde toda la encuesta excepto la pregunta sobre sus ingresos.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>3. Errores de medición</strong></p>
+<p>El valor registrado difiere del valor verdadero.</p>
+<ul>
+<li><em>El informante:</em> olvido, redondeo, deseabilidad social.</li>
+<li><em>El entrevistador:</em> lee mal la pregunta o induce la respuesta.</li>
+<li><em>El cuestionario:</em> preguntas ambiguas o que sugieren una respuesta.</li>
+<li><em>El instrumento:</em> un equipo mal calibrado.</li>
+</ul>
+<p><strong>4. Errores de procesamiento</strong></p>
+<p>Ocurren después de recolectar los datos: digitación, codificación o unión de bases de datos.</p>
+<p><em>Ej.:</em> la ocupación de una persona se codifica en una categoría equivocada.</p>
+</div></div>
+</section>
+<section id="errores-aleatorios-y-errores-sistemáticos" class="slide level2">
+<h2>Errores aleatorios y errores sistemáticos</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p>Un error puede ser de dos tipos:</p>
+<ul>
+<li><p><strong>Aleatorio:</strong> varía en dirección de una unidad a otra y tiende a compensarse al promediar. Aumenta la variabilidad, pero no desplaza la estimación.</p></li>
+<li><p><strong>Sistemático (sesgo):</strong> va siempre en la misma dirección y no se compensa, por grande que sea la muestra. Desplaza la estimación.</p></li>
+</ul>
+<p>Formalmente, el sesgo de un estimador es:</p>
+<p><span class="math display">\[\operatorname{Sesgo}(\hat{\theta}) = E(\hat{\theta}) - \theta\]</span></p>
+</div><div class="column" style="width:58%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_08_files/figure-revealjs/unnamed-chunk-2-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="los-sesgos-con-más-detalle" class="slide level2 smaller">
+<h2>Los sesgos con más detalle</h2>
+<div title="Errores no aleatorios (sesgos)">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Errores no aleatorios (sesgos)</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>Sesgo de medición:</strong> la información se registra con un error que va siempre en la misma dirección.</p>
+<ul>
+<li><em>Deseabilidad social:</em> se declara menos consumo de tabaco o más actividad física de la real.</li>
+<li><em>Recuerdo:</em> “¿cuántas veces visitó al médico el último año?”</li>
+<li><em>Redacción:</em> “¿No cree usted que el gobierno debería…?” sugiere la respuesta.</li>
+<li><em>Entrevistador:</em> reformula la pregunta y agrega su propia opinión.</li>
+</ul></li>
+<li><p><strong>Sesgo de no respuesta:</strong> quienes no responden <strong>difieren sistemáticamente</strong> de quienes sí responden, en la variable de interés.</p>
+<ul>
+<li>En una encuesta sobre hábitos de lectura, las personas que no leen tienden a rechazar la entrevista: se sobreestima el hábito de lectura.</li>
+<li>Una encuesta telefónica en horario laboral sobrerrepresenta a personas jubiladas o desempleadas.</li>
+<li>Lo que genera el sesgo no es cuántos no responden, sino que quienes no responden sean distintos.</li>
+</ul></li>
+<li><p><strong>Sesgo de selección:</strong> las unidades no tienen la probabilidad de selección que supone el diseño. Ocurre sobre todo en muestras no probabilísticas, pero también en diseños probabilísticos cuyo marco no cubre a toda la población.</p>
+<ul>
+<li><em>Conveniencia:</em> preguntar por el costo de la vida en un centro comercial de lujo.</li>
+<li><em>Autoselección:</em> los oyentes que llaman a un programa de radio para opinar sobre una ley.</li>
+<li><em>Marco defectuoso:</em> el <em>Literary Digest</em> obtuvo sus direcciones de directorios telefónicos y registros de automóviles, que en 1936 sobrerrepresentaban a los votantes de mayores ingresos.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplos-qué-tipo-de-error-es" class="slide level2 smaller">
+<h2>Ejemplos: ¿qué tipo de error es?</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situación</th>
+<th>Tipo de error</th>
+<th>¿Aleatorio o sesgo?</th>
+<th>Efecto en la estimación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Al pesar a las personas, quien anota redondea al kilogramo más cercano.</td>
+<td>Medición</td>
+<td>Aleatorio</td>
+<td>Casi no cambia el promedio; agrega algo de variabilidad</td>
+</tr>
+<tr class="even">
+<td>En una encuesta de satisfacción, el entrevistador trabaja en la misma institución que se evalúa.</td>
+<td>Medición (entrevistador)</td>
+<td>Sesgo</td>
+<td>Sobreestima la satisfacción</td>
+</tr>
+<tr class="odd">
+<td>Una encuesta sobre ausentismo escolar se aplica en el aula, y el 15% de los estudiantes seleccionados no llegó ese día.</td>
+<td>No respuesta</td>
+<td>Sesgo</td>
+<td>Subestima el ausentismo: faltan justamente los ausentes</td>
+</tr>
+<tr class="even">
+<td>El marco de viviendas tiene diez años y no incluye los residenciales construidos después.</td>
+<td>Cobertura</td>
+<td>Sesgo, si las viviendas nuevas son distintas</td>
+<td>Depende de en qué difieren las viviendas excluidas</td>
+</tr>
+<tr class="odd">
+<td>Al digitar los cuestionarios se cometen errores sin ningún patrón.</td>
+<td>Procesamiento</td>
+<td>Aleatorio</td>
+<td>Agrega variabilidad</td>
+</tr>
+<tr class="even">
+<td>Una encuesta sobre el uso del transporte público se aplica en las paradas de autobús.</td>
+<td>Selección</td>
+<td>Sesgo</td>
+<td>Sobreestima el uso del transporte público</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Un <strong>error de muestreo</strong> siempre es aleatorio y se controla aumentando <span class="math inline">\(n\)</span>. Un <strong>sesgo</strong> no se corrige aumentando <span class="math inline">\(n\)</span>: se previene con un buen marco, un buen cuestionario, entrevistadores capacitados y un diseño probabilístico.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sesgo-y-varianza-la-descomposición-del-error" class="slide level2">
+<h2>Sesgo y varianza: la descomposición del error</h2>
+<p>Sea <span class="math inline">\(\hat{\theta}\)</span> un estimador de un parámetro <span class="math inline">\(\theta\)</span>.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Advertencia</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Un estimador es una función de los datos de mi muestra (promedio muestral) que intenta estimar un parámetro poblacional (promedio poblacional).</strong></p>
+</div>
+</div>
+</div>
+<p>Su calidad se mide con el <strong>error cuadrático medio</strong>:</p>
+<p><span class="math display">\[ECM(\hat{\theta}) =  \underbrace{\operatorname{Var}(\hat{\theta})}_{\text{error aleatorio}} + \underbrace{\left[ \operatorname{Sesgo}(\hat{\theta}) \right]^2}_{\text{sesgo}^2}\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Consecuencia práctica:</strong> aumentar <span class="math inline">\(n\)</span> reduce la <strong>varianza</strong>, pero <strong>no toca el sesgo</strong>. Por eso una muestra enorme mal seleccionada es peor que una muestra pequeña bien seleccionada.</p>
+<p><em>Literary Digest</em> (1936): 2.4 millones de respuestas y una predicción electoral equivocada, frente a las 50 000 de Gallup, correctamente seleccionadas.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="posibles-problemas-en-el-marco-muestral" class="slide level2">
+<h2>Posibles problemas en el marco muestral</h2>
+<p>Los problemas en el marco muestral son posibles razones de hacer una selección incorrecta de la muestra.</p>
+<ol type="1">
+<li><p><strong>Blancos</strong>: están en el listado del marco pero no existen en el campo.</p></li>
+<li><p><strong>Duplicados:</strong> el elemento aparece más de una vez en el listado, pero en el campo es uno solo.</p></li>
+<li><p><strong>Incompletos</strong> (o elementos faltantes): el marco no cubre a toda la población.</p></li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Estos problemas <strong>alteran las probabilidades de selección</strong> y por lo tanto rompen la teoría:</p>
+<ul>
+<li>Un duplicado tiene el doble de probabilidad de salir que el resto.</li>
+<li>Un elemento faltante tiene probabilidad cero: queda automáticamente fuera de la inferencia, sin importar cuánto crezca <span class="math inline">\(n\)</span>.</li>
+</ul>
+<p>El marco muestral define, en la práctica, <strong>cuál es realmente la población</strong> sobre la que se puede concluir.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="definición" class="slide level2">
+<h2>Definición</h2>
+<div title="Definición: Muestreo Probabilístico">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Definición: Muestreo Probabilístico</strong></p>
+</div>
+<div class="callout-content">
+<p>Un procedimiento de selección es probabilístico si:</p>
+<ol type="1">
+<li><p>Se puede especificar el conjunto de <strong>todas las muestras posibles</strong>.</p></li>
+<li><p>Cada muestra posible <span class="math inline">\(s\)</span> tiene una <strong>probabilidad conocida</strong> <span class="math inline">\(p(s)\)</span> de ser seleccionada.</p></li>
+<li><p><strong>Toda</strong> unidad <span class="math inline">\(k\)</span> de la población tiene probabilidad <strong>positiva y conocida</strong> de ser seleccionada.</p></li>
+<li><p>La selección se ejecuta con un <strong>mecanismo aleatorio</strong>, no según el criterio del investigador.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Al conjunto de muestras posibles junto con sus probabilidades se le llama <strong>diseño muestral</strong>, y cumple las mismas dos condiciones de cualquier función de probabilidad que ya estudiamos:</p>
+<p><span class="math display">\[p(s) \ge 0 \qquad \text{y} \qquad \sum_{\text{todas las muestras}} p(s) = 1\]</span></p>
+</section>
+<section id="probabilidad-de-inclusión" class="slide level2">
+<h2>Probabilidad de inclusión</h2>
+<div title="Definición">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Definición</strong></p>
+</div>
+<div class="callout-content">
+<p>La <strong>probabilidad de inclusión</strong> de la unidad <span class="math inline">\(k\)</span>, denotada <span class="math inline">\(\pi_k\)</span>, es la probabilidad de que esa unidad forme parte de la muestra:</p>
+<p><span class="math display">\[\pi_k = P(k \in s) = \sum_{\text{muestras que contienen a } k} p(s)\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Es la cantidad que hace posible toda la inferencia. Su inverso</p>
+<p><span class="math display">\[w_k = \frac{1}{\pi_k}\]</span></p>
+<p>se llama <strong>peso de muestreo</strong> y se interpreta como <em>“cuántas unidades de la población representa la unidad</em> <span class="math inline">\(k\)</span><em>“</em>. Si <span class="math inline">\(\pi_k = 1/100\)</span>, cada persona entrevistada representa a 100 personas.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>En un diseño <strong>equiprobable</strong> todas las unidades tienen la misma <span class="math inline">\(\pi_k\)</span>. Si además el tamaño de muestra es fijo e igual a <span class="math inline">\(n\)</span>, entonces necesariamente <span class="math inline">\(\pi_k = n/N\)</span> para toda unidad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-construir-un-diseño-muestral" class="slide level2">
+<h2>Ejemplo: construir un diseño muestral</h2>
+<p>Sea <span class="math inline">\(U = \{1,2,3,4,5\}\)</span> una población de 5 fincas y considere el diseño que selecciona <strong>muestras de tamaño 2 con igual probabilidad</strong>.</p>
+<p>El número de muestras posibles es <span class="math inline">\(\binom{5}{2} = \dfrac{5!}{2!\,3!} = 10\)</span>, cada una con <span class="math inline">\(p(s) = \dfrac{1}{10}\)</span>:</p>
+<p><span class="math display">\[\{1,2\}\; \{1,3\}\; \{1,4\}\; \{1,5\}\; \{2,3\}\; \{2,4\}\; \{2,5\}\; \{3,4\}\; \{3,5\}\; \{4,5\}\]</span></p>
+<p><strong>Verificación de que es un diseño válido:</strong> <span class="math inline">\(\sum_s p(s) =  \sum_{s=1}^{10} \frac{1}{10} = 1 \;\checkmark\)</span></p>
+<p><strong>Probabilidad de inclusión de la finca 1:</strong> aparece en 4 de las 10 muestras, entonces</p>
+<p><span class="math display">\[\pi_1 = \tfrac{1}{10}+\tfrac{1}{10}+\tfrac{1}{10}+\tfrac{1}{10} = \tfrac{4}{10} = 0.4 = \frac{n}{N} = \frac{2}{5} \;\checkmark\]</span></p>
+<p>Como <span class="math inline">\(\frac{2}{5}= \frac{1}{2.5}\)</span>, podemos decir que cada finca muestreada representa a 2.5 fincas de la población.</p>
+</section>
+<section id="probabilístico-vs-no-probabilístico" class="slide level2">
+<h2>Probabilístico vs No Probabilístico</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Probabilístico</strong></p>
+<ul>
+<li><span class="math inline">\(\pi_k &gt; 0\)</span> conocida para todo <span class="math inline">\(k\)</span>.</li>
+<li>Permite <strong>estimar el error de muestreo</strong>.</li>
+<li>Permite construir intervalos de confianza y hacer pruebas de hipótesis.</li>
+<li>Los resultados son <strong>generalizables</strong>.</li>
+</ul>
+<p><em>Tipos:</em> aleatorio simple, sistemático, estratificado, conglomerados.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>No Probabilístico</strong></p>
+<ul>
+<li><span class="math inline">\(\pi_k\)</span> desconocida o nula para algunas unidades.</li>
+<li>No existe teoría que cuantifique el error.</li>
+<li>Alto riesgo de <strong>sesgo de selección</strong>.</li>
+<li>Cualquier generalización descansa en supuestos no verificables.</li>
+</ul>
+<p><em>Tipos:</em> de conveniencia, voluntarios, intencional o de juicio experto, por cuotas.</p>
+</div></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Precaución</strong></p>
+</div>
+<div class="callout-content">
+<p>El muestreo no probabilístico no está prohibido: es legítimo en estudios exploratorios, cualitativos o cuando no existe marco. Lo que no es legítimo es <strong>reportar márgenes de error</strong> a partir de él.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tipos-de-muestreo-probabilístico" class="slide level2">
+<h2>Tipos de muestreo probabilístico</h2>
+<div title="Diseños básicos">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Diseños básicos</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>Muestreo aleatorio simple (MAS):</strong> se seleccionan directamente las unidades, todas con igual probabilidad.</p></li>
+<li><p><strong>Muestreo sistemático:</strong> se elige un arranque aleatorio y luego cada <span class="math inline">\(k\)</span>-ésima unidad de la lista.</p></li>
+<li><p><strong>Muestreo estratificado:</strong> se divide la población en grupos y se muestrea <strong>dentro</strong> de cada uno.</p></li>
+<li><p><strong>Muestreo por conglomerados:</strong> se divide la población en grupos y se seleccionan <strong>grupos completos</strong>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Extensiones:</strong> muestreo <strong>multietápico</strong> (conglomerados y luego submuestreo) y <strong>muestreo complejo</strong>, que combina varios de los anteriores. La ENAHO del INEC, por ejemplo, es estratificada, por conglomerados y bietápica.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="los-cuatro-diseños-visualmente" class="slide level2">
+<h2>Los cuatro diseños, visualmente</h2>
+
+<img data-src="XS-1130_08_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="480"><p>En los cuatro casos <span class="math inline">\(n = 20\)</span> de <span class="math inline">\(N = 100\)</span>, o sea <span class="math inline">\(\pi_k = 0.2\)</span> para toda unidad. <strong>Lo que cambia no es cuántas unidades se observan, sino cuáles combinaciones son posibles</strong>, y eso modifica la precisión.</p>
+</section>
+<section id="la-media-muestral-es-una-variable-aleatoria" class="slide level2">
+<h2>La media muestral es una variable aleatoria</h2>
+<p>Antes de estudiar cada diseño, necesitamos entender <strong>por qué podemos calcular el error de muestreo sin hacer un censo</strong>.</p>
+<p>La razón es que, una vez fijado el diseño:</p>
+<blockquote>
+<p><strong><em>La media muestral</em></strong> <span class="math inline">\(\bar{y}_s\)</span> <em>es una variable aleatoria</em>: toma un valor distinto según la muestra que salga, y cada uno de esos valores tiene una probabilidad conocida.</p>
+</blockquote>
+<p>Y de una variable aleatoria ya sabemos calcular todo:</p>
+<p><span class="math display">\[f_{\bar{y}}(\cdot) \qquad F_{\bar{y}}(\cdot) \qquad E(\bar{y}) \qquad \operatorname{Var}(\bar{y})\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>A la función de probabilidad de un estimador se le llama <strong>distribución muestral</strong> del estimador.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="construcción-de-la-distribución-muestral" class="slide level2">
+<h2>Construcción de la distribución muestral</h2>
+<p>Sea <span class="math inline">\(U = \{1,2,3,4,5\}\)</span> fincas de arroz con cierto nivel de producción (en toneladas):</p>
+<p>Los valores de producción de cada finca son:</p>
+<p><span class="math display">\[y_1 = 2, \quad y_2 = 4, \quad y_3 = 6, \quad y_4 = 8, \quad y_5 = 10\]</span></p>
+<p><strong>Parámetros poblacionales:</strong></p>
+<p><span class="math display">\[\bar{Y} = \frac{2+4+6+8+10}{5} = 6 \qquad S^2 = \frac{16+4+0+4+16}{5-1} = \frac{40}{4} = 10\]</span></p>
+<p>donde <span class="math inline">\(S^2 = \sum_{i=1}^N \frac{(y_i-\bar{Y})^2}{N-1}\)</span> “conocida como <strong>cuasivarianza probacional</strong>”.</p>
+<p>Con <span class="math inline">\(n = 2\)</span> hay 10 muestras posibles, cada una con probabilidad <span class="math inline">\(1/10\)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Muestra</th>
+<th><span class="math inline">\(\{1,2\}\)</span></th>
+<th><span class="math inline">\(\{1,3\}\)</span></th>
+<th><span class="math inline">\(\{1,4\}\)</span></th>
+<th><span class="math inline">\(\{1,5\}\)</span></th>
+<th><span class="math inline">\(\{2,3\}\)</span></th>
+<th><span class="math inline">\(\{2,4\}\)</span></th>
+<th><span class="math inline">\(\{2,5\}\)</span></th>
+<th><span class="math inline">\(\{3,4\}\)</span></th>
+<th><span class="math inline">\(\{3,5\}\)</span></th>
+<th><span class="math inline">\(\{4,5\}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>valores</td>
+<td>2,4</td>
+<td>2,6</td>
+<td>2,8</td>
+<td>2,10</td>
+<td>4,6</td>
+<td>4,8</td>
+<td>4,10</td>
+<td>6,8</td>
+<td>6,10</td>
+<td>8,10</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{y}_s\)</span></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="la-función-de-probabilidad-de-bary_s" class="slide level2">
+<h2>La función de probabilidad de <span class="math inline">\(\bar{y}_s\)</span></h2>
+<p>Agrupando los valores repetidos obtenemos la <strong>función de probabilidad</strong> del estimador (promedio muestral), exactamente como en el Tema II:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">\[\small f_{\bar{y}}(t) = \begin{cases} \frac{1}{10}, &amp; t = 3 \\ \frac{1}{10}, &amp; t = 4 \\ \frac{2}{10}, &amp; t = 5 \\ \frac{2}{10}, &amp; t = 6 \\ \frac{2}{10}, &amp; t = 7 \\ \frac{1}{10}, &amp; t = 8 \\ \frac{1}{10}, &amp; t = 9 \\ 0, &amp; \text{en otro caso} \end{cases}\]</span></p>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_08_files/figure-revealjs/unnamed-chunk-4-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="esperanza-y-varianza-del-estimador" class="slide level2">
+<h2>Esperanza y varianza del estimador</h2>
+<p>Aplicando las definiciones del Tema II:</p>
+<p><span class="math display">\[E(\bar{y}_s) = \sum_t t \cdot f_{\bar{y}}(t) = 3\tfrac{1}{10} + 4\tfrac{1}{10} + 5\tfrac{2}{10} + 6\tfrac{2}{10} + 7\tfrac{2}{10} + 8\tfrac{1}{10} + 9\tfrac{1}{10} = \frac{60}{10} = 6\]</span></p>
+<p><span class="math display">\[\Large \boxed{E(\bar{y}_s) = 6 = \bar{Y}}\]</span></p>
+<p>El estimador es <strong>insesgado</strong>: en promedio, sobre todas las muestras posibles, acierta.</p>
+<p>Y usando el corolario <span class="math inline">\(\operatorname{Var}(X) = E(X^2)-[E(X)]^2\)</span>:</p>
+<p><span class="math display">\[E(\bar{y}_s^2) = 9\tfrac{1}{10}+16\tfrac{1}{10}+25\tfrac{2}{10}+36\tfrac{2}{10}+49\tfrac{2}{10}+64\tfrac{1}{10}+81\tfrac{1}{10} = \frac{390}{10}=39\]</span></p>
+<p><span class="math display">\[\operatorname{Var}(\bar{y}_s) = 39 - 6^2 = 3\]</span></p>
+</section>
+<section id="la-fórmula-general" class="slide level2">
+<h2>La fórmula general</h2>
+<p>Para el muestreo aleatorio simple sin reemplazo se cumple, <strong>siempre</strong>:</p>
+<p><span class="math display">\[E(\bar{y}_s) = \bar{Y} \qquad  \operatorname{Var}(\bar{y}_s) = \frac{S^2}{n}\left(1 - \frac{n}{N}\right) \, \text{ó} \, \operatorname{Var}(\bar{y}_s) = \frac{\sigma^2}{n}\left(\frac{N-n}{N-1}\right) \]</span></p>
+<p>donde:</p>
+<p><span class="math inline">\(S^2 = \frac{1}{N-1}\sum_{k=1}^{N}\left(y_k-\bar{Y}\right)^2\)</span> es usualmente llamada la cuasivarianza poblacional.</p>
+<p><span class="math inline">\(\sigma^2 = \frac{1}{N}\sum_{k=1}^{N}\left(y_k-\bar{Y}\right)^2\)</span> es usualmente llamada varianza poblacional.</p>
+<p><strong>Comprobación con nuestro ejemplo</strong> (<span class="math inline">\(S^2 = 10\)</span>, <span class="math inline">\(n=2\)</span>, <span class="math inline">\(N=5\)</span>):</p>
+<p><span class="math display">\[\operatorname{Var}(\bar{y}_s) = \frac{10}{2}\left(1-\frac{2}{5}\right) = 5 \times 0.6 = 3 \;\]</span></p>
+</section>
+<section id="el-factor-de-corrección-por-población-finita" class="slide level2">
+<h2>El factor de corrección por población finita</h2>
+<p><span class="math display">\[
+\operatorname{Var}(\bar{y}_s) = \frac{S^2}{n}\underbrace{\left(1 - \frac{n}{N}\right)}_{\substack{\text{factor de}\\ \text{corrección}}} \quad \, \text{ó} \, \quad \operatorname{Var}(\bar{y}_s) = \frac{\sigma^2}{n}\underbrace{\left(\frac{N-n}{N-1}\right)}_{\substack{\text{factor de}\\ \text{corrección}}}
+\]</span></p>
+<p>A los términos <span class="math inline">\(\left(1 - \dfrac{n}{N}\right) \, \text{ó} \, \dfrac{N-n}{N-1}\)</span> se les llama <strong>factor de corrección por población finita</strong> (<em>fpc</em>).</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Advertencia</strong></p>
+</div>
+<div class="callout-content">
+<p>La forma exacta del factor <strong>depende de cuál varianza poblacional se utilice</strong>. En otros textos, y en el tema de estimación, lo verá escrito como <span class="math inline">\(\dfrac{N-n}{N-1}\)</span>. No es un factor distinto: es el mismo, escrito para otra definición de la varianza.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="el-factor-de-corrección-por-población-finita-1" class="slide level2">
+<h2>El factor de corrección por población finita</h2>
+<p><span class="math display">\[ \operatorname{Var}(\bar{y}_s) = \frac{S^2}{n}\underbrace{\left(1 - \frac{n}{N}\right)}_{\substack{\text{factor de}\\ \text{corrección}}} \quad \, \text{ó} \, \quad \operatorname{Var}(\bar{y}_s) = \frac{\sigma^2}{n}\underbrace{\left(\frac{N-n}{N-1}\right)}_{\substack{\text{factor de}\\ \text{corrección}}} \]</span></p>
+<p>Al término <span class="math inline">\(f = n/N\)</span> se le llama <strong>fracción de muestreo</strong>.</p>
+<div title="¿Qué nos dice el fpc?">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿Qué nos dice el fpc?</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Si <span class="math inline">\(n = N\)</span> (censo): <span class="math inline">\(1 - f = 0\)</span> y la varianza es cero. No hay error de muestreo.</p></li>
+<li><p>Si <span class="math inline">\(N\)</span> es muy grande respecto a <span class="math inline">\(n\)</span>: <span class="math inline">\(f \approx 0\)</span> y queda <span class="math inline">\(\operatorname{Var}(\bar{y}) \approx S^2/n\)</span>.</p></li>
+<li><p><strong>Lo que determina la precisión es</strong> <span class="math inline">\(n\)</span><strong>,</strong> no la fracción <span class="math inline">\(f\)</span><strong>.</strong> Una muestra de 1000 personas es casi igual de precisa en Costa Rica que en China. Es el error de intuición más común sobre muestreo.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dos-formas-del-mismo-factor-comprobación" class="slide level2">
+<h2>Dos formas del mismo factor: comprobación</h2>
+<p>En el ejemplo de las fincas: <span class="math inline">\(\;S^2 = \frac{40}{4} = 10\;\)</span> y <span class="math inline">\(\;\sigma^2 = \frac{40}{5} = 8\)</span>.</p>
+<p><span class="math display">\[\small \underbrace{\frac{10}{2}\left(1-\frac{2}{5}\right) = 5 \times 0.6 = 3}_{\text{con } S^2} \qquad\qquad \underbrace{\frac{8}{2}\cdot\frac{5-2}{5-1} = 4 \times 0.75 = 3}_{\text{con } \sigma^2}\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>); </span>
+<span id="cb1-2"><a href="" aria-label="2"></a>N <span class="ot">&lt;-</span> <span class="dv">5</span>; </span>
+<span id="cb1-3"><a href="" aria-label="3"></a>n <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a></span>
+<span id="cb1-5"><a href="" aria-label="5"></a>S2     <span class="ot">&lt;-</span> <span class="fu">var</span>(y)               <span class="co"># divisor N-1: 10</span></span>
+<span id="cb1-6"><a href="" aria-label="6"></a>sigma2 <span class="ot">&lt;-</span> <span class="fu">var</span>(y) <span class="sc">*</span> (N<span class="dv">-1</span>)<span class="sc">/</span>N     <span class="co"># divisor N:  8</span></span>
+<span id="cb1-7"><a href="" aria-label="7"></a></span>
+<span id="cb1-8"><a href="" aria-label="8"></a><span class="fu">c</span>(<span class="at">con_S2 =</span> (S2<span class="sc">/</span>n) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N), <span class="at">con_sigma2 =</span> (sigma2<span class="sc">/</span>n) <span class="sc">*</span> (N <span class="sc">-</span> n)<span class="sc">/</span>(N <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    con_S2 con_sigma2 
+         3          3 </code></pre>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Lo que <strong>no se puede hacer es mezclar</strong>: cada varianza va con su factor. Por ejemplo, usar <span class="math inline">\(S^2\)</span> con <span class="math inline">\(\frac{N-n}{N-1}\)</span> da <span class="math inline">\(\frac{10}{2}\cdot\frac{3}{4} = 3.75 \neq 3\)</span>.</p>
+<p>Cuando se trabaja con el <strong>error estándar</strong> (la raíz de la varianza), el factor aparece con raíz: <span class="math inline">\(\sqrt{1-\frac{n}{N}}\)</span> o <span class="math inline">\(\sqrt{\frac{N-n}{N-1}}\)</span>, según la varianza que se use.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="la-versión-con-la-varianza-muestral" class="slide level2">
+<h2>**La versión con la varianza muestral**</h2>
+<p><strong>En la práctica</strong> <span class="math inline">\(S^2\)</span> <strong>y</strong> <span class="math inline">\(\sigma^2\)</span> <strong>son desconocidas</strong>: solo tenemos los datos de la muestra. Se estiman con la <strong>varianza muestral</strong></p>
+<p><span class="math display">\[s^2 = \frac{1}{n-1}\sum_{k \in s}\left(y_k - \bar{y}_s\right)^2\]</span></p>
+<p>Como <span class="math inline">\(s^2\)</span> estima a <span class="math inline">\(S^2\)</span>, pero en la práctica (a nivel introductorio) se utiliza como factor para la <strong>varianza muestral</strong> <span class="math inline">\(\frac{N-n}{N-1}\)</span>:</p>
+<p><span class="math display">\[\widehat{\operatorname{Var}}(\bar{y}_s) = \frac{s^2}{n}\left(\frac{N-n}{N-1}\right) \qquad \qquad ee(\bar{y}_s) = \sqrt{\frac{s^2}{n}\left(\frac{N-n}{N-1}\right)}\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>En muchos textos introductorios, se usa esta versión. Aunque lo correcto es usar el otro factor de corrección<span class="math inline">\((1-\frac{n}{N})\)</span>. La diferencia entre ambas es despreciable salvo en poblaciones muy pequeñas.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="verificación-en-r-enumeración-completa" class="slide level2">
+<h2>Verificación en R: enumeración completa</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</span>
+<span id="cb3-2"><a href="" aria-label="2"></a>N <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb3-3"><a href="" aria-label="3"></a>n <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>muestras <span class="ot">&lt;-</span> <span class="fu">combn</span>(N, n)        <span class="co"># las 10 muestras posibles </span></span>
+<span id="cb3-6"><a href="" aria-label="6"></a>muestras</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]    1    1    1    1    2    2    2    3    3     4
+[2,]    2    3    4    5    3    4    5    4    5     5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>medias <span class="ot">&lt;-</span> <span class="fu">apply</span>(muestras, <span class="dv">2</span>, <span class="cf">function</span>(i) <span class="fu">mean</span>(y[i]))</span>
+<span id="cb5-2"><a href="" aria-label="2"></a>medias</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 3 4 5 6 5 6 7 7 8 9</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a><span class="fu">table</span>(medias)<span class="sc">/</span><span class="fu">length</span>(medias)   <span class="co"># función de probabilidad de la media muestral</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>medias
+  3   4   5   6   7   8   9 
+0.1 0.1 0.2 0.2 0.2 0.1 0.1 </code></pre>
+</div>
+</div>
+</section>
+<section id="verificación-en-r-esperanza-y-varianza" class="slide level2">
+<h2>Verificación en R: esperanza y varianza</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a><span class="fu">c</span>(<span class="at">media_poblacional =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb9-2"><a href="" aria-label="2"></a>  <span class="at">esperanza_estimador =</span> <span class="fu">mean</span>(medias))          <span class="co"># insesgado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  media_poblacional esperanza_estimador 
+                  6                   6 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a><span class="fu">c</span>(<span class="at">var_por_definicion =</span> <span class="fu">mean</span>((medias <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb11-2"><a href="" aria-label="2"></a>  <span class="at">var_por_formula    =</span> (<span class="fu">var</span>(y)<span class="sc">/</span>n) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N)) <span class="co"># coinciden: 3</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>var_por_definicion    var_por_formula 
+                 3                  3 </code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p><code>var(y)</code> en R divide entre <span class="math inline">\(N-1\)</span>, que es justamente la definición de <span class="math inline">\(S^2\)</span> que usamos.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="verificación-por-simulación" class="slide level2">
+<h2>Verificación por simulación</h2>
+<p>Cuando la población es grande no podemos enumerar, pero sí simular muchas muestras:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">1130</span>)</span>
+<span id="cb13-2"><a href="" aria-label="2"></a>poblacion <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">800</span>, <span class="at">mean =</span> <span class="dv">500</span>, <span class="at">sd =</span> <span class="dv">120</span>))   <span class="co"># N = 800</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a>N <span class="ot">&lt;-</span> <span class="dv">800</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a>n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb13-5"><a href="" aria-label="5"></a></span>
+<span id="cb13-6"><a href="" aria-label="6"></a>simulacion <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(poblacion, n)))</span>
+<span id="cb13-7"><a href="" aria-label="7"></a></span>
+<span id="cb13-8"><a href="" aria-label="8"></a><span class="fu">c</span>(<span class="at">media_poblacional  =</span> <span class="fu">mean</span>(poblacion),</span>
+<span id="cb13-9"><a href="" aria-label="9"></a>  <span class="at">promedio_simulado  =</span> <span class="fu">mean</span>(simulacion))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>media_poblacional promedio_simulado 
+         495.2625          495.0926 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="fu">c</span>(<span class="at">var_simulada =</span> <span class="fu">var</span>(simulacion),</span>
+<span id="cb15-2"><a href="" aria-label="2"></a>  <span class="at">var_teorica  =</span> (<span class="fu">var</span>(poblacion)<span class="sc">/</span>n) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>var_simulada  var_teorica 
+    341.5456     327.7715 </code></pre>
+</div>
+</div>
+</section>
+<section id="verificación-por-simulación-1" class="slide level2">
+<h2>Verificación por simulación</h2>
+
+<img data-src="XS-1130_08_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="480"><p><span class="math inline">\(\small \text{El estimador se concentra alrededor del parámetro (insesgamiento) y su dispersión es el error de muestreo.}\)</span></p>
+</section>
+<section id="ejercicios-prácticos" class="slide level2 scrollable">
+<h2>Ejercicios prácticos</h2>
+<h4 id="construya-la-distribución-muestral-a-mano-y-verifique-en-r."><strong>Construya la distribución muestral a mano y verifique en R.</strong></h4>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Ejercicio 1</a></li><li><a href="#tabset-1-2">Ejercicio 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Una comunidad rural está formada por <span class="math inline">\(N = 5\)</span> hogares. El número de personas que habitan en cada hogar es:</p>
+<p><span class="math display">\[y_1 = 1, \quad y_2 = 2, \quad y_3 = 2, \quad y_4 = 4, \quad y_5 = 6\]</span></p>
+<p>Se selecciona una muestra aleatoria simple sin reemplazo de <span class="math inline">\(n = 2\)</span> hogares.</p>
+<ol type="a">
+<li>Calcule <span class="math inline">\(\bar{Y}\)</span>, <span class="math inline">\(S^2\)</span> y <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Enumere las <span class="math inline">\(\binom{5}{2}\)</span> muestras posibles, los valores de cada una y su promedio <span class="math inline">\(\bar{y}_s\)</span>. ¿Por qué hay muestras distintas que producen el mismo promedio?</li>
+<li>Construya la función de probabilidad de <span class="math inline">\(\bar{y}_s\)</span> y verifique que cumple las condiciones de una función de probabilidad.</li>
+<li>Grafique la función de probabilidad señalando el valor de <span class="math inline">\(\bar{Y}\)</span>.</li>
+<li>Calcule <span class="math inline">\(E(\bar{y}_s)\)</span> y determine si el estimador es insesgado.</li>
+<li>Calcule <span class="math inline">\(\operatorname{Var}(\bar{y}_s)\)</span> por definición y compruebe el resultado con la fórmula, primero usando <span class="math inline">\(S^2\)</span> y luego usando <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Calcule la probabilidad de que el error de muestreo sea, en valor absoluto, a lo sumo de 1 persona. Interprete el resultado.</li>
+<li>Determine la probabilidad de inclusión de cada hogar y su peso de muestreo.</li>
+<li>Verifique en R los incisos b al h utilizando <code>combn()</code>.</li>
+</ol>
+</div>
+<div id="tabset-1-2">
+<p>Un taller tiene <span class="math inline">\(N = 4\)</span> empleados, con los siguientes años de experiencia:</p>
+<p><span class="math display">\[y_1 = 1, \quad y_2 = 4, \quad y_3 = 7, \quad y_4 = 10\]</span></p>
+<ol type="a">
+<li>Calcule <span class="math inline">\(\bar{Y}\)</span>, <span class="math inline">\(S^2\)</span> y <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Construya la distribución muestral de <span class="math inline">\(\bar{y}_s\)</span> para <span class="math inline">\(n = 2\)</span> sin reemplazo y calcule su esperanza y su varianza.</li>
+<li>Construya la distribución muestral de <span class="math inline">\(\bar{y}_s\)</span> para <span class="math inline">\(n = 3\)</span> sin reemplazo y calcule su esperanza y su varianza.</li>
+<li>Verifique ambas varianzas con la fórmula. ¿Cuánto vale el factor de corrección en cada caso?</li>
+<li>Compare los incisos b y c: ¿qué efecto tiene aumentar <span class="math inline">\(n\)</span> sobre la esperanza y sobre la varianza? ¿Por qué la esperanza no cambia?</li>
+<li>Grafique ambas distribuciones en la misma escala y comente las diferencias de forma y de dispersión.</li>
+<li>¿Cómo sería la distribución muestral si <span class="math inline">\(n = 4\)</span>? Calcule su varianza y explique el resultado a partir del factor de corrección.</li>
+<li>Suponga ahora que la selección de <span class="math inline">\(n = 2\)</span> se hace <strong>con reemplazo</strong>. Enumere las 16 muestras ordenadas posibles, construya la distribución de <span class="math inline">\(\bar{y}_s\)</span> y compare su varianza con la del inciso
+<ol start="2" type="a">
+<li>Compruebe que coincide con <span class="math inline">\(\sigma^2/n\)</span>.</li>
+</ol></li>
+<li>Verifique en R todos los incisos anteriores.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-de-comprensión" class="slide level2 scrollable">
+<h2>Ejercicios de comprensión</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Selección única</a></li><li><a href="#tabset-2-2">Falso o verdadero</a></li><li><a href="#tabset-2-3">Identifique y clasifique</a></li><li><a href="#tabset-2-4">Explique con sus palabras</a></li><li><a href="#tabset-2-5">Investigue</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>Marque con una equis la opción correcta.</p>
+<ol type="1">
+<li><p>En el muestreo de poblaciones finitas, la fuente de aleatoriedad es:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Los valores <span class="math inline">\(y_k\)</span> de cada unidad.</label></li>
+<li><label><input type="checkbox">Los errores de medición del instrumento.</label></li>
+<li><label><input type="checkbox">La selección de las unidades que entran en la muestra.</label></li>
+<li><label><input type="checkbox">El tamaño <span class="math inline">\(N\)</span> de la población.</label></li>
+</ul></li>
+<li><p>En una encuesta sobre el esquema de vacunación de niños menores de 5 años, la persona entrevistada es la madre o el encargado. En este estudio, la unidad informante es:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">El niño.</label></li>
+<li><label><input type="checkbox">La madre o el encargado.</label></li>
+<li><label><input type="checkbox">La vivienda.</label></li>
+<li><label><input type="checkbox">La unidad primaria de muestreo.</label></li>
+</ul></li>
+<li><p>Sobre el error de muestreo, es correcto afirmar que:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Existe incluso cuando se realiza un censo.</label></li>
+<li><label><input type="checkbox">Es la diferencia entre el valor real y el valor poblacional.</label></li>
+<li><label><input type="checkbox">Se elimina por completo con una muestra de al menos 1000 unidades.</label></li>
+<li><label><input type="checkbox">Puede describirse mediante probabilidades sin conocer el valor poblacional.</label></li>
+</ul></li>
+<li><p>Un marco muestral incluye 50 viviendas que fueron demolidas hace dos años. Este problema se denomina:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Duplicado.</label></li>
+<li><label><input type="checkbox">Incompleto.</label></li>
+<li><label><input type="checkbox">Blanco.</label></li>
+<li><label><input type="checkbox">Sesgo de no respuesta.</label></li>
+</ul></li>
+<li><p>En un diseño equiprobable con <span class="math inline">\(n = 200\)</span> y <span class="math inline">\(N = 5000\)</span>, el peso de muestreo de cada unidad es:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">25</label></li>
+<li><label><input type="checkbox">0.04</label></li>
+<li><label><input type="checkbox">200</label></li>
+<li><label><input type="checkbox">5000</label></li>
+</ul></li>
+<li><p>¿Cuál de los siguientes procedimientos <strong>no</strong> es probabilístico?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Numerar la lista de estudiantes y sortear 30 con R.</label></li>
+<li><label><input type="checkbox">Sortear 5 escuelas y encuestar a todos sus estudiantes.</label></li>
+<li><label><input type="checkbox">Elegir un arranque aleatorio y tomar cada décimo expediente.</label></li>
+<li><label><input type="checkbox">Entrevistar a las primeras 30 personas que salen de un supermercado.</label></li>
+</ul></li>
+<li><p>Si la fracción de muestreo es <span class="math inline">\(n/N = 1\)</span>, entonces <span class="math inline">\(\operatorname{Var}(\bar{y}_s)\)</span> vale:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"><span class="math inline">\(S^2/n\)</span></label></li>
+<li><label><input type="checkbox">0</label></li>
+<li><label><input type="checkbox"><span class="math inline">\(S^2\)</span></label></li>
+<li><label><input type="checkbox">No se puede calcular.</label></li>
+</ul></li>
+<li><p>Se toman dos muestras aleatorias simples de 1000 personas, una en Costa Rica y otra en China, en poblaciones con la misma variabilidad. Respecto a su precisión:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">La de Costa Rica es mucho más precisa.</label></li>
+<li><label><input type="checkbox">La de China es mucho más precisa.</label></li>
+<li><label><input type="checkbox">Tienen prácticamente la misma precisión.</label></li>
+<li><label><input type="checkbox">No se pueden comparar.</label></li>
+</ul></li>
+<li><p>En una encuesta con sesgo de selección se duplica el tamaño de muestra. Entonces:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">El sesgo se reduce a la mitad.</label></li>
+<li><label><input type="checkbox">La varianza disminuye, pero el sesgo se mantiene.</label></li>
+<li><label><input type="checkbox">Tanto el sesgo como la varianza se eliminan.</label></li>
+<li><label><input type="checkbox">El error cuadrático medio se vuelve cero.</label></li>
+</ul></li>
+<li><p>En un diseño equiprobable de tamaño fijo <span class="math inline">\(n\)</span>, la suma de todas las probabilidades de inclusión es igual a:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">1</label></li>
+<li><label><input type="checkbox"><span class="math inline">\(N\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(n\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(n/N\)</span></label></li>
+</ul></li>
+</ol>
+</div>
+<div id="tabset-2-2">
+<p>Indique si cada afirmación es falsa o verdadera y justifique su respuesta en una o dos líneas.</p>
+<ol type="1">
+<li>Un estimador insesgado produce el valor exacto del parámetro en cada una de las muestras posibles.</li>
+<li>En un censo no existen errores de no muestreo.</li>
+<li>Si un elemento aparece duplicado en el marco muestral, su probabilidad de inclusión aumenta.</li>
+<li>El parámetro <span class="math inline">\(\bar{Y}\)</span> es una variable aleatoria, porque cambia de una muestra a otra.</li>
+<li>En un diseño probabilístico todas las unidades deben tener la misma probabilidad de inclusión.</li>
+<li>Con un muestreo por cuotas bien diseñado se puede reportar un margen de error.</li>
+<li>La distribución muestral de <span class="math inline">\(\bar{y}_s\)</span> depende del tamaño de muestra <span class="math inline">\(n\)</span>.</li>
+<li>Los factores <span class="math inline">\(1-\frac{n}{N}\)</span> y <span class="math inline">\(\frac{N-n}{N-1}\)</span> producen la misma varianza siempre que cada uno se use con su varianza poblacional correspondiente.</li>
+<li>Un marco muestral incompleto se corrige aumentando el tamaño de la muestra.</li>
+<li>Si <span class="math inline">\(\pi_k = 0.01\)</span>, la unidad <span class="math inline">\(k\)</span> representa a 100 unidades de la población.</li>
+</ol>
+</div>
+<div id="tabset-2-3">
+<ol type="1">
+<li><p>Para cada estudio identifique la población de estudio, la unidad de estudio, la unidad informante, la unidad de muestreo y el marco muestral.</p>
+<ol type="a">
+<li>Una encuesta sobre el uso de redes sociales de adolescentes de 13 a 17 años, en la que se visita la vivienda y responde uno de los padres.</li>
+<li>Un estudio del rendimiento en matemáticas de estudiantes de colegios públicos, en el que los colegios se seleccionan a partir del listado oficial del MEP.</li>
+<li>Un inventario forestal de un parque nacional, en el que el área se divide en parcelas de una hectárea.</li>
+</ol></li>
+<li><p>Clasifique cada situación como error de muestreo o error de no muestreo. Si se trata de un sesgo, indique de cuál tipo.</p>
+<ol type="a">
+<li>Dos muestras aleatorias distintas estiman el ingreso promedio en ₡780 000 y ₡815 000.</li>
+<li>En una encuesta sobre consumo de alcohol, las personas declaran consumir menos de lo que realmente consumen.</li>
+<li>Una encuesta en línea sobre acceso a internet se publica en redes sociales y responde quien lo desee.</li>
+<li>El 45% de los hogares seleccionados no abre la puerta, y se trata principalmente de hogares de ingresos altos.</li>
+<li>La balanza de un centro de salud marca siempre 0.3 kg de más.</li>
+<li>El marco de empresas utilizado no incluye las inscritas en los últimos 18 meses.</li>
+</ol></li>
+<li><p>Clasifique cada procedimiento como probabilístico o no probabilístico y, si es probabilístico, indique el tipo de diseño.</p>
+<ol type="a">
+<li>Se numeran los 800 socios de una cooperativa y se sortean 60.</li>
+<li>Se entrevista en un centro comercial a los primeros 20 hombres y las primeras 20 mujeres que acepten participar.</li>
+<li>Se sortean 8 de los 40 grupos de un colegio y se encuesta a todos sus estudiantes.</li>
+<li>Un periodista entrevista a cinco economistas reconocidos para una nota sobre inflación.</li>
+<li>Se divide a los estudiantes por carrera y se sortea dentro de cada una un número proporcional a su tamaño.</li>
+</ol></li>
+</ol>
+</div>
+<div id="tabset-2-4">
+<ol type="1">
+<li>Explique la diferencia entre valor real, valor poblacional y valor muestral utilizando un ejemplo distinto del ingreso.</li>
+<li>¿Por qué la definición “error de muestreo <span class="math inline">\(= \bar{y}_s - \bar{Y}\)</span>” no puede calcularse en la práctica? ¿Cómo resuelve la teoría ese problema?</li>
+<li>Explique por qué una muestra muy grande pero mal seleccionada puede ser peor que una muestra pequeña bien seleccionada. Utilice la descomposición del error cuadrático medio.</li>
+<li>Un compañero afirma: <em>“como</em> <span class="math inline">\(\pi_k = 0.4\)</span><em>, cada finca tiene un 40% de probabilidad de pertenecer a la población”</em>. Explique el error y redacte la interpretación correcta.</li>
+<li>Interprete, en el contexto de una encuesta de hogares, un peso de muestreo <span class="math inline">\(w_k = 350\)</span>.</li>
+<li>Explique por qué la media muestral es una variable aleatoria mientras que la media poblacional no lo es.</li>
+<li>Explique, sin utilizar la palabra “promedio”, qué significa que <span class="math inline">\(E(\bar{y}_s) = \bar{Y}\)</span>.</li>
+<li>¿Por qué la varianza de la media muestral vale cero cuando <span class="math inline">\(n = N\)</span>? ¿Qué significa eso en términos del error de muestreo?</li>
+<li>Utilizando la fórmula de la varianza, justifique por qué la precisión depende principalmente de <span class="math inline">\(n\)</span> y no de la fracción <span class="math inline">\(n/N\)</span>.</li>
+<li>¿Qué significa la frase <em>“el marco muestral define, en la práctica, cuál es realmente la población”</em>? Dé un ejemplo.</li>
+</ol>
+</div>
+<div id="tabset-2-5">
+<ol type="1">
+<li>Investigue el caso de la encuesta del <em>Literary Digest</em> de 1936: ¿cómo se construyó su marco muestral?, ¿cuáles sesgos la afectaron? y ¿qué hizo diferente George Gallup?</li>
+<li>Consulte la documentación metodológica de la Encuesta Nacional de Hogares (ENAHO) del INEC y describa su población de estudio, su unidad de muestreo, su marco muestral y el tipo de diseño utilizado.</li>
+<li>Investigue qué es un marco de áreas y por qué los institutos de estadística lo prefieren sobre un listado de personas.</li>
+<li>Busque una encuesta de opinión publicada en un medio de comunicación costarricense. Identifique si el muestreo es probabilístico, el tamaño de muestra, el margen de error y el nivel de confianza reportados. ¿Se justifica el margen de error que se reporta?</li>
+<li>Investigue qué es la tasa de respuesta de una encuesta y por qué una tasa baja puede introducir sesgo aunque el diseño sea probabilístico.</li>
+<li>Investigue por qué las encuestas en línea abiertas (“responda si lo desea”) no permiten reportar un margen de error, aunque reúnan miles de respuestas.</li>
+</ol>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="XS-1130_08_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="XS-1130_08_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="XS-1130_08_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="XS-1130_08_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"right","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"wide","numbers":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
