@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="XS-1130_09_files/libs/clipboard/clipboard.min.js"></script>
+<script src="XS-1130_09_files/libs/quarto-html/tabby.min.js"></script>
+<script src="XS-1130_09_files/libs/quarto-html/popper.min.js"></script>
+<script src="XS-1130_09_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="XS-1130_09_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="XS-1130_09_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="XS-1130_09_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Christopher Torres Rojas">
+  <title>Muestreo Probabilístico - Parte 2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="XS-1130_09_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="XS-1130_09_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="XS-1130_09_files/libs/revealjs/dist/theme/quarto-9eb768afb8c6a1b6b3ca03240ed62dd7.css">
+  <link href="XS-1130_09_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="XS-1130_09_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="XS-1130_09_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="XS-1130_09_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Muestreo Probabilístico - Parte 2</h1>
+  <p class="subtitle">[XS-1130 Principios de Inferencia]</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://christopher-tr.github.io/">Christopher Torres Rojas</a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:christopher.torres@ucr.ac.cr">christopher.torres@ucr.ac.cr</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.estadistica.ucr.ac.cr/">
+            Escuela de Estadística, Universidad de Costa Rica
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="lo-que-hemos-visto" class="slide level2">
+<h2>Lo que hemos visto</h2>
+<p>De la primera parte ya sabemos que:</p>
+<ul>
+<li><p>Un diseño es probabilístico si toda unidad tiene probabilidad <span class="math inline">\(\pi_k\)</span> conocida y positiva de ser seleccionada.</p></li>
+<li><p>El estimador <span class="math inline">\(\bar{y}_s\)</span> es una variable aleatoria con su propia distribución muestral, esperanza y varianza.</p></li>
+<li><p>Bajo muestreo aleatorio simple sin reemplazo:</p></li>
+</ul>
+<p><span class="math display">\[E(\bar{y}_s) = \bar{Y} \qquad \operatorname{Var}(\bar{y}_s) = \frac{S^2}{n}\left(1-\frac{n}{N}\right)\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Lo que veremos ahora:</strong> cada diseño muestral tiene su propio estimador y su propia fórmula de varianza. Usar la fórmula equivocada no cambia la estimación puntual, pero sí cambia el error estándar que se reporta, y con él todas las conclusiones.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pasos-para-realizar-un-muestreo" class="slide level2">
+<h2>Pasos para realizar un muestreo</h2>
+<div title="Procedimiento general">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Procedimiento general</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>Definir la población objetivo</strong> y la unidad de estudio.</p></li>
+<li><p><strong>Construir o conseguir el marco muestral.</strong></p></li>
+<li><p><strong>Elegir el diseño muestral</strong> (simple, sistemático, estratificado, conglomerados o una combinación).</p></li>
+<li><p><strong>Determinar el tamaño de muestra</strong>, a partir del error permisible y la confianza deseada.</p></li>
+<li><p><strong>Seleccionar la muestra</strong> con un mecanismo aleatorio, documentando la semilla.</p></li>
+<li><p><strong>Recolectar la información</strong> y controlar la no respuesta.</p></li>
+<li><p><strong>Estimar los parámetros</strong> usando los pesos del diseño y <strong>reportar el error estándar</strong>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="requisitos-del-marco-muestral" class="slide level2">
+<h2>Requisitos del marco muestral</h2>
+<p>El marco muestral es el listado o mapa que representa a todos los miembros de la población. Para que el diseño funcione debe cumplir:</p>
+<ol type="1">
+<li><p>Debe contener todos los elementos de la población en estudio.</p></li>
+<li><p>Cada unidad de estudio debe estar representada una sola vez.</p></li>
+<li><p>Cada unidad debe estar representada de forma individual, no en grupos o conglomerados.</p></li>
+<li><p>No debe contener elementos que no pertenezcan a la población.</p></li>
+</ol>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>En la práctica el listado casi nunca es perfecto y difiere un poco de la población meta teórica. Por eso conviene documentar sus limitaciones desde el inicio: el marco define, en los hechos, sobre cuál población se puede concluir.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="los-cuatro-diseños-que-estudiaremos" class="slide level2">
+<h2>Los cuatro diseños que estudiaremos</h2>
+
+<img data-src="XS-1130_09_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="480"><p>En los cuatro casos <span class="math inline">\(n = 20\)</span> de <span class="math inline">\(N = 100\)</span>, o sea <span class="math inline">\(\pi_k = 0.2\)</span>. Lo que cambia es <strong>cuáles combinaciones de unidades son posibles</strong>, y eso modifica la precisión.</p>
+</section>
+<section id="muestreo-simple-al-azar---definición" class="slide level2">
+<h2>Muestreo Simple al Azar - Definición</h2>
+<div title="Definición formal">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Definición formal</strong></p>
+</div>
+<div class="callout-content">
+<p>Un diseño es de <strong>muestreo simple al azar sin reemplazo</strong> (MSA) de tamaño <span class="math inline">\(n\)</span> si <strong>todas</strong> las muestras posibles de tamaño <span class="math inline">\(n\)</span> tienen la misma probabilidad de ser seleccionadas:</p>
+<p><span class="math display">\[p(s) = \frac{1}{\binom{N}{n}} \qquad \text{para cada una de las } \binom{N}{n} \text{ muestras}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La definición formal es más exigente que la frase inicial: que todos los elementos sean equiprobables no garantiza que todas las muestras lo sean. El muestreo sistemático cumple lo primero, pero no lo segundo.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="msa-probabilidad-de-inclusión" class="slide level2">
+<h2>MSA: probabilidad de inclusión</h2>
+<div title="¿Por qué $\pi_k = n/N$?">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿Por qué <span class="math inline">\(\pi_k = n/N\)</span>?</strong></p>
+</div>
+<div class="callout-content">
+<p>Para contar las muestras que contienen a la unidad <span class="math inline">\(k\)</span>: la fijamos y elegimos las <span class="math inline">\(n-1\)</span> restantes entre las <span class="math inline">\(N-1\)</span> disponibles, es decir <span class="math inline">\(\binom{N-1}{n-1}\)</span> formas. Entonces:</p>
+<p><span class="math display">\[\pi_k = \frac{\binom{N-1}{n-1}}{\binom{N}{n}} = \frac{(N-1)!\;\;n!}{N!\;\;(n-1)!} = \frac{n}{N}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Como <span class="math inline">\(\pi_k\)</span> es igual para todas las unidades, el <strong>peso de muestreo</strong> es constante:</p>
+<p><span class="math display">\[w_k = \frac{1}{\pi_k} = \frac{N}{n}\]</span></p>
+<p>Cada unidad de la muestra “representa” a <span class="math inline">\(N/n\)</span> unidades de la población.</p>
+</section>
+<section id="msa-estimadores" class="slide level2">
+<h2>MSA: Estimadores</h2>
+<div title="Media, total y proporción">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Media, total y proporción</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\underbrace{\bar{y}_s = \frac{1}{n}\sum_{k \in s} y_k}_{\text{media}} \qquad  \underbrace{\hat{p} = \frac{a}{n}}_{\text{proporción}}\]</span></p>
+<p>donde <span class="math inline">\(a\)</span> es el número de unidades de la muestra que poseen el atributo.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Los tres son <strong>insesgados</strong>: <span class="math inline">\(E(\bar{y}_s) = \bar{Y}\)</span> y <span class="math inline">\(E(\hat{p}) = P\)</span>.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>La proporción es un caso particular de la media: basta definir <span class="math inline">\(y_k = 1\)</span> si la unidad tiene el atributo y <span class="math inline">\(y_k = 0\)</span> si no lo tiene.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="msa-las-varianzas-de-los-estimadores" class="slide level2">
+<h2>MSA: Las varianzas de los estimadores</h2>
+<p><span class="math display">\[\widehat{\operatorname{Var}}(\bar{y}_s) = \frac{s^2}{n}\left(1-\frac{n}{N}\right) \qquad \widehat{\operatorname{Var}}(\hat{p}) = \frac{\hat{p}\,\hat{q}}{n-1}\left(1-\frac{n}{N}\right)\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>El <strong>error estándar</strong> es la raíz de estas cantidades: <span class="math inline">\(ee(\bar{y}_s) = \sqrt{\widehat{\operatorname{Var}}(\bar{y}_s)}\)</span>. Es lo que se reporta junto con la estimación.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="msa-procedimiento-de-selección" class="slide level2">
+<h2>MSA: procedimiento de selección</h2>
+<div title="Pasos">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pasos</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>Definir la población e identificar su tamaño <span class="math inline">\(N\)</span>.</p></li>
+<li><p>Asignar un número único a cada elemento del marco, de <span class="math inline">\(1\)</span> a <span class="math inline">\(N\)</span>.</p></li>
+<li><p>Seleccionar <span class="math inline">\(n\)</span> números aleatorios entre <span class="math inline">\(1\)</span> y <span class="math inline">\(N\)</span>, mediante tablas de números aleatorios, un generador de computadora o un sorteo manual.</p></li>
+<li><p>Las unidades que llevan esos números constituyen la muestra.</p></li>
+<li><p>Documentar la semilla para que el proceso sea reproducible.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Los números se generan antes de mirar los datos, y no se sustituye ninguna unidad porque sea difícil de localizar: sustituirla rompe la equiprobabilidad e introduce sesgo de selección.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="msa-ejemplo-con-una-población-real" class="slide level2">
+<h2>MSA: ejemplo con una población real</h2>
+<p>Trabajaremos con una población de 134 399 personas graduadas, clasificadas por grado académico y estudiaremos su gasto en transporte mensual:</p>
+<p>Cargue los datos y obtenga los valores parámetros poblacionales (Media Poblacional y Desviación Población):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="co">#Carga de Datos</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a><span class="fu">load</span>(<span class="st">"marco_muestral.Rdata"</span>)</span>
+<span id="cb1-3"><a href="" aria-label="3"></a></span>
+<span id="cb1-4"><a href="" aria-label="4"></a><span class="co">#Primeros 6 elementos del marco muestral</span></span>
+<span id="cb1-5"><a href="" aria-label="5"></a><span class="fu">head</span>(marco) </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id        grado gasto
+1  1 Bachillerato  7495
+2  2 Bachillerato 11099
+3  3 Bachillerato 12174
+4  4 Bachillerato  8194
+5  5 Bachillerato 13759
+6  6 Bachillerato 16114</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co">#Valores Poblacionales</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a><span class="fu">c</span>(<span class="at">media_poblacional =</span> <span class="fu">mean</span>(marco<span class="sc">$</span>gasto), <span class="at">desv =</span> <span class="fu">sd</span>(marco<span class="sc">$</span>gasto))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>media_poblacional              desv 
+        12600.773          4203.754 </code></pre>
+</div>
+</div>
+</section>
+<section id="msa-selección-y-estimación-en-r" class="slide level2">
+<h2>MSA: selección y estimación en R</h2>
+<p>Ahora seleccionemos 749 individuos en un muestreo simple al azar sin reemplazo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>) <span class="co">#Semilla Aleatoria</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(marco) <span class="co">#Tamaño de Población</span></span>
+<span id="cb5-4"><a href="" aria-label="4"></a>n <span class="ot">&lt;-</span> <span class="dv">749</span>        <span class="co">#Tamaño de </span></span>
+<span id="cb5-5"><a href="" aria-label="5"></a></span>
+<span id="cb5-6"><a href="" aria-label="6"></a>elegidos <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="at">size =</span> n)          <span class="co"># muestreo simple al azar</span></span>
+<span id="cb5-7"><a href="" aria-label="7"></a></span>
+<span id="cb5-8"><a href="" aria-label="8"></a>elegidos[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>]  <span class="co">#Primeras 50 Selecciones Aleatorias del ID</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  36473  18726   1647  45343  88920 131151   1134  22508  69558  77694
+[11]  74717  39436  29284  94381  19305  41453 123625 134080  78718  58693
+[21]  56221  58982  79661  89969  11860 105317  38691  21096   3381  51041
+[31]  74156   3987  30305  42098    276  98844  22050   4897  41801   3180
+[41] 113964   1763  98658   7394  29386   6459 116917 102950 106805   9378</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a>muestra  <span class="ot">&lt;-</span> marco[elegidos, ]</span>
+<span id="cb7-2"><a href="" aria-label="2"></a><span class="fu">head</span>(muestra)   <span class="co">#Primeros 6 Individuos seleccionados </span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           id        grado gasto
+36473   36473 Bachillerato 11133
+18726   18726 Bachillerato 10304
+1647     1647 Bachillerato 17632
+45343   45343 Bachillerato 11350
+88920   88920    Diplomado 10915
+131151 131151     Maestría 10987</code></pre>
+</div>
+</div>
+</section>
+<section id="msa-selección-y-estimación-en-r-1" class="slide level2">
+<h2>MSA: selección y estimación en R</h2>
+<p>Estimemos la media muestral y obtengamos su error estándar:</p>
+<p><span class="math display">\[\small \widehat{\operatorname{Var}}(\bar{y}_s) = \frac{s^2}{n}\left(1-\frac{n}{N}\right) \qquad ee(\bar{y}_s) = \sqrt{\widehat{\operatorname{Var}}(\bar{y}_s)}\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra<span class="sc">$</span>gasto)     <span class="co">#media muestral</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a>s2    <span class="ot">&lt;-</span> <span class="fu">var</span>(muestra<span class="sc">$</span>gasto)      <span class="co">#varianza muestral (s^2)</span></span>
+<span id="cb9-3"><a href="" aria-label="3"></a>ee    <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((s2<span class="sc">/</span>n) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> n<span class="sc">/</span>N))          <span class="co"># error estándar del promedio muestral</span></span>
+<span id="cb9-4"><a href="" aria-label="4"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">media_muestral =</span> media, <span class="at">error_estandar =</span> ee), <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>media_muestral error_estandar 
+      12537.81         143.82 </code></pre>
+</div>
+</div>
+<p>Más adelante veremos que podemos acotar el parámetro entre dos valores, para el caso particular de la media poblacional <span class="math inline">\(\mu\)</span> tenemos que: <span class="math inline">\(\text{Si } n\to\infty\)</span> entonces con 95% de confianza:<span class="math display">\[\small \mu \in \left[ \bar{y}_s - 1.96\cdot ee_{(\bar{y}_s)} \quad , \bar{y}_s + 1.96\cdot ee_{(\bar{y}_s)} \right]\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">inferior =</span> media <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>ee, <span class="at">superior =</span> media <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>ee), <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>inferior superior 
+12255.91 12819.70 </code></pre>
+</div>
+</div>
+</section>
+<section id="msa-lo-que-no-garantiza" class="slide level2">
+<h2>MSA: lo que no garantiza</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a><span class="fu">table</span>(muestra<span class="sc">$</span>grado)                       <span class="co"># composición de la muestra</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Bachillerato    Diplomado    Doctorado Especialidad Licenciatura     Maestría 
+         367          122            1           12          177           56 
+ Profesorado 
+          14 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a>Nh <span class="ot">&lt;-</span> <span class="fu">table</span>(marco<span class="sc">$</span>grado)                   <span class="co"># Composición de la Población</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a><span class="fu">round</span>(n <span class="sc">*</span> Nh<span class="sc">/</span>N, <span class="dv">1</span>)                         <span class="co"># Lo que esperaríamos en la muestra</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Bachillerato    Diplomado    Doctorado Especialidad Licenciatura     Maestría 
+       335.9        160.1          1.7         11.9        172.8         51.8 
+ Profesorado 
+        14.7 </code></pre>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>El MSA reproduce en promedio la composición de la población, pero en una muestra concreta los grupos pequeños quedan al azar. Con <span class="math inline">\(N_{\text{Doctorado}} = 306\)</span> de 134 399, lo esperado son 2 doctorados: podrían salir 0, 1 o 5.</p>
+<p>Si el estudio necesita resultados <strong>por grado académico</strong>, el MSA no sirve: hay que estratificar.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="msa-ventajas-y-desventajas" class="slide level2">
+<h2>MSA: ventajas y desventajas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Ventajas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><strong>Simplicidad:</strong> es el método más fácil de entender y aplicar, y todas las fórmulas tienen forma cerrada.</p></li>
+<li><p><strong>No sesgado:</strong> todos los elementos tienen la misma probabilidad de ser seleccionados.</p></li>
+<li><p><strong>Representatividad:</strong> da una buena representación de la población si la muestra es suficientemente grande.</p></li>
+<li><p><strong>Base para otros métodos:</strong> es el punto de partida de todos los diseños más complejos.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Desventajas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Desventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><strong>No garantiza equilibrio:</strong> si la población es muy heterogénea, una muestra puede no capturar todas sus características.</p></li>
+<li><p><strong>Poco práctico:</strong> con poblaciones muy grandes el proceso de selección y de recolección resulta costoso y lento.</p></li>
+<li><p><strong>Requiere lista completa</strong> de todos los miembros de la población.</p></li>
+<li><p>Las unidades quedan <strong>dispersas geográficamente</strong>, lo que encarece el trabajo de campo.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="tamaño-de-muestra-en-el-msa" class="slide level2">
+<h2>Tamaño de muestra en el MSA</h2>
+<h4 id="de-dónde-sale-la-fórmula">¿De dónde sale la fórmula?</h4>
+<p>Se parte del error de muestreo permisible <span class="math inline">\(e\)</span>: la diferencia máxima que estamos dispuestos a tolerar entre la estimación y el parámetro, con una confianza <span class="math inline">\(1-\alpha\)</span>.</p>
+<p><span class="math display">\[e = z_{1-\alpha/2}\;\frac{\sigma}{\sqrt{n}} \quad \Longrightarrow \quad \sqrt{n} = \frac{z_{1-\alpha/2}\,\sigma}{e} \quad \Longrightarrow \quad \boxed{\;n_0 = \left(\frac{z_{1-\alpha/2}\,\sigma}{e}\right)^2\;}\]</span></p>
+<div title="Cuatro elementos a decidir">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Cuatro elementos a decidir</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>El <strong>error permisible (o precisión deseada)</strong> <span class="math inline">\(e\)</span>: cuánto estamos dispuestos a equivocarnos.</li>
+<li>La <strong>confianza</strong> <span class="math inline">\(1-\alpha\)</span>, que fija el valor <span class="math inline">\(z\)</span>.</li>
+<li>La <strong>variabilidad</strong> de la característica (<span class="math inline">\(\sigma\)</span> para medias, <span class="math inline">\(P\)</span> para proporciones).</li>
+<li>Si la población es <strong>finita</strong> y conocida, para aplicar la corrección.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="valores-de-z-según-la-confianza" class="slide level2">
+<h2>Valores de <span class="math inline">\(z\)</span> según la confianza</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Confianza <span class="math inline">\((1-\alpha)\)</span></th>
+<th>Significancia <span class="math inline">\((\alpha)\)</span></th>
+<th><span class="math inline">\(z_{1-\alpha/2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.90</td>
+<td>0.10</td>
+<td>1.645</td>
+</tr>
+<tr class="even">
+<td>0.91</td>
+<td>0.09</td>
+<td>1.695</td>
+</tr>
+<tr class="odd">
+<td>0.92</td>
+<td>0.08</td>
+<td>1.751</td>
+</tr>
+<tr class="even">
+<td>0.93</td>
+<td>0.07</td>
+<td>1.812</td>
+</tr>
+<tr class="odd">
+<td>0.94</td>
+<td>0.06</td>
+<td>1.881</td>
+</tr>
+<tr class="even">
+<td>0.95</td>
+<td>0.05</td>
+<td><strong>1.960</strong></td>
+</tr>
+<tr class="odd">
+<td>0.96</td>
+<td>0.04</td>
+<td>2.054</td>
+</tr>
+<tr class="even">
+<td>0.97</td>
+<td>0.03</td>
+<td>2.170</td>
+</tr>
+<tr class="odd">
+<td>0.98</td>
+<td>0.02</td>
+<td>2.326</td>
+</tr>
+<tr class="even">
+<td>0.99</td>
+<td>0.01</td>
+<td>2.576</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)        <span class="co"># el mismo valor, calculado en R</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.959964</code></pre>
+</div>
+</div>
+</section>
+<section id="tamaño-de-muestra-para-la-media" class="slide level2">
+<h2>Tamaño de muestra para la media</h2>
+<div title="Población infinita o muy grande">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Población infinita o muy grande</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[n_0 = \frac{z^2_{1-\alpha/2}\;\sigma^2}{e^2}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div title="Población finita (corrección)">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Población finita (corrección)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[n = \frac{n_0}{1 + \dfrac{n_0}{N}}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Siempre se redondea hacia arriba</strong>: un tamaño menor no alcanza la precisión pedida.</p>
+<p>La corrección por población finita siempre reduce el tamaño requerido.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-para-promedios" class="slide level2">
+<h2>Ejemplo para promedios</h2>
+<p><strong>Ejemplo.</strong> Se desea estimar el gasto mensual promedio en transporte de las 134 399 personas graduadas. Un estudio piloto arrojó una desviación estándar de ₡4 200. Se quiere un error máximo de ₡300 con una confianza del 95%.</p>
+<p><strong>Solución a mano:</strong></p>
+<p><span class="math display">\[n_0 = \left(\frac{1.96 \times 4200}{300}\right)^2 = (27.44)^2 = 752.93 \quad \Longrightarrow \quad n_0 = 753\]</span></p>
+<p><span class="math display">\[n = \frac{752.93}{1 + \dfrac{752.93}{134\,399}} = \frac{752.93}{1.005602} = 748.7 \quad \Longrightarrow \quad n = 749\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>); sigma <span class="ot">&lt;-</span> <span class="dv">4200</span>; e <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb19-2"><a href="" aria-label="2"></a></span>
+<span id="cb19-3"><a href="" aria-label="3"></a>n0 <span class="ot">&lt;-</span> (z<span class="sc">*</span>sigma<span class="sc">/</span>e)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb19-4"><a href="" aria-label="4"></a>n_fin <span class="ot">&lt;-</span> n0<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> n0<span class="sc">/</span>N)</span>
+<span id="cb19-5"><a href="" aria-label="5"></a></span>
+<span id="cb19-6"><a href="" aria-label="6"></a><span class="fu">ceiling</span>(<span class="fu">c</span>(<span class="at">sin_correccion =</span> n0, <span class="at">con_correccion =</span> n_fin))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sin_correccion con_correccion 
+           753            749 </code></pre>
+</div>
+</div>
+</section>
+<section id="tamaño-de-muestra-para-proporciones" class="slide level2">
+<h2>Tamaño de muestra para proporciones</h2>
+<p>Como la proporción es una media de ceros y unos, con <span class="math inline">\(\sigma^2 = P\,Q\)</span>:</p>
+<div title="Fórmulas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Fórmulas</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[n_0 = \frac{z^2_{1-\alpha/2}\;P\,Q}{e^2} \qquad \qquad n = \frac{n_0}{1 + \dfrac{n_0}{N}}\]</span></p>
+<p>con <span class="math inline">\(Q = 1 - P\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>¿Y si no conocemos</strong> <span class="math inline">\(P\)</span>? El producto <span class="math inline">\(PQ = P(1-P)\)</span> alcanza su máximo en <span class="math inline">\(P = 0.5\)</span>, donde <span class="math inline">\(PQ\)</span>vale <span class="math inline">\(0.25\)</span>. Tomar <span class="math inline">\(P = 0.5\)</span> da el tamaño más conservador: garantiza el error deseado sea cual sea el verdadero valor de <span class="math inline">\(P\)</span>.</p>
+<p>Derivando: <span class="math inline">\(\frac{d}{dP}\left[P - P^2\right] = 1 - 2P = 0
+\Rightarrow P = 0.5\)</span>, con segunda derivada <span class="math inline">\(-2 &lt; 0\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="por-qué-p-0.5" class="slide level2">
+<h2>¿Por qué <span class="math inline">\(P = 0.5\)</span>?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_09_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="XS-1130_09_files/figure-revealjs/unnamed-chunk-10-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p>Las dos curvas son la misma función reescalada: <span class="math inline">\(n_0\)</span> es <span class="math inline">\(P(1-P)\)</span> multiplicado por la constante <span class="math inline">\(z^2/e^2\)</span>. Por eso el tamaño más exigente siempre ocurre en <span class="math inline">\(P = 0.5\)</span>, y cae con rapidez conforme <span class="math inline">\(P\)</span> se acerca a 0 o a 1. Con <span class="math inline">\(P = 0.1\)</span> bastarían 385 personas en lugar de 1068.</p>
+</section>
+<section id="ejemplo-para-proporciones" class="slide level2">
+<h2>Ejemplo para proporciones</h2>
+<p>La Universidad de Costa Rica va a invertir en cursos de inglés y desea conocer la proporción de estudiantes que deberá mejorar su dominio del idioma. Según los exámenes de nivelación, cerca del 65% de los 80 000 estudiantes ya tiene dominio del idioma. Estime el tamaño de muestra con un error máximo del 5% y una confianza del 95%.</p>
+<p><strong>Solución a mano:</strong> el atributo de interés es <em>no tener dominio</em>, así que <span class="math inline">\(P = 0.35\)</span> y <span class="math inline">\(Q = 0.65\)</span>.</p>
+<p><span class="math display">\[n_0 = \frac{(1.96)^2(0.35)(0.65)}{(0.05)^2} = \frac{0.87396}{0.0025} = 349.6 \quad \Longrightarrow \quad n_0 = 350\]</span></p>
+<p><span class="math display">\[n = \frac{349.6}{1 + \dfrac{349.6}{80\,000}} = 348.1 \quad \Longrightarrow \quad n = 349\]</span></p>
+</section>
+<section id="ejemplo-para-proporciones-en-r" class="slide level2">
+<h2>Ejemplo para proporciones en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a>N_ing <span class="ot">&lt;-</span> <span class="dv">80000</span>; p <span class="ot">&lt;-</span> <span class="fl">0.35</span>; e <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb21-3"><a href="" aria-label="3"></a></span>
+<span id="cb21-4"><a href="" aria-label="4"></a>n0 <span class="ot">&lt;-</span> z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">/</span> e<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb21-5"><a href="" aria-label="5"></a>n_fin <span class="ot">&lt;-</span> n0<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> n0<span class="sc">/</span>N_ing)</span>
+<span id="cb21-6"><a href="" aria-label="6"></a></span>
+<span id="cb21-7"><a href="" aria-label="7"></a><span class="fu">ceiling</span>(<span class="fu">c</span>(<span class="at">sin_correccion =</span> n0, <span class="at">con_correccion =</span> n_fin))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sin_correccion con_correccion 
+           350            349 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a><span class="co"># ¿Cuánto costaría no tener la información previa? (P = 0.5)</span></span>
+<span id="cb23-2"><a href="" aria-label="2"></a>n0_c <span class="ot">&lt;-</span> z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fl">0.25</span> <span class="sc">/</span> e<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb23-3"><a href="" aria-label="3"></a><span class="fu">ceiling</span>(<span class="fu">c</span>(<span class="at">conservador =</span> n0_c, <span class="at">conservador_con_fpc =</span> n0_c<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> n0_c<span class="sc">/</span>N_ing)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        conservador conservador_con_fpc 
+                385                 383 </code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Conocer que <span class="math inline">\(P \approx 0.35\)</span> permite entrevistar 34 personas menos. Cuanto más lejos esté <span class="math inline">\(P\)</span> de 0.5, mayor es el ahorro.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="criterios-prácticos" class="slide level2">
+<h2>Criterios prácticos</h2>
+<div title="Al fijar el tamaño de muestra">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Al fijar el tamaño de muestra</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Reducir el error a la mitad exige cuadruplicar <span class="math inline">\(n\)</span>, porque <span class="math inline">\(n\)</span> aparece elevado al cuadrado en la fórmula.</p></li>
+<li><p>El tamaño calculado es el de las unidades efectivamente entrevistadas. Si se espera un 20% de no respuesta, hay que seleccionar <span class="math inline">\(n/0.8\)</span> unidades.</p></li>
+<li><p>Si hay varias variables de interés, se calcula <span class="math inline">\(n\)</span> para cada una y se toma el mayor.</p></li>
+<li><p>Si se quieren estimaciones por subgrupo, el tamaño debe calcularse para el subgrupo más pequeño, no para el total.</p></li>
+<li><p>Estas fórmulas valen para el MSA. Con otro tipo de diseño se deben modificar.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios" class="slide level2 scrollable">
+<h2>Ejercicios</h2>
+<h4 id="resuelva-a-mano-de-ser-posibel-y-en-r.-varios-ejercicios-utilizan-el-archivo-marco_muestral.rdata-visto-en-clase."><strong>Resuelva a mano de ser posibel y en R. Varios ejercicios utilizan el archivo <code>marco_muestral.Rdata</code> visto en clase.</strong></h4>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Ejercicio 1</a></li><li><a href="#tabset-1-2">Ejercicio 2</a></li><li><a href="#tabset-1-3">Ejercicio 3</a></li><li><a href="#tabset-1-4">Ejercicio 4</a></li><li><a href="#tabset-1-5">Ejercicio 5</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p><strong>¿Qué tan lejos queda el estimador del parámetro?</strong></p>
+<p>Este ejercicio es guiado: siga los pasos y comente cada resultado.</p>
+<ol type="a">
+<li><p>Cargue <code>marco_muestral.Rdata</code> y calcule los siguientes parámetros poblacionales del gasto: la media <span class="math inline">\(\mu\)</span>, la varianza <span class="math inline">\(\sigma^2\)</span> y la desviación estándar <span class="math inline">\(\sigma\)</span>. Calcule además la proporción <span class="math inline">\(P\)</span> de personas con grado de Licenciatura.</p></li>
+<li><p>Con <code>set.seed(1)</code> seleccione una muestra simple al azar sin reemplazo de <span class="math inline">\(n = 50\)</span> personas y calcule los cuatro estimadores correspondientes: <span class="math inline">\(\bar{y}_s\)</span>, <span class="math inline">\(s^2\)</span>, <span class="math inline">\(s\)</span> y <span class="math inline">\(\hat{p}\)</span>.</p></li>
+<li><p>Construya una tabla de tres columnas: parámetro, estimador y diferencia (estimador <span class="math inline">\(-\)</span> parámetro). ¿Cuál de los cuatro quedó relativamente más lejos de su parámetro?</p></li>
+<li><p>Repita los incisos b y c con <span class="math inline">\(n = 500\)</span> y con <span class="math inline">\(n = 5\,000\)</span>. ¿Qué le ocurre a las diferencias conforme crece <span class="math inline">\(n\)</span>?</p></li>
+<li><p>Vuelva a <span class="math inline">\(n = 50\)</span>, pero ahora con las semillas 2, 3 y 4. ¿Las diferencias tienen siempre el mismo signo? ¿Cómo se llama esta diferencia entre el estimador y el parámetro?</p></li>
+<li><p>Calcule <span class="math inline">\(ee(\bar{y}_s)\)</span> para <span class="math inline">\(n = 50\)</span>, <span class="math inline">\(500\)</span> y <span class="math inline">\(5\,000\)</span>. Compare cada error estándar con la magnitud de la diferencia observada en ese mismo <span class="math inline">\(n\)</span>. ¿Le parece razonable lo que obtuvo?</p></li>
+<li><p>Un compañero afirma que su muestra “está mala” porque <span class="math inline">\(\bar{y}_s \neq \mu\)</span>. Explique en dos o tres líneas por qué esa afirmación es incorrecta.</p></li>
+</ol>
+</div>
+<div id="tabset-1-2">
+<p><strong>Identifique antes de calcular.</strong> En cada situación marque con una equis la opción correcta en las dos preguntas. No es necesario calcular el tamaño de muestra.</p>
+<ol type="1">
+<li><p>Se desea estimar el gasto promedio mensual en electricidad de los hogares de un país que tiene 1.6 millones de hogares. Un estudio piloto arrojó una desviación estándar de ₡9 000 y se desea un error máximo de ₡400 con 95% de confianza.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>¿Corresponde aplicar la corrección por población finita?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí</label></li>
+<li><label><input type="checkbox">No</label></li>
+</ul></li>
+<li><p>Se desea conocer qué porcentaje de las 540 fincas de un cantón utiliza riego por goteo. No existen estudios previos sobre el tema. Se desea un error de 5 puntos porcentuales al 95% de confianza.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>¿Corresponde aplicar la corrección por población finita?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí</label></li>
+<li><label><input type="checkbox">No</label></li>
+</ul></li>
+<li><p>Una clínica atiende 800 pacientes por semana y desea estimar el tiempo promedio de espera. Un estudio piloto arrojó una desviación estándar de 12 minutos y se desea un error máximo de 1 minuto al 95% de confianza.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>¿Corresponde aplicar la corrección por población finita?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí</label></li>
+<li><label><input type="checkbox">No</label></li>
+</ul></li>
+<li><p>Un partido político desea estimar la intención de voto a favor de su candidato en un país con 3.5 millones de personas electoras. Encuestas anteriores sugieren que ronda el 28%. Se desea un error de 3 puntos porcentuales al 95% de confianza.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>¿Corresponde aplicar la corrección por población finita?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí</label></li>
+<li><label><input type="checkbox">No</label></li>
+</ul></li>
+<li><p>Se desea estimar la proporción de piezas defectuosas de un lote de 300 unidades. Los registros históricos indican alrededor de un 4% de defectuosas. Se desea un error de 2 puntos porcentuales al 99% de confianza.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>¿Corresponde aplicar la corrección por población finita?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí</label></li>
+<li><label><input type="checkbox">No</label></li>
+</ul></li>
+<li><p>Una municipalidad desea estimar el promedio de años de residencia de sus 2 100 habitantes adultos. No cuenta con ningún estudio previo ni con información sobre la variabilidad de esa característica.</p>
+<p>¿Qué parámetro se estima?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Una media</label></li>
+<li><label><input type="checkbox">Una proporción</label></li>
+<li><label><input type="checkbox">Una varianza</label></li>
+</ul>
+<p>Con la información disponible, ¿se puede calcular el tamaño de muestra?</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Sí, usando el valor más conservador</label></li>
+<li><label><input type="checkbox">No, hace falta una estimación previa de la variabilidad</label></li>
+<li><label><input type="checkbox">Sí, porque la población es finita</label></li>
+</ul></li>
+</ol>
+</div>
+<div id="tabset-1-3">
+<p><strong>Cálculo del tamaño de muestra.</strong> En cada inciso determine primero <span class="math inline">\(n_0\)</span> y luego aplique la corrección <span class="math inline">\(n = \dfrac{n_0}{1 + \dfrac{n_0}{N}}\)</span> cuando corresponda.</p>
+<ol type="a">
+<li><p>Una universidad con 18 500 estudiantes desea estimar la proporción que trabaja mientras estudia. No hay información previa. Se desea un error de 3.5 puntos porcentuales al 95% de confianza.</p></li>
+<li><p>Repita el inciso a suponiendo que un estudio anterior indica que esa proporción ronda el 42%. ¿Cuántas entrevistas se ahorran?</p></li>
+<li><p>Una cooperativa con 620 personas asociadas desea estimar el tiempo promedio que tarda un trámite. Un piloto arrojó <span class="math inline">\(s = 3.4\)</span> minutos y se desea un error de 0.3 minutos al 99% de confianza.</p></li>
+<li><p>Repita el inciso c al 95% de confianza. ¿Qué proporción del tamaño original se necesita ahora?</p></li>
+<li><p>Una empresa con 45 000 clientes desea estimar la proporción de clientes satisfechos con un error de 2 puntos porcentuales al 95% de confianza, sin información previa. Si además espera un 25% de no respuesta, ¿a cuántos clientes debe contactar?</p></li>
+<li><p>Observe los incisos a, c y e: en unos la corrección por población finita cambia mucho el resultado y en otros casi nada. Explique de qué depende.</p></li>
+</ol>
+</div>
+<div id="tabset-1-4">
+<p><strong>Del tamaño de muestra a la estimación.</strong> Trabaje con <code>marco_muestral.Rdata</code>.</p>
+<ol type="a">
+<li><p>Cargue el marco y obtenga <span class="math inline">\(N\)</span>, la media y la desviación estándar poblacionales del gasto.</p></li>
+<li><p>Suponga que esa desviación proviene de un estudio piloto. Determine el tamaño de muestra necesario para estimar el gasto promedio con un error máximo de ₡200 al 95% de confianza. Calcule <span class="math inline">\(n_0\)</span> y luego <span class="math inline">\(n = n_0/(1 + n_0/N)\)</span>.</p></li>
+<li><p>¿Cuánto cambió el resultado al aplicar la corrección? Explique por qué ocurre eso en esta población.</p></li>
+<li><p>Con <code>set.seed(2026)</code> seleccione la muestra del tamaño obtenido y estime la media, la varianza, la desviación estándar y el error estándar de la media.</p></li>
+<li><p>Calcule la diferencia entre la media muestral y la media poblacional. ¿Resultó menor que dos errores estándar?</p></li>
+<li><p>Estime la proporción de personas con grado de Bachillerato y calcule su error estándar con la fórmula que corresponde a una proporción.</p></li>
+<li><p>Repita la selección del inciso d con diez semillas distintas y guarde las diez medias obtenidas. Calcule el promedio y la desviación estándar de esas diez medias. Compare esa desviación con el error estándar teórico del inciso d y comente el resultado.</p></li>
+</ol>
+</div>
+<div id="tabset-1-5">
+<p><strong>Interpretación.</strong> Responda en dos o tres líneas cada pregunta.</p>
+<ol type="a">
+<li><p>Un estudiante obtuvo una media muestral de ₡12 640 cuando el parámetro es ₡12 600 y concluye que cometió un error de cálculo. Comente la afirmación.</p></li>
+<li><p>Explique la diferencia entre la desviación estándar muestral <span class="math inline">\(s\)</span> y el error estándar <span class="math inline">\(ee(\bar{y}_s)\)</span>. ¿Cuál de las dos disminuye al aumentar <span class="math inline">\(n\)</span> y por qué?</p></li>
+<li><p>¿Por qué el error estándar de la media prácticamente no depende del tamaño de la población cuando <span class="math inline">\(N\)</span> es muy grande?</p></li>
+<li><p>Dos estudios usan <span class="math inline">\(n = 400\)</span>: uno en una población de 2 000 y otro en una de 2 millones, ambos con la misma <span class="math inline">\(S^2\)</span>. ¿Cuál tendrá menor error estándar? Justifique con la fórmula.</p></li>
+<li><p>Un informe de prensa señala que una encuesta se realizó con <span class="math inline">\(n = 500\)</span> personas y reporta un margen de error de <span class="math inline">\(\pm 4.4\)</span> puntos porcentuales. ¿Con cuál valor de <span class="math inline">\(P\)</span> y cuál nivel de confianza es consistente ese margen? Verifique el cálculo.</p></li>
+<li><p>¿Por qué el tamaño de muestra siempre se redondea hacia arriba y nunca hacia abajo?</p></li>
+<li><p>En el ejemplo de los cursos de inglés, ¿qué habría cambiado si la población fuera de 800 estudiantes en lugar de 80 000? Calcúlelo y comente.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="XS-1130_09_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="XS-1130_09_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="XS-1130_09_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="XS-1130_09_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"right","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"wide","numbers":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
