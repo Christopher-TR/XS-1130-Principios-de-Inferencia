@@ -28,3 +28,4 @@ verificación de hipótesis y su aplicación
 | Ejercicios Tema 2                                                                     | [Ejercicios Tema 2](XS-1130_92.html)  |  |
 | Muestreo Probabilístico- Parte 1                                                      | [Clase 8](XS-1130_08.html)    |  Tema 3 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
 | Muestreo Probabilístico- Parte 2                                                      | [Clase 9](XS-1130_09.html)    |  [Datos: Marco Muestral](https://christopher-tr.github.io/XS-1130-Principios-de-Inferencia/marco_muestral.Rdata)   |
+| Muestreo Probabilístico- Parte 3                                                      | [Clase 10](XS-1130_10.html)   |    |
