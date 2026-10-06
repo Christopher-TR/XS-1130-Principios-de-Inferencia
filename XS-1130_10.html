@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="XS-1130_10_files/libs/clipboard/clipboard.min.js"></script>
+<script src="XS-1130_10_files/libs/quarto-html/tabby.min.js"></script>
+<script src="XS-1130_10_files/libs/quarto-html/popper.min.js"></script>
+<script src="XS-1130_10_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="XS-1130_10_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="XS-1130_10_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="XS-1130_10_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Christopher Torres Rojas">
+  <title>Muestreo Probabilístico - Parte 3</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="XS-1130_10_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="XS-1130_10_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="XS-1130_10_files/libs/revealjs/dist/theme/quarto-9eb768afb8c6a1b6b3ca03240ed62dd7.css">
+  <link href="XS-1130_10_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="XS-1130_10_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="XS-1130_10_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="XS-1130_10_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Muestreo Probabilístico - Parte 3</h1>
+  <p class="subtitle">[XS-1130 Principios de Inferencia]</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://christopher-tr.github.io/">Christopher Torres Rojas</a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:christopher.torres@ucr.ac.cr">christopher.torres@ucr.ac.cr</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.estadistica.ucr.ac.cr/">
+            Escuela de Estadística, Universidad de Costa Rica
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="lo-que-sigue" class="slide level2">
+<h2>Lo que sigue</h2>
+<p>Del muestreo simple al azar ya conocemos la selección, los estimadores y el cálculo del tamaño de muestra. Ahora veremos cuatro diseños más:</p>
+<ol type="1">
+<li><strong>Muestreo sistemático:</strong> cambia solo la <em>forma de seleccionar</em>.</li>
+<li><strong>Muestreo estratificado:</strong> divide la población y muestrea dentro de cada grupo.</li>
+<li><strong>Muestreo por conglomerados:</strong> divide la población y selecciona grupos completos.</li>
+<li><strong>Muestreo en varias etapas:</strong> combina los anteriores en sucesivas selecciones.</li>
+</ol>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>En todos ellos la estimación puntual sigue siendo un promedio (ponderado o no). Lo que cambia es <strong>cómo se selecciona</strong> y <strong>cómo se calcula el error estándar</strong>.</p>
+<p>En esta presentación indicaremos las fórmulas del promedio y de la varianza de cada diseño <strong>s</strong>in deducirlas: lo importante es saber cuál corresponde a cada caso.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="muestreo-sistemático" class="slide level2">
+<h2>Muestreo Sistemático</h2>
+<h3 id="definición-y-procedimiento">Definición y procedimiento</h3>
+<blockquote>
+<p><em>“Se selecciona un punto aleatorio de inicio y posteriormente se elige cada</em> <span class="math inline">\(k\)</span><em>-ésimo miembro de la población.”</em></p>
+</blockquote>
+<div title="Procedimiento">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Procedimiento</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Enumerar las unidades del marco de <span class="math inline">\(1\)</span> a <span class="math inline">\(N\)</span>.</li>
+<li>Calcular el <strong>salto</strong> o espaciamiento: <span class="math inline">\(\;k = N/n\)</span>.</li>
+<li>Seleccionar un <strong>arranque aleatorio</strong> <span class="math inline">\(r\)</span> entre <span class="math inline">\(1\)</span> y <span class="math inline">\(k\)</span>.</li>
+<li>Seleccionar los elementos <span class="math inline">\(r,\; r+k,\; r+2k,\;\dots\)</span> hasta completar <span class="math inline">\(n\)</span> elementos.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Las fórmulas del tamaño de muestra son las mismas que las del MSA.</strong> Lo único que cambia es la forma en que seleccionamos a las unidades.</p>
+<p>Si <span class="math inline">\(k\)</span> es entero, la selección es sencilla. Si <span class="math inline">\(k\)</span> tiene decimales el procedimiento se vuelve algo más tedioso, pero sigue siendo directo.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sistemático-estimadores" class="slide level2">
+<h2>Sistemático: estimadores</h2>
+<div title="Solo para referencia">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solo para referencia</strong></p>
+</div>
+<div class="callout-content">
+<p>Como todas las unidades tienen la misma probabilidad de salir (<span class="math inline">\(\pi_k = n/N\)</span>), se utiliza <strong>el mismo estimador del MSA</strong>:</p>
+<p><span class="math display">\[\bar{y}_{sis} = \frac{1}{n}\sum_{i \in s} y_i\]</span></p>
+<p>Y la varianza se aproxima con la del MSA:</p>
+<p><span class="math display">\[\widehat{\operatorname{Var}}(\bar{y}_{sis}) \approx \frac{s^2}{n}\left(1-\frac{n}{N}\right)\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Decimos “se aproxima” porque solo existen <span class="math inline">\(k\)</span> muestras posibles y las unidades seleccionadas <strong>no son independientes</strong>. La aproximación funciona bien cuando la lista está en orden aleatorio respecto a la variable de interés.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-1-salto-entero" class="slide level2">
+<h2>Ejemplo 1: salto entero</h2>
+<p><strong>Ejemplo.</strong> Una empresa tiene 1 400 clientes y, tras los cálculos correspondientes, el tamaño de muestra resultó ser de 50 clientes.</p>
+<p><strong>Paso 1.</strong> Calcular el salto:</p>
+<p><span class="math display">\[k = \frac{N}{n} = \frac{1400}{50} = 28\]</span></p>
+<p><strong>Paso 2.</strong> Escoger un número aleatorio entre 1 y 28. Suponga que salió el <strong>12</strong> (el <em>arranque</em>).</p>
+<p><strong>Paso 3.</strong> Sumar el salto sucesivamente:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>1 (Arranque)</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th><span class="math inline">\(\cdots\)</span></th>
+<th>49</th>
+<th>50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unidad</td>
+<td>12</td>
+<td>40</td>
+<td>68</td>
+<td>96</td>
+<td><span class="math inline">\(\cdots\)</span></td>
+<td>1356</td>
+<td>1384</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\small 40 = 12 + 28 \qquad 68 = 40 + 28 \qquad 96 = 68 + 28 \qquad \dots \qquad 1384 = 1356 + 28\)</span></p>
+</section>
+<section id="ejemplo-1-en-r" class="slide level2">
+<h2>Ejemplo 1 en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a>N <span class="ot">&lt;-</span> <span class="dv">1400</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1-3"><a href="" aria-label="3"></a>k <span class="ot">&lt;-</span> N<span class="sc">/</span>n                              <span class="co"># salto</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a>k</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co"># Reproducimos el ejemplo con el arranque 12</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>r <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="co">#arranque</span></span>
+<span id="cb3-3"><a href="" aria-label="3"></a></span>
+<span id="cb3-4"><a href="" aria-label="4"></a>muestra <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> r, <span class="at">by =</span> k, <span class="at">length.out =</span> n)</span>
+<span id="cb3-5"><a href="" aria-label="5"></a><span class="fu">head</span>(muestra, <span class="dv">6</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  12  40  68  96 124 152</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a><span class="co"># En la práctica el arranque se sortea</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb5-3"><a href="" aria-label="3"></a></span>
+<span id="cb5-4"><a href="" aria-label="4"></a>r <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="" aria-label="5"></a>r  <span class="co">#arranque</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a><span class="fu">seq</span>(<span class="at">from =</span> r, <span class="at">by =</span> k, <span class="at">length.out =</span> n)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   25   53   81  109  137  165  193  221  249  277  305  333  361  389  417
+[16]  445  473  501  529  557  585  613  641  669  697  725  753  781  809  837
+[31]  865  893  921  949  977 1005 1033 1061 1089 1117 1145 1173 1201 1229 1257
+[46] 1285 1313 1341 1369 1397</code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-2-salto-fraccionario" class="slide level2">
+<h2>Ejemplo 2: salto fraccionario</h2>
+<p><strong>Ejemplo.</strong> Misma población de 1 400 clientes, pero ahora el tamaño de muestra resultó ser de 32 clientes.</p>
+<p><span class="math display">\[k = \frac{1400}{32} = 43.75\]</span></p>
+<div title="Procedimiento con decimales">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Procedimiento con decimales</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Multiplicar el salto por <strong>100</strong>: <span class="math inline">\(43.75 \times 100 = 4375\)</span>. (No siempre es 100, se multiplica por una expansión que elimine los decimales).</li>
+<li>Sortear un arranque entre <strong>100</strong> y 4375. Suponga que salió 3 266. (Entre la ampliación utilizada y el valor resultante de 1.)</li>
+<li>Ir sumando 4 375 sucesivamente.</li>
+<li>Dividir cada resultado entre 100.</li>
+<li>Truncar (no redondear) para obtener la unidad seleccionada.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-2-salto-fraccionario-1" class="slide level2">
+<h2>Ejemplo 2: salto fraccionario</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th>Iteración</th>
+<th>Resultado</th>
+<th><span class="math inline">\(/100\)</span></th>
+<th>Truncado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>3266</td>
+<td>3266</td>
+<td>32.66</td>
+<td><strong>32</strong></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>3266 + 4375</td>
+<td>7641</td>
+<td>76.41</td>
+<td><strong>76</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>7641 + 4375</td>
+<td>12016</td>
+<td>120.16</td>
+<td><strong>120</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>12016 + 4375</td>
+<td>16391</td>
+<td>163.91</td>
+<td><strong>163</strong></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>134516 + 4375</td>
+<td>138891</td>
+<td>1388.91</td>
+<td><strong>1388</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejemplo-2-en-r" class="slide level2">
+<h2>Ejemplo 2 en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a>N <span class="ot">&lt;-</span> <span class="dv">1400</span>; </span>
+<span id="cb9-2"><a href="" aria-label="2"></a>n <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb9-3"><a href="" aria-label="3"></a>k100 <span class="ot">&lt;-</span> (N<span class="sc">/</span>n) <span class="sc">*</span> <span class="dv">100</span>                   <span class="co"># 4375</span></span>
+<span id="cb9-4"><a href="" aria-label="4"></a>r <span class="ot">&lt;-</span> <span class="dv">3266</span>                             <span class="co"># arranque del ejemplo</span></span>
+<span id="cb9-5"><a href="" aria-label="5"></a><span class="co">#en la práctica el arranque se escoge de manera aleatoria</span></span>
+<span id="cb9-6"><a href="" aria-label="6"></a></span>
+<span id="cb9-7"><a href="" aria-label="7"></a>lista    <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> r, <span class="at">by =</span> k100, <span class="at">length.out =</span> n)</span>
+<span id="cb9-8"><a href="" aria-label="8"></a>unidades <span class="ot">&lt;-</span> <span class="fu">trunc</span>(lista<span class="sc">/</span><span class="dv">100</span>)          <span class="co"># dividir y truncar</span></span>
+<span id="cb9-9"><a href="" aria-label="9"></a></span>
+<span id="cb9-10"><a href="" aria-label="10"></a><span class="fu">data.frame</span>(<span class="at">iteracion =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">resultado =</span> lista,</span>
+<span id="cb9-11"><a href="" aria-label="11"></a>           <span class="at">entre_100 =</span> lista<span class="sc">/</span><span class="dv">100</span>, <span class="at">truncado =</span> unidades)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,] <span class="co">#primeros 10 elementos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   iteracion resultado entre_100 truncado
+1          1      3266     32.66       32
+2          2      7641     76.41       76
+3          3     12016    120.16      120
+4          4     16391    163.91      163
+5          5     20766    207.66      207
+6          6     25141    251.41      251
+7          7     29516    295.16      295
+8          8     33891    338.91      338
+9          9     38266    382.66      382
+10        10     42641    426.41      426</code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>El arranque se sortea entre <strong>100</strong> y 4 375 porque al dividir entre 100 debe caer dentro del intervalo <span class="math inline">\([1, k]\)</span>. Un valor menor a 100 daría la unidad 0, que no existe en el marco.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sistemático-cuidado-con-el-orden-del-marco" class="slide level2">
+<h2>Sistemático: cuidado con el orden del marco</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>El orden de la lista <strong>deja de ser un detalle administrativo y pasa a ser parte del diseño</strong>.</p>
+<p><strong>El caso clásico:</strong> un padrón ordenado por vivienda donde aparecen primero el esposo y luego la esposa. Si el salto <span class="math inline">\(k\)</span> es par, la muestra quedará compuesta solo por hombres o solo por mujeres.</p>
+</div>
+</div>
+</div>
+<div title="Tres escenarios">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tres escenarios</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>Orden aleatorio</strong> respecto a la variable de interés: equivalente al MSA.</li>
+<li><strong>Orden relacionado</strong> con la variable (clientes por monto de compra): la muestra recorre todo el rango y resulta más precisa que el MSA.</li>
+<li><strong>Orden con un patrón periódico</strong> que coincide con <span class="math inline">\(k\)</span>: produce <strong>sesgo de selección</strong>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Recomendación:</strong> Siempre es una buena práctica revisar el orden del marco antes de aplicar el diseño y, ante la duda, desordénelo aleatoriamente.</p>
+</section>
+<section id="sistemático-ventajas-y-desventajas" class="slide level2">
+<h2>Sistemático: ventajas y desventajas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Ventajas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Puede usarse cuando no se tiene una lista de los elementos: por ejemplo, escoger el tercero de cada cuatro clientes que llegan a un café.</p></li>
+<li><p>Produce una muestra proporcional a la población y con cobertura uniforme de toda la lista.</p></li>
+<li><p>Selección más rápida y sencilla que el MSA: basta un número aleatorio.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Desventajas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Desventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Las unidades seleccionadas no son independientes: con solo conocer el arranque y el espaciamiento se conoce toda la lista.</p></li>
+<li><p>Puede producir sesgos de selección si la población está ordenada bajo algún patrón.</p></li>
+<li><p>No existe fórmula insesgada para la varianza; se aproxima con la del MSA.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="muestreo-estratificado" class="slide level2">
+<h2>Muestreo Estratificado</h2>
+<h3 id="definición">Definición</h3>
+<blockquote>
+<p><em>Cuando una población se divide en grupos a partir de ciertas características, se aplica el muestreo aleatorio estratificado con el fin de garantizar que cada grupo se encuentre representado en la muestra. A los grupos también se les denomina <strong>estratos</strong>.</em> <span class="math inline">\(\small \text{(Lind y Marchal, 2012, p. 269)}\)</span></p>
+</blockquote>
+<div title="Procedimiento">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Procedimiento</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Dividir la población en estratos mutuamente excluyentes y homogéneos por dentro.</li>
+<li>Decidir cuántas unidades corresponden a cada estrato (la <em>afijación</em>).</li>
+<li>Seleccionar una muestra al azar dentro de cada estrato, de forma independiente.</li>
+<li>Ponderar los resultados de cada estrato y combinarlos.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Con <span class="math inline">\(N_h\)</span> el tamaño del estrato <span class="math inline">\(h\)</span>, el <strong>peso del estrato</strong> es <span class="math inline">\(W_h = N_h/N\)</span>, y se cumple <span class="math inline">\(\sum_h W_h = 1\)</span>.</p>
+</section>
+<section id="estratificado-estimadores" class="slide level2">
+<h2>Estratificado: estimadores</h2>
+<div title="Solo para referencia">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solo para referencia</strong></p>
+</div>
+<div class="callout-content">
+<p>La media estratificada es un <strong>promedio ponderado de los promedios de cada estrato</strong>:</p>
+<p><span class="math display">\[\bar{y}_{st} = \sum_{h=1}^{H} W_h\,\bar{y}_h = \frac{N_1\bar{y}_1 + N_2\bar{y}_2 + \dots + N_H\bar{y}_H}{N}\]</span></p>
+<p>Y su varianza suma lo que aporta cada estrato:</p>
+<p><span class="math display">\[\widehat{\operatorname{Var}}(\bar{y}_{st}) = \sum_{h=1}^{H} W_h^2\;\frac{s_h^2}{n_h}\left(1-\frac{n_h}{N_h}\right)\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Ponderar no es opcional.</strong> Si se calcula la media simple de todos los datos sin usar los <span class="math inline">\(W_h\)</span>, el estimador queda sesgado, salvo que la afijación haya sido exactamente proporcional.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="los-dos-tipos-de-afijación" class="slide level2">
+<h2>Los dos tipos de afijación</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Afijación proporcional</strong></p>
+<p>La muestra corresponde proporcionalmente al tamaño del estrato en la población:</p>
+<p><span class="math display">\[n_h = n\,\frac{N_h}{N} = n\,W_h\]</span></p>
+<p>Solo requiere conocer los tamaños <span class="math inline">\(N_h\)</span>.</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Afijación óptima (de Neyman)</strong></p>
+<p>Además del tamaño, considera la variabilidad dentro de cada estrato:</p>
+<p><span class="math display">\[n_h = n\,\frac{N_h\,\sigma_h}{\sum_{l} N_l\,\sigma_l}\]</span></p>
+<p>Requiere conocer o estimar los <span class="math inline">\(\sigma_h\)</span>.</p>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Si todos los estratos tuvieran la misma variabilidad, ambas afijaciones darían exactamente el mismo resultado.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="afijación-proporcional-ejemplo" class="slide level2">
+<h2>Afijación proporcional: ejemplo</h2>
+<p><strong>Ejemplo.</strong> Una empresa tiene 370 empleados repartidos en siete departamentos. Se desea seleccionar una muestra de 50 empleados.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Departamento</th>
+<th><span class="math inline">\(N_h\)</span></th>
+<th><span class="math inline">\(W_h\)</span></th>
+<th><span class="math inline">\(n_h = 50\,W_h\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gerencia</td>
+<td>65</td>
+<td>17.57% = (65/370)</td>
+<td>9 = (17.57%*50)</td>
+</tr>
+<tr class="even">
+<td>Recursos Humanos</td>
+<td>49</td>
+<td>13.24%</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>Cuentas por pagar</td>
+<td>59</td>
+<td>15.95%</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>Cuentas por cobrar</td>
+<td>60</td>
+<td>16.22%</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Auditoría</td>
+<td>53</td>
+<td>14.32%</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Producción</td>
+<td>22</td>
+<td>5.95%</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>Publicidad</td>
+<td>62</td>
+<td>16.76%</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><strong>TOTAL</strong></td>
+<td><strong>370</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>50</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\small \text{Por ejemplo: } 50 \times 17.57\% = 8.78 \approx 9 \text{ empleados de Gerencia.}\)</span></p>
+</section>
+<section id="afijación-proporcional-el-redondeo" class="slide level2">
+<h2>Afijación proporcional: el redondeo</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Para que la muestra global sea exacta, conviene usar el redondeo al más próximo. Lo habitual en otros contextos es redondear hacia arriba, pero entonces la suma de los <span class="math inline">\(n_h\)</span> supera a <span class="math inline">\(n\)</span>.</p>
+<p>Si tras redondear la suma no coincide con <span class="math inline">\(n\)</span>, se ajusta una unidad en el estrato más grande.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a>depto <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Gerencia"</span>,<span class="st">"Recursos Humanos"</span>,<span class="st">"Cuentas por pagar"</span>,</span>
+<span id="cb11-2"><a href="" aria-label="2"></a>           <span class="st">"Cuentas por cobrar"</span>,<span class="st">"Auditoría"</span>,<span class="st">"Producción"</span>,<span class="st">"Publicidad"</span>)</span>
+<span id="cb11-3"><a href="" aria-label="3"></a>Nh <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">49</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">53</span>, <span class="dv">22</span>, <span class="dv">62</span>)</span>
+<span id="cb11-4"><a href="" aria-label="4"></a></span>
+<span id="cb11-5"><a href="" aria-label="5"></a>N <span class="ot">&lt;-</span> <span class="fu">sum</span>(Nh); </span>
+<span id="cb11-6"><a href="" aria-label="6"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb11-7"><a href="" aria-label="7"></a>Wh <span class="ot">&lt;-</span> Nh<span class="sc">/</span>N</span>
+<span id="cb11-8"><a href="" aria-label="8"></a>nh <span class="ot">&lt;-</span> <span class="fu">round</span>(n<span class="sc">*</span>Wh)                      <span class="co"># redondeo al más próximo</span></span>
+<span id="cb11-9"><a href="" aria-label="9"></a></span>
+<span id="cb11-10"><a href="" aria-label="10"></a><span class="fu">data.frame</span>(depto, Nh, <span class="at">Wh =</span> <span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span>Wh, <span class="dv">2</span>), nh)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               depto Nh    Wh nh
+1           Gerencia 65 17.57  9
+2   Recursos Humanos 49 13.24  7
+3  Cuentas por pagar 59 15.95  8
+4 Cuentas por cobrar 60 16.22  8
+5          Auditoría 53 14.32  7
+6         Producción 22  5.95  3
+7         Publicidad 62 16.76  8</code></pre>
+</div>
+</div>
+</section>
+<section id="afijación-proporcional-el-diseño-es-equiprobable" class="slide level2">
+<h2>Afijación proporcional: el diseño es equiprobable</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a><span class="fu">round</span>(nh<span class="sc">/</span>Nh, <span class="dv">2</span>)        <span class="co"># probabilidad de selección dentro de cada estrato</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.14 0.14 0.14 0.13 0.13 0.14 0.13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="fu">round</span>(n<span class="sc">/</span>N,<span class="dv">2</span>)           <span class="co"># la misma para toda la población</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.14</code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Con afijación proporcional <strong>todas las unidades tienen la misma probabilidad de ser seleccionadas</strong>, igual que en el MSA. Por eso los pesos son constantes y el análisis posterior se simplifica.</p>
+<p>Las pequeñas diferencias que se observan se deben únicamente al redondeo de los <span class="math inline">\(n_h\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="afijación-óptima-ejemplo" class="slide level2">
+<h2>Afijación óptima: ejemplo</h2>
+<p><strong>Ejemplo.</strong> Una universidad está conformada por tres estratos: profesores, estudiantes y funcionarios administrativos, con <span class="math inline">\(N_1 = 2\,000\)</span>, <span class="math inline">\(N_2 = 20\,000\)</span> y <span class="math inline">\(N_3 = 3\,000\)</span>. Se necesita asignar una muestra de <span class="math inline">\(n = 512\)</span>. La variabilidad de la variable de interés es 10, 19 y 25 respectivamente.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 6%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estrato</th>
+<th><span class="math inline">\(h\)</span></th>
+<th><span class="math inline">\(N_h\)</span></th>
+<th><span class="math inline">\(\sigma_h\)</span></th>
+<th><span class="math inline">\(N_h \sigma_h\)</span></th>
+<th>%</th>
+<th><span class="math inline">\(n_h\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Profesores</td>
+<td>1</td>
+<td>2 000</td>
+<td>10</td>
+<td>20 000</td>
+<td>4%</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>Estudiantes</td>
+<td>2</td>
+<td>20 000</td>
+<td>19</td>
+<td>380 000</td>
+<td>80%</td>
+<td>410</td>
+</tr>
+<tr class="odd">
+<td>Funcionarios</td>
+<td>3</td>
+<td>3 000</td>
+<td>25</td>
+<td>75 000</td>
+<td>16%</td>
+<td>81</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>25 000</strong></td>
+<td></td>
+<td><strong>475 000</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>512</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\small 512 \times \dfrac{20\,000}{475\,000} = 512 \times 4.21\% = 21.6 \approx 22 \text{ profesores.}\)</span></p>
+</section>
+<section id="afijación-óptima-en-r" class="slide level2">
+<h2>Afijación óptima en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a>estrato <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Profesores"</span>, <span class="st">"Estudiantes"</span>, <span class="st">"Funcionarios"</span>)</span>
+<span id="cb17-2"><a href="" aria-label="2"></a>Nh <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">20000</span>, <span class="dv">3000</span>)</span>
+<span id="cb17-3"><a href="" aria-label="3"></a>sh <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">25</span>)</span>
+<span id="cb17-4"><a href="" aria-label="4"></a>n <span class="ot">&lt;-</span> <span class="dv">512</span></span>
+<span id="cb17-5"><a href="" aria-label="5"></a></span>
+<span id="cb17-6"><a href="" aria-label="6"></a>producto <span class="ot">&lt;-</span> Nh<span class="sc">*</span>sh</span>
+<span id="cb17-7"><a href="" aria-label="7"></a>nh_opt <span class="ot">&lt;-</span> <span class="fu">round</span>(n <span class="sc">*</span> producto<span class="sc">/</span><span class="fu">sum</span>(producto))</span>
+<span id="cb17-8"><a href="" aria-label="8"></a></span>
+<span id="cb17-9"><a href="" aria-label="9"></a><span class="fu">data.frame</span>(estrato, Nh, sh, <span class="at">Nh_sh =</span> producto,</span>
+<span id="cb17-10"><a href="" aria-label="10"></a>           <span class="at">pct =</span> <span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span>producto<span class="sc">/</span><span class="fu">sum</span>(producto), <span class="dv">2</span>), nh_opt)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       estrato    Nh sh  Nh_sh   pct nh_opt
+1   Profesores  2000 10  20000  4.21     22
+2  Estudiantes 20000 19 380000 80.00    410
+3 Funcionarios  3000 25  75000 15.79     81</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a><span class="fu">sum</span>(nh_opt)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 513</code></pre>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La suma da <strong>513</strong> y no 512: el redondeo agregó una unidad. En la práctica se resta esa unidad al estrato más grande (Estudiantes quedaría en 409).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="proporcional-vs-óptima-qué-cambia" class="slide level2">
+<h2>Proporcional vs óptima: ¿qué cambia?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a>nh_prop <span class="ot">&lt;-</span> <span class="fu">round</span>(n <span class="sc">*</span> Nh<span class="sc">/</span><span class="fu">sum</span>(Nh))        <span class="co"># afijación proporcional</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a></span>
+<span id="cb21-3"><a href="" aria-label="3"></a><span class="fu">data.frame</span>(estrato, Nh, sh, <span class="at">proporcional =</span> nh_prop, ó<span class="at">ptima =</span> nh_opt,</span>
+<span id="cb21-4"><a href="" aria-label="4"></a>           <span class="at">diferencia =</span> nh_opt <span class="sc">-</span> nh_prop)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       estrato    Nh sh proporcional óptima diferencia
+1   Profesores  2000 10           41     22        -19
+2  Estudiantes 20000 19          410    410          0
+3 Funcionarios  3000 25           61     81         20</code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Profesores pierde 19 unidades y Funcionarios gana 20.</strong> La razón es la variabilidad: con <span class="math inline">\(\sigma = 10\)</span> los profesores son muy homogéneos y pocas unidades bastan para estimarlos bien; con <span class="math inline">\(\sigma = 25\)</span> los funcionarios son el grupo más disperso y necesitan más muestra.</p>
+<p>Estudiantes no cambia porque su peso por tamaño (80%) coincide con su peso por tamaño y variabilidad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="estratificado-ventajas-y-desventajas" class="slide level2">
+<h2>Estratificado: ventajas y desventajas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Ventajas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Tiende a asegurar que la muestra represente adecuadamente a la población en función de las variables seleccionadas.</p></li>
+<li><p>Se obtienen estimaciones más precisas que con el MSA.</p></li>
+<li><p>Permite obtener estimaciones por estrato, no solo globales.</p></li>
+<li><p>Consigue una muestra lo más semejante posible a la población en cuanto a los estratos de interés.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Desventajas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Desventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Se debe conocer la distribución en la población de las variables utilizadas para estratificar.</p></li>
+<li><p>La afijación óptima exige además conocer o estimar los <span class="math inline">\(\sigma_h\)</span>.</p></li>
+<li><p>Es más complejo y costoso de implementar que el MSA.</p></li>
+<li><p>Unidades mal clasificadas o presentes en dos estratos rompen el diseño.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="para-qué-se-usa-el-estratificado" class="slide level2">
+<h2>¿Para qué se usa el estratificado?</h2>
+<div title="Usos típicos">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Usos típicos</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><strong>Garantizar subgrupos pequeños:</strong> si el 0.2% de la población son doctorados, el MSA puede dejarlos fuera; la estratificación los asegura.</p></li>
+<li><p><strong>Dar resultados por dominio:</strong> cuando se requieren estimaciones separadas por provincia, por sede o por tipo de empresa.</p></li>
+<li><p><strong>Usar distintos métodos de recolección:</strong> teléfono para unos estratos, visita presencial para otros.</p></li>
+<li><p><strong>Ganar precisión</strong> cuando la variable de interés difiere mucho entre grupos: ingreso por zona, producción por tamaño de finca.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="muestreo-por-conglomerados" class="slide level2">
+<h2>Muestreo por Conglomerados</h2>
+<h3 id="definición-1">Definición</h3>
+<p>En lugar de seleccionar elementos, se seleccionan <strong>grupos completos de elementos</strong> llamados <strong>conglomerados</strong>, definidos casi siempre por límites naturales o geográficos.</p>
+<div title="Procedimiento">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Procedimiento</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Dividir la población en <span class="math inline">\(M\)</span> conglomerados.</li>
+<li>Seleccionar al azar <span class="math inline">\(m\)</span> conglomerados.</li>
+<li>Observar todos los elementos de los conglomerados seleccionados.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>La idea clave:</strong> lo ideal es que cada conglomerado sea una representación, a pequeña escala, de la población. Si todos los conglomerados se parecen entre sí, basta tomar unos pocos para obtener una buena estimación.</p>
+<p>Es exactamente lo contrario de los estratos.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conglomerados-estimadores" class="slide level2">
+<h2>Conglomerados: estimadores</h2>
+<div title="Solo para referencia">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solo para referencia</strong></p>
+</div>
+<div class="callout-content">
+<p>Con conglomerados de tamaño aproximadamente igual, siendo <span class="math inline">\(\bar{y}_i\)</span> la media del conglomerado <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[\bar{y}_{cong} = \frac{1}{m}\sum_{i \in s} \bar{y}_i\]</span></p>
+<p><span class="math display">\[\widehat{\operatorname{Var}}(\bar{y}_{cong}) = \frac{s_b^2}{m}\left(1-\frac{m}{M}\right)\]</span></p>
+<p>donde <span class="math inline">\(s_b^2\)</span> es la varianza <strong>entre las medias</strong> de los conglomerados seleccionados.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La varianza depende de <span class="math inline">\(m\)</span>, el número de conglomerados, no del número total de elementos observados. Por eso se recomienda seleccionar <strong>20 conglomerados o más</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="estratos-vs-conglomerados" class="slide level2">
+<h2>Estratos vs Conglomerados</h2>
+<div title="La distinción más importante">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>La distinción más importante</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Estratificado</strong></th>
+<th><strong>Conglomerados</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Se muestrea</td>
+<td>dentro de cada grupo</td>
+<td>entre los grupos</td>
+</tr>
+<tr class="even">
+<td>Grupos en la muestra</td>
+<td>todos</td>
+<td>algunos</td>
+</tr>
+<tr class="odd">
+<td>Composición ideal</td>
+<td>homogéneos por dentro</td>
+<td>heterogéneos por dentro</td>
+</tr>
+<tr class="even">
+<td>Cada grupo es</td>
+<td>una población pequeña</td>
+<td>una “miniatura” de la población</td>
+</tr>
+<tr class="odd">
+<td>Efecto en la precisión</td>
+<td>la aumenta</td>
+<td>la reduce</td>
+</tr>
+<tr class="even">
+<td>Efecto en el costo</td>
+<td>lo mantiene o aumenta</td>
+<td>lo reduce mucho</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\small \text{Se estratifica por razones de PRECISIÓN; se conglomera por razones de COSTO.}\)</span></p>
+</section>
+<section id="conglomerados-ejemplo-a-mano" class="slide level2">
+<h2>Conglomerados: ejemplo a mano</h2>
+<p><strong>Ejemplo.</strong> Un distrito tiene <span class="math inline">\(M = 6\)</span> barrios con 5 viviendas cada uno. Se registra el número de personas por vivienda:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Barrio</th>
+<th>Viviendas</th>
+<th>Total</th>
+<th><span class="math inline">\(\bar{y}_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2, 3, 2, 3, 2</td>
+<td>12</td>
+<td>2.4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>5, 6, 5, 4, 5</td>
+<td>25</td>
+<td>5.0</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3, 2, 3, 4, 3</td>
+<td>15</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>7, 8, 7, 6, 7</td>
+<td>35</td>
+<td>7.0</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>4, 5, 4, 3, 4</td>
+<td>20</td>
+<td>4.0</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6, 5, 6, 7, 6</td>
+<td>30</td>
+<td>6.0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(N = 30\)</span> viviendas y <span class="math inline">\(\bar{Y} = 137/30 = 4.57\)</span> personas.</p>
+<p>Si se seleccionan los barrios <strong>2 y 5</strong>: <span class="math inline">\(\;\bar{y}_{cong} = \frac{5.0 + 4.0}{2} = 4.5\;\)</span></p>
+</section>
+<section id="conglomerados-ventajas-y-desventajas" class="slide level2">
+<h2>Conglomerados: ventajas y desventajas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Ventajas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Muy eficiente cuando la población es grande y dispersa.</p></li>
+<li><p><strong>No requiere un marco de todas las unidades</strong>: basta el listado de conglomerados, y solo se listan los seleccionados.</p></li>
+<li><p>El estudio de unidades que están juntas es logísticamente mucho más fácil y barato.</p></li>
+<li><p>Los conglomerados suelen existir de forma natural: viviendas, grupos de clase, bloques, aviones.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Desventajas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Desventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Es <strong>menos preciso que el muestreo simple al azar</strong> suponiendo un mismo tamaño de muestra.</p></li>
+<li><p>El cálculo del <strong>error estándar es más complejo</strong>.</p></li>
+<li><p>Conglomerados de tamaño desigual complican los estimadores.</p></li>
+<li><p>Se necesitan muchos conglomerados (20 o más) para que la estimación sea estable.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="muestreo-en-varias-etapas" class="slide level2">
+<h2>Muestreo en Varias Etapas</h2>
+<h3 id="definición-2">Definición</h3>
+<p>En la práctica casi nunca se observan todos los elementos del conglomerado: se toma una submuestra dentro de él. Eso da lugar al muestreo <strong>bietápico</strong> y, en general, <strong>polietápico</strong>.</p>
+<div title="Cómo funciona">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Cómo funciona</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Etapa 1:</strong> se seleccionan las <strong>unidades primarias de muestreo (UPM)</strong>, por ejemplo distritos o segmentos censales.</li>
+<li><strong>Etapa 2:</strong> dentro de cada UPM se seleccionan <strong>unidades secundarias</strong>, por ejemplo viviendas.</li>
+<li><strong>Etapa 3:</strong> dentro de cada vivienda puede seleccionarse una <strong>persona</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Nota</strong></p>
+</div>
+<div class="callout-content">
+<p>Cada etapa puede usar un diseño distinto: MSA en una, sistemático en otra, estratificación por encima de todo. A esa combinación se le llama muestreo complejo, y es el diseño real de prácticamente todas las encuestas nacionales.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="varias-etapas-probabilidad-de-inclusión" class="slide level2">
+<h2>Varias etapas: probabilidad de inclusión</h2>
+<div title="Solo para referencia">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solo para referencia</strong></p>
+</div>
+<div class="callout-content">
+<p>La probabilidad de que una unidad final entre en la muestra es el producto de las probabilidades de cada etapa:</p>
+<p><span class="math display">\[\pi_k = \pi^{(1)} \times \pi^{(2)} \times \pi^{(3)} \times \cdots\]</span></p>
+<p>y el peso de muestreo es su inverso, <span class="math inline">\(w_k = 1/\pi_k\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Cuando ese producto da el mismo valor para todas las unidades, el diseño se llama <strong>autoponderado</strong>: todos los pesos son iguales y el análisis se simplifica mucho. Los institutos de estadística diseñan sus encuestas buscando precisamente esa propiedad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="varias-etapas-ejemplo" class="slide level2">
+<h2>Varias etapas: ejemplo</h2>
+<p><strong>Ejemplo.</strong> Una encuesta nacional define el estrato <em>rural disperso</em> y aplica el siguiente diseño:</p>
+<div title="Diseño">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Diseño</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>Etapa 1:</strong> se seleccionan al azar <strong>7 distritos</strong> dentro del estrato (según la afijación proporcional).</li>
+<li><strong>Etapa 2:</strong> se seleccionan <strong>4 UPM</strong> con muestreo simple al azar en cada distrito.</li>
+<li><strong>Etapa 3:</strong> en cada UPM se seleccionan <strong>sistemáticamente 14 viviendas</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><strong>¿Cuántas viviendas se seleccionan en este estrato?</strong></p>
+<p><span class="math display">\[7 \times 4 \times 14 = 392 \text{ viviendas}\]</span></p>
+<p><strong>¿Cómo se llama este tipo de muestreo?</strong> Polietápico (de tres o más etapas).</p>
+</section>
+<section id="varias-etapas-ejemplo-1" class="slide level2">
+<h2>Varias etapas: ejemplo</h2>
+
+<img data-src="figs/MuestreoPPT.png" class="r-stretch quarto-figure-center"><p class="caption">Muestreo por Etapas</p><p>Si se tienen cuatro estratos (Urbano Central, Urbano Costero, Rural Central, Rural Costero ) y se seleccionan <strong>28, 15, 11 y 7 distritos</strong> respectivamente mediante afijación proporcional, y luego se aplica el mismo esquema. ¿Cuántas viviendas se tendrían que seleccionarían?</p>
+<p><span class="math display">\[(28 + 15 + 11 + 7) \times 4 \times 14 = 61 \times 56 = 3\,416 \text{ viviendas}\]</span></p>
+</section>
+<section id="varias-etapas-ventajas-y-desventajas" class="slide level2">
+<h2>Varias etapas: ventajas y desventajas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="Ventajas">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><strong>No requiere un marco completo</strong> desde el inicio: se construye por etapas, solo donde hace falta.</p></li>
+<li><p>Reduce mucho el costo de campo al concentrar geográficamente el trabajo.</p></li>
+<li><p>Permite combinar diseños: estratificar arriba, conglomerar en el medio, sistematizar abajo.</p></li>
+<li><p>Puede diseñarse para que resulte <strong>autoponderado</strong>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="Desventajas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Desventajas</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Se requiere un <strong>marco muestral en cada etapa</strong>.</p></li>
+<li><p>El error estándar es mayor que con MSA y su cálculo es considerablemente más complejo.</p></li>
+<li><p>Exige mayor planificación y control del trabajo de campo.</p></li>
+<li><p>El análisis debe incorporar el diseño: ignorarlo subestima los errores estándar.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="resumen-de-los-estimadores" class="slide level2">
+<h2>Resumen de los estimadores</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 36%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Diseño</th>
+<th>Media muestral</th>
+<th>Varianza estimada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Simple al azar</strong></td>
+<td><span class="math inline">\(\bar{y}_s = \frac{1}{n}\sum y_i\)</span></td>
+<td><span class="math inline">\(\frac{s^2}{n}\left(1-\frac{n}{N}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Sistemático</strong></td>
+<td><span class="math inline">\(\bar{y}_{sis} = \frac{1}{n}\sum y_i\)</span></td>
+<td>Se aproxima con la del MSA</td>
+</tr>
+<tr class="odd">
+<td><strong>Estratificado</strong></td>
+<td><span class="math inline">\(\bar{y}_{st} = \sum_h W_h \bar{y}_h\)</span></td>
+<td><span class="math inline">\(\sum_h W_h^2 \frac{s_h^2}{n_h}\left(1-\frac{n_h}{N_h}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Conglomerados</strong></td>
+<td><span class="math inline">\(\bar{y}_{cong} = \frac{1}{m}\sum_i \bar{y}_i\)</span></td>
+<td><span class="math inline">\(\frac{s_b^2}{m}\left(1-\frac{m}{M}\right)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Varias etapas</strong></td>
+<td>Promedio ponderado por <span class="math inline">\(w_k = 1/\pi_k\)</span></td>
+<td>Combina las etapas</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La <strong>estimación puntual</strong> es siempre un promedio. Lo que cambia por completo es la <strong>fórmula del error estándar</strong>.</p>
+<p>Aplicar la fórmula del MSA a una muestra por conglomerados subestima el error estándar: se concluye con más seguridad de la que los datos permiten.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-elegir-el-diseño" class="slide level2">
+<h2>¿Cómo elegir el diseño?</h2>
+<div title="Preguntas guía">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Preguntas guía</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p><strong>¿Existe un marco completo de las unidades?</strong> Si no, piense en conglomerados o en varias etapas.</p></li>
+<li><p><strong>¿Necesita resultados por subgrupo?</strong> Entonces estratifique.</p></li>
+<li><p><strong>¿Las unidades están dispersas geográficamente?</strong> El costo de campo empuja hacia conglomerados.</p></li>
+<li><p><strong>¿La lista tiene algún orden útil o peligroso?</strong> Eso decide si el sistemático ayuda o perjudica.</p></li>
+<li><p><strong>¿Conoce la variabilidad dentro de cada grupo?</strong> Solo entonces puede usar afijación óptima.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\small \text{En la práctica casi ninguna encuesta usa un solo diseño: se combinan según el marco disponible y el presupuesto.}\)</span></p>
+</section>
+<section id="ejercicios" class="slide level2 scrollable">
+<h2>Ejercicios</h2>
+<h4 id="resuelva-a-mano-y-verifique-en-r."><strong>Resuelva a mano y verifique en R.</strong></h4>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Ejercicio 1</a></li><li><a href="#tabset-1-2">Ejercicio 2</a></li><li><a href="#tabset-1-3">Ejercicio 3</a></li><li><a href="#tabset-1-4">Ejercicio 4</a></li><li><a href="#tabset-1-5">Ejercicio 5</a></li><li><a href="#tabset-1-6">Ejercicio 6</a></li><li><a href="#tabset-1-7">Ejercicio 7</a></li><li><a href="#tabset-1-8">Ejercicio 8</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p><strong>Sistemático con salto entero.</strong> Una empresa de servicios tiene 2 400 clientes y desea una muestra de 60.</p>
+<ol type="a">
+<li>Calcule el salto <span class="math inline">\(k\)</span>.</li>
+<li>Si el arranque sorteado fue 17, indique los primeros cinco clientes seleccionados y el último.</li>
+<li>¿Cuántas muestras distintas admite este diseño? Compárelo con el número de muestras posibles del MSA.</li>
+<li>Indique dos clientes que nunca podrán aparecer juntos en la muestra y explique por qué.</li>
+<li>Seleccione la muestra en R usando <code>set.seed(2026)</code> para sortear el arranque.</li>
+<li>Si la lista está ordenada por monto de compra anual, ¿el orden ayuda o perjudica a este diseño? Justifique.</li>
+</ol>
+</div>
+<div id="tabset-1-2">
+<p><strong>Sistemático con salto fraccionario.</strong> Un archivo contiene 1 850 expedientes y se desea una muestra de 40.</p>
+<ol type="a">
+<li>Calcule <span class="math inline">\(k\)</span> y verifique que no es entero.</li>
+<li>Multiplique <span class="math inline">\(k\)</span> por 100 e indique entre cuáles valores debe sortearse el arranque.</li>
+<li>Suponga que el arranque fue 1 310. Construya la tabla de las primeras cuatro iteraciones con las columnas: resultado, división entre 100 y truncado.</li>
+<li>Determine el último expediente seleccionado y verifique que no supera 1 850.</li>
+<li>Programe el procedimiento en R y compruebe que se obtienen 40 unidades distintas.</li>
+<li>Explique por qué el arranque no puede ser menor que 100.</li>
+</ol>
+</div>
+<div id="tabset-1-3">
+<p><strong>Afijación proporcional.</strong> Se quiere hacer un estudio de las tres universidades públicas con más estudiantes del país (UCR, UNA y TEC) para conocer la percepción sobre las decisiones que ha tomado CONARE en el último año. Se desea obtener estimaciones por cada universidad y se requiere una muestra de 300 estudiantes. Se sabe que en el TEC se encuentra una quinta parte de la población y en la UNA una tercera parte.</p>
+<ol type="a">
+<li>¿Qué fracción de la población corresponde a la UCR?</li>
+<li>¿Cuánta muestra le corresponde a cada universidad según la afijación proporcional?</li>
+<li>Si la población aproximada es de 75 000 estudiantes entre las tres, ¿cuál es la población aproximada de cada una?</li>
+<li>Verifique que el diseño resulta equiprobable calculando <span class="math inline">\(n_h/N_h\)</span> en cada universidad.</li>
+<li>Programe el cálculo en R.</li>
+<li>¿Por qué en este estudio no sería adecuado un muestreo simple al azar?</li>
+</ol>
+</div>
+<div id="tabset-1-4">
+<p><strong>Afijación proporcional y óptima.</strong> En un residencial construido en cuatro etapas, que actualmente consta de 10 000 habitantes, se quiere analizar la edad de los habitantes de cada etapa. La administración realizó una encuesta a una muestra estratificada de 500 personas. Se sabe que la etapa I tiene 1 000 habitantes, la etapa III tiene 2 000 y los habitantes de la etapa IV representan el 40% del total.</p>
+<ol type="a">
+<li>Determine la población de la etapa II.</li>
+<li>Calcule <span class="math inline">\(W_h\)</span> y el tamaño de muestra de cada estrato con afijación proporcional.</li>
+<li>Verifique que <span class="math inline">\(\sum n_h = 500\)</span>.</li>
+<li>Suponga ahora que las desviaciones estándar de la edad en cada etapa son 12, 18, 9 y 15 años. Calcule la afijación óptima.</li>
+<li>Compare ambas afijaciones: ¿cuál estrato gana unidades y cuál las pierde? Explique a qué se debe.</li>
+<li>Si las cuatro etapas tuvieran la misma desviación estándar, ¿qué ocurriría con la afijación óptima?</li>
+</ol>
+</div>
+<div id="tabset-1-5">
+<p><strong>Conglomerados.</strong> Un distrito tiene <span class="math inline">\(M = 8\)</span> condominios con 6 viviendas cada uno. El número de personas por vivienda es:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Condominio</th>
+<th>Viviendas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2, 3, 2, 3, 2, 4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>5, 6, 5, 4, 5, 5</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3, 2, 3, 4, 3, 3</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>7, 8, 7, 6, 7, 7</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>4, 5, 4, 3, 4, 4</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6, 5, 6, 7, 6, 6</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2, 2, 3, 2, 3, 2</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8, 7, 8, 9, 8, 8</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Calcule <span class="math inline">\(N\)</span>, el total poblacional, <span class="math inline">\(\bar{Y}\)</span> y la media de cada condominio.</li>
+<li>Se seleccionan <span class="math inline">\(m = 2\)</span> condominios al azar. Si salen el 3 y el 6, estime la media.</li>
+<li>Enumere en R todas las muestras posibles de <span class="math inline">\(m = 2\)</span> y verifique que el estimador es insesgado.</li>
+<li>¿Son estos conglomerados adecuados? Observe qué tan parecidas son las viviendas dentro de cada condominio y justifique.</li>
+<li>Proponga una forma de reagrupar las 48 viviendas en 8 conglomerados que resulte más eficiente, y explique su criterio.</li>
+</ol>
+</div>
+<div id="tabset-1-6">
+<p><strong>Muestreo en varias etapas.</strong> Una encuesta nacional aplica en el estrato rural disperso el siguiente diseño: en la etapa 1 se seleccionan 7 distritos; en la etapa 2, 4 UPM por distrito mediante MSA; y en la etapa 3, 14 viviendas por UPM mediante muestreo sistemático.</p>
+<ol type="a">
+<li>¿Cuántas viviendas se seleccionan en este estrato?</li>
+<li>¿Cómo se denomina este tipo de muestreo?</li>
+<li>Si en los otros tres estratos se seleccionan 28, 15 y 11 distritos con el mismo esquema, ¿cuántas viviendas tiene la muestra total?</li>
+<li>Si el estrato rural disperso tiene 40 distritos, cada distrito 12 UPM y cada UPM 70 viviendas, calcule la probabilidad de inclusión de una vivienda y su peso de muestreo.</li>
+<li>Verifique si el diseño es autoponderado comparando <span class="math inline">\(\pi_k\)</span> con <span class="math inline">\(n/N\)</span>.</li>
+<li>Indique cuáles marcos muestrales hicieron falta y cuáles no fue necesario construir.</li>
+</ol>
+</div>
+<div id="tabset-1-7">
+<p><strong>Conceptos.</strong></p>
+<p><strong>Parte A. Falso o verdadero.</strong> Indique si cada afirmación es falsa o verdadera y justifique en una o dos líneas.</p>
+<ol type="1">
+<li>En el muestreo sistemático el arranque se sortea entre 1 y <span class="math inline">\(N\)</span>.</li>
+<li>El muestreo sistemático siempre requiere una lista completa de la población.</li>
+<li>Con afijación proporcional el muestreo estratificado resulta equiprobable.</li>
+<li>La afijación óptima siempre asigna más unidades al estrato más grande.</li>
+<li>Si todos los estratos tuvieran la misma desviación estándar, la afijación óptima coincidiría con la proporcional.</li>
+<li>El muestreo por conglomerados es más preciso que el MSA con el mismo tamaño de muestra.</li>
+<li>En el muestreo por conglomerados conviene que las unidades dentro de cada conglomerado se parezcan mucho entre sí.</li>
+<li>El muestreo en varias etapas exige el marco completo de las unidades finales desde el inicio.</li>
+<li>En un diseño polietápico la probabilidad de inclusión es el producto de las probabilidades de cada etapa.</li>
+<li>Si el marco está ordenado según una variable relacionada con la de interés, el muestreo sistemático tiende a ser más preciso que el MSA.</li>
+</ol>
+<p><strong>Parte B. Respuesta corta.</strong></p>
+<ol start="11" type="1">
+<li>¿Por qué en el muestreo sistemático con salto fraccionario se trunca en lugar de redondear?</li>
+<li>Explique con sus palabras por qué la media estratificada debe ponderarse.</li>
+<li>¿Qué significa que un diseño sea autoponderado?</li>
+<li>Un conglomerado y un estrato pueden estar formados por los mismos grupos. ¿Qué los diferencia entonces?</li>
+<li>¿Por qué se recomienda seleccionar 20 conglomerados o más?</li>
+</ol>
+</div>
+<div id="tabset-1-8">
+<p><strong>Utilice R.</strong> Utilice los conjuntos de datos que vienen instalados con R.</p>
+<p><strong>Parte A. Estratificado con <code>iris</code> (150 flores, 3 especies de 50).</strong></p>
+<ol type="a">
+<li>Calcule la media poblacional de <code>Sepal.Length</code> y la media de cada especie.</li>
+<li>Con <span class="math inline">\(n = 30\)</span> y afijación proporcional, determine <span class="math inline">\(n_h\)</span>, seleccione la muestra y estime <span class="math inline">\(\bar{y}_{st}\)</span>. Compare con el parámetro.</li>
+<li>Seleccione ahora un MSA de <span class="math inline">\(n = 30\)</span> y compare ambas estimaciones.</li>
+<li>Simule 1 000 muestras de cada diseño y compare las varianzas empíricas de las estimaciones. ¿Cuál resultó más preciso y por qué?</li>
+</ol>
+<p><strong>Parte B. Sistemático con <code>quakes</code> (1 000 sismos).</strong></p>
+<ol start="5" type="a">
+<li>Calcule la media poblacional de <code>mag</code>. Determine <span class="math inline">\(k\)</span> para <span class="math inline">\(n = 50\)</span>, sortee el arranque y estime la media.</li>
+<li>Calcule las <span class="math inline">\(k\)</span> medias correspondientes a todos los arranques posibles. ¿Qué tan dispersas resultan?</li>
+<li>Ordene la base por <code>mag</code> y repita el inciso f.&nbsp;¿Qué cambió y por qué?</li>
+</ol>
+<p><strong>Parte C. Conglomerados con <code>ChickWeight</code>.</strong></p>
+<ol start="8" type="a">
+<li>Trate cada pollo (<code>Chick</code>) como un conglomerado. ¿Cuántos conglomerados hay y de qué tamaño?</li>
+<li>Seleccione 10 pollos al azar, observe todas sus mediciones y estime el peso promedio. Compare con la media poblacional.</li>
+<li>Seleccione un MSA con el mismo número de observaciones y compare ambas estimaciones.</li>
+<li>Repita 500 veces los incisos i y j, y compare las varianzas empíricas. Comente el resultado a la luz de lo visto en clase.</li>
+</ol>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="XS-1130_10_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="XS-1130_10_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="XS-1130_10_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="XS-1130_10_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"right","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"wide","numbers":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
