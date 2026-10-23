@@ -30,4 +30,4 @@ verificación de hipótesis y su aplicación
 | Muestreo Probabilístico - Parte 2                                                     | [Clase 9](XS-1130_09.html)    |  [Datos: Marco Muestral](https://christopher-tr.github.io/XS-1130-Principios-de-Inferencia/marco_muestral.Rdata)   |
 | Muestreo Probabilístico - Parte 3                                                     | [Clase 10](XS-1130_10.html)   |    |
 | Estimación - Parte 1                                                                  | [Clase 11](XS-1130_11.html)   |  Tema 4 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
-| Estimación - Parte 2                                                                  | [Clase 11](XS-1130_12.html)   |    |
+| Estimación - Parte 2                                                                  | [Clase 12](XS-1130_12.html)   |    |
