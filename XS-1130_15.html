@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="XS-1130_15_files/libs/clipboard/clipboard.min.js"></script>
+<script src="XS-1130_15_files/libs/quarto-html/tabby.min.js"></script>
+<script src="XS-1130_15_files/libs/quarto-html/popper.min.js"></script>
+<script src="XS-1130_15_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="XS-1130_15_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="XS-1130_15_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="XS-1130_15_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Christopher Torres Rojas">
+  <title>Contraste de Hipótesis Parte 2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="XS-1130_15_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="XS-1130_15_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="XS-1130_15_files/libs/revealjs/dist/theme/quarto-9eb768afb8c6a1b6b3ca03240ed62dd7.css">
+  <link href="XS-1130_15_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="XS-1130_15_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="XS-1130_15_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="XS-1130_15_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Contraste de Hipótesis Parte 2</h1>
+  <p class="subtitle">[XS-1130 Principios de Inferencia]</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://christopher-tr.github.io/">Christopher Torres Rojas</a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:christopher.torres@ucr.ac.cr">christopher.torres@ucr.ac.cr</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.estadistica.ucr.ac.cr/">
+            Escuela de Estadística, Universidad de Costa Rica
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="esquema-de-una-hipótesis-estadística" class="slide level2">
+<h2>Esquema de una hipótesis estadística</h2>
+<video data-autoplay="" loop="" muted="" playsinline="" style="width: 100%;">
+<source src="img/prueba_hipotesis_espacios.mp4" type="video/mp4">
+</video>
+</section>
+<section id="contraste-de-hipótesis-para-la-media" class="slide level2">
+<h2>Contraste de hipótesis para la media</h2>
+<p>Las hipótesis son siempre una de estas tres:</p>
+<p><span class="math display">\[H_0: \mu = \mu_0 \qquad\text{contra}\qquad H_1: \mu &lt; \mu_0 \;\;\text{ó}\;\; H_1: \mu &gt; \mu_0 \;\;\text{ó}\;\; H_1: \mu \neq \mu_0\]</span></p>
+<p>y el estadístico tiene siempre la misma estructura:</p>
+<p><span class="math display">\[\text{estadístico} = \frac{\bar x - \mu_0}{ee(\bar x)}\]</span></p>
+<p>Lo único que cambia es cuál error estándar y cuál distribución de referencia corresponden. Es el mismo árbol de decisión que se usó para los intervalos de confianza.</p>
+</section>
+<section id="los-casos-de-la-media" class="slide level2">
+<h2>Los casos de la media</h2>
+<div title="Árbol de decisión">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Árbol de decisión</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situación</th>
+<th>Estadístico</th>
+<th>Distribución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Población normal, <span class="math inline">\(\sigma\)</span> conocida (cualquier <span class="math inline">\(n\)</span>)</td>
+<td><span class="math inline">\(z_c = \dfrac{\bar x - \mu_0}{\sigma/\sqrt n}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="even">
+<td>Población cualquiera, <span class="math inline">\(n &gt; 30\)</span>, <span class="math inline">\(\sigma\)</span> conocida</td>
+<td><span class="math inline">\(z_c = \dfrac{\bar x - \mu_0}{\sigma/\sqrt n}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Población cualquiera, <span class="math inline">\(n &gt; 30\)</span>, <span class="math inline">\(\sigma\)</span> desconocida</td>
+<td><span class="math inline">\(z_c = \dfrac{\bar x - \mu_0}{s/\sqrt n}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="even">
+<td>Población normal, <span class="math inline">\(n \le 30\)</span>, <span class="math inline">\(\sigma\)</span> desconocida</td>
+<td><span class="math inline">\(t_c = \dfrac{\bar x - \mu_0}{s/\sqrt n}\)</span></td>
+<td><span class="math inline">\(t_{n-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-1-σ-conocida" class="slide level2">
+<h2>Caso 1: σ conocida</h2>
+<p><span class="math display">\[z_c = \frac{\bar x - \mu_0}{\sigma/\sqrt{n}}\]</span></p>
+<p><strong>Ejemplo 5.</strong> Una empresa productora de sopas afirma que el contenido promedio de sodio por porción es de 600 mg. Un grupo de tecnólogos en alimentos sospecha que es mayor. Se toma una muestra aleatoria de 64 porciones y se obtiene un promedio de 612 mg. Por estudios anteriores se sabe que <span class="math inline">\(\sigma = 32\)</span> mg. Trabaje con <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong>Solución paso a paso.</strong></p>
+<ol type="1">
+<li><p>Hipótesis: <span class="math inline">\(H_0: \mu = 600\)</span> contra <span class="math inline">\(H_1: \mu &gt; 600\)</span>, unilateral derecha</p></li>
+<li><p>Error estándar: <span class="math inline">\(ee(\bar x) = \dfrac{\sigma}{\sqrt n} = \dfrac{32}{\sqrt{64}} = \dfrac{32}{8} = 4\)</span></p></li>
+<li><p>Estadístico: <span class="math inline">\(z_c = \dfrac{612 - 600}{4} = \dfrac{12}{4} = 3.00\)</span></p></li>
+</ol>
+</section>
+<section id="ejemplo-5-decisión-rechazar-los-tres-criterios" class="slide level2">
+<h2>Ejemplo 5: Decisión Rechazar (Los tres criterios)</h2>
+<ol start="4" type="1">
+<li><p>Valor crítico: <span class="math inline">\(z_{0.95} = 1.6449\)</span>. Como <span class="math inline">\(z_c = 3.00 &gt; 1.6449\)</span>, el estadístico cae en la región de rechazo.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">qnorm</span>(<span class="fl">0.95</span>) <span class="co">#Si H1 es "&gt;" (MAYOR) se usa el cuantil de 1-alpha</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.644854</code></pre>
+</div>
+</div></li>
+<li><p>Valor p: <span class="math inline">\(p = P(Z \ge 3.00) = 0.00135\)</span>. Como <span class="math inline">\(0.00135 &lt; 0.05\)</span>, se rechaza.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="co">#Si H1 es "&gt;" (MAYOR) se usa FALSE</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.001349898</code></pre>
+</div>
+</div></li>
+<li><p>Intervalo: el intervalo unilateral inferior del 95% no contiene al valor de 600.</p>
+<p><span class="math display">\[
+[\bar{x}-z_{0.95}\cdot ee_{\bar{x}} \quad , \quad \infty) \quad = \quad [605.42 \quad,\quad \infty)
+\]</span></p></li>
+</ol>
+<div title="Conclusión">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusión</strong></p>
+</div>
+<div class="callout-content">
+<p>Con un nivel de significancia del 5% hay suficiente evidencia estadística para rechazar la hipótesis nula de que el contenido promedio de sodio es de 600 mg. Se concluye que el contenido promedio es mayor al declarado por la empresa.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-5-en-r" class="slide level2">
+<h2>Ejemplo 5 en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>xbar <span class="ot">&lt;-</span> <span class="dv">612</span>; </span>
+<span id="cb5-2"><a href="" aria-label="2"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">600</span>; </span>
+<span id="cb5-3"><a href="" aria-label="3"></a>sigma <span class="ot">&lt;-</span> <span class="dv">32</span>; </span>
+<span id="cb5-4"><a href="" aria-label="4"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span>; </span>
+<span id="cb5-5"><a href="" aria-label="5"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb5-6"><a href="" aria-label="6"></a></span>
+<span id="cb5-7"><a href="" aria-label="7"></a>ee <span class="ot">&lt;-</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)                       <span class="co"># error estándar</span></span>
+<span id="cb5-8"><a href="" aria-label="8"></a>zc <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> mu0)<span class="sc">/</span>ee                     <span class="co"># estadístico de prueba</span></span>
+<span id="cb5-9"><a href="" aria-label="9"></a>z_critico <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha)             <span class="co"># unilateral derecha</span></span>
+<span id="cb5-10"><a href="" aria-label="10"></a>valor_p   <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(zc, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-11"><a href="" aria-label="11"></a></span>
+<span id="cb5-12"><a href="" aria-label="12"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">ee =</span> ee, <span class="at">z_calculado =</span> zc,</span>
+<span id="cb5-13"><a href="" aria-label="13"></a>        <span class="at">z_critico =</span> z_critico, <span class="at">valor_p =</span> valor_p), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         ee z_calculado   z_critico     valor_p 
+    4.00000     3.00000     1.64485     0.00135 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a><span class="co"># La decisión, escrita como una comparación</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a><span class="fu">ifelse</span>(valor_p <span class="sc">&lt;</span> alpha, <span class="st">"Se rechaza H0"</span>, <span class="st">"No se rechaza H0"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Se rechaza H0"</code></pre>
+</div>
+</div>
+<p>R no tiene una función para la prueba z con <span class="math inline">\(\sigma\)</span> conocida: ese caso se programa a mano, como aquí.</p>
+<p>Las función <code>t.test</code> cubre los casos en que <span class="math inline">\(\sigma\)</span> es desconocida.</p>
+</section>
+<section id="ejercicio-en-clase-2" class="slide level2">
+<h2>Ejercicio en clase 2</h2>
+<div title="Para resolver ahora">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Para resolver ahora</strong></p>
+</div>
+<div class="callout-content">
+<p>Una planta embotelladora llena botellas cuyo contenido debe ser de 500 ml. Por calibración del equipo se sabe que la desviación estándar del proceso es de 8 ml. Una inspección toma una muestra aleatoria de 36 botellas y obtiene un contenido promedio de 497.2 ml. Se sospecha que la máquina está llenando de menos. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Plantee las hipótesis e indique si el contraste es unilateral o bilateral.</li>
+<li>Calcule el error estándar y el estadístico de prueba.</li>
+<li>Obtenga el valor crítico y dibuje la región de rechazo.</li>
+<li>Calcule el valor p.</li>
+<li>Tome la decisión por los dos criterios y verifique que coinciden.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Verifique el resultado en R.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-2-σ-desconocida-y-n-30" class="slide level2">
+<h2>Caso 2: σ desconocida y n &gt; 30</h2>
+<p>Cuando la muestra es grande, <span class="math inline">\(s\)</span> estima bien a <span class="math inline">\(\sigma\)</span> y el TLC permite seguir usando la normal.</p>
+<p><span class="math display">\[z_c = \frac{\bar x - \mu_0}{s/\sqrt{n}}\]</span></p>
+<p><strong>Ejemplo 6.</strong> La norma de atención de una clínica establece que el tiempo promedio de consulta es de 15 minutos. Una auditoría toma una muestra aleatoria de 50 consultas y encuentra un promedio de 14.2 minutos con una desviación estándar muestral de 3.5 minutos. ¿Hay evidencia de que el tiempo promedio sea menor al establecido? Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+</section>
+<section id="ejemplo-6-solución-a-mano" class="slide level2">
+<h2>Ejemplo 6: solución a mano</h2>
+<ol type="1">
+<li><p>Hipótesis: <span class="math inline">\(H_0: \mu = 15\)</span> contra <span class="math inline">\(H_1: \mu &lt; 15\)</span></p></li>
+<li><p>Error estándar: <span class="math inline">\(ee(\bar x) = \dfrac{s}{\sqrt n} = \dfrac{3.5}{\sqrt{50}} = \dfrac{3.5}{7.0711} = 0.4950\)</span></p></li>
+<li><p>Estadístico: <span class="math inline">\(z_c = \dfrac{14.2 - 15}{0.4950} = \dfrac{-0.8}{0.4950} = -1.6162\)</span></p></li>
+<li><p>Valor crítico: <span class="math inline">\(-z_{0.95} = -1.6449\)</span>. Como <span class="math inline">\(-1.6162 &gt; -1.6449\)</span>, no cae en la región de rechazo.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>) <span class="co">#Si H1 es "&lt;" (MENOR) se usa el cuantil de alpha</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.644854</code></pre>
+</div>
+</div></li>
+<li><p>Valor p: <span class="math inline">\(p = P(Z \le -1.6162) = 0.0530\)</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.6162</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="co">#Si H1 es "&lt;" (MENOR) se usa TRUE</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05302554</code></pre>
+</div>
+</div></li>
+<li><p>Decisión: <span class="math inline">\(p = 0.0530 &gt; 0.05\)</span>, no se rechaza <span class="math inline">\(H_0\)</span>.</p></li>
+</ol>
+</section>
+<section id="ejemplo-6-en-r" class="slide level2">
+<h2>Ejemplo 6 en R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">14.2</span>; </span>
+<span id="cb13-2"><a href="" aria-label="2"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">15</span>; </span>
+<span id="cb13-3"><a href="" aria-label="3"></a>s <span class="ot">&lt;-</span> <span class="fl">3.5</span>; </span>
+<span id="cb13-4"><a href="" aria-label="4"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span>; </span>
+<span id="cb13-5"><a href="" aria-label="5"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb13-6"><a href="" aria-label="6"></a></span>
+<span id="cb13-7"><a href="" aria-label="7"></a>ee <span class="ot">&lt;-</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb13-8"><a href="" aria-label="8"></a>zc <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> mu0)<span class="sc">/</span>ee</span>
+<span id="cb13-9"><a href="" aria-label="9"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">ee =</span> ee, <span class="at">z_calculado =</span> zc, <span class="at">z_critico =</span> <span class="sc">-</span><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha),</span>
+<span id="cb13-10"><a href="" aria-label="10"></a>        <span class="at">valor_p =</span> <span class="fu">pnorm</span>(zc)), <span class="dv">6</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         ee z_calculado   z_critico     valor_p 
+   0.494975   -1.616244   -1.644854    0.053021 </code></pre>
+</div>
+</div>
+<div title="Conclusión">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusión</strong></p>
+</div>
+<div class="callout-content">
+<p>Con un nivel de significancia del 5% no hay suficiente evidencia estadística para rechazar la hipótesis nula de que el tiempo promedio de consulta es de 15 minutos.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>El valor p es 0.0530 y <span class="math inline">\(\alpha\)</span> es 0.05: la decisión se decide por tres milésimas. Si se hubiera fijado <span class="math inline">\(\alpha = 0.10\)</span> la conclusión habría sido la contraria.</p>
+<p>Esto es exactamente por qué <span class="math inline">\(\alpha\)</span> se fija antes de ver los datos, y por qué conviene reportar el valor p y no solo la palabra significativo. Un resultado así no es evidencia fuerte a favor de <span class="math inline">\(H_0\)</span>: es un resultado al borde.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-3-σ-desconocida-y-n-30" class="slide level2">
+<h2>Caso 3: σ desconocida y n ≤ 30</h2>
+<p><span class="math display">\[t_c = \frac{\bar x - \mu_0}{s/\sqrt{n}} \qquad\text{con } gl = n-1\]</span></p>
+<p>Requiere que la población sea aproximadamente normal.</p>
+<p><strong>Ejemplo 7.</strong> Un fabricante afirma que su pintura seca en 6 horas en promedio. Un laboratorio independiente sospecha que tarda más y mide el tiempo de secado, en horas, en 14 aplicaciones:</p>
+<p><span class="math display">\[6.4,\; 5.9,\; 7.1,\; 6.8,\; 5.6,\; 6.9,\; 7.3,\; 6.2,\; 6.6,\; 7.0,\; 5.8,\; 6.7,\; 7.2,\; 6.5\]</span></p>
+<p>De esa muestra se obtiene <span class="math inline">\(\bar x = 6.5714\)</span> y <span class="math inline">\(s = 0.5355\)</span>. Trabaje con <span class="math inline">\(\alpha = 0.05\)</span> y suponga normalidad.</p>
+</section>
+<section id="ejemplo-7-solución-a-mano" class="slide level2">
+<h2>Ejemplo 7: solución a mano</h2>
+<ol type="1">
+<li><p>Hipótesis: <span class="math inline">\(H_0: \mu = 6\)</span> contra <span class="math inline">\(H_1: \mu &gt; 6\)</span></p></li>
+<li><p>Grados de libertad: <span class="math inline">\(gl = n - 1 = 13\)</span></p></li>
+<li><p>Error estándar: <span class="math inline">\(ee(\bar x) = \dfrac{s}{\sqrt n} = \dfrac{0.5355}{\sqrt{14}} = \dfrac{0.5355}{3.7417} = 0.1431\)</span></p></li>
+<li><p>Estadístico: <span class="math inline">\(t_c = \dfrac{6.5714 - 6}{0.1431} = \dfrac{0.5714}{0.1431} = 3.9923\)</span></p></li>
+<li><p>Valor crítico: <span class="math inline">\(t_{0.95,\,13} = 1.7709\)</span>. Como <span class="math inline">\(3.9923 &gt; 1.7709\)</span>, se rechaza.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="fu">qt</span>(<span class="dv">1</span><span class="fl">-0.05</span>, <span class="at">df =</span> <span class="dv">13</span>) <span class="co">#Si H1 es "&gt;" (MAYOR) se usa el cuantil de 1-alpha</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.770933</code></pre>
+</div>
+</div></li>
+<li><p>Valor p: <span class="math inline">\(p = P(T_{13} \ge 3.9923) = 0.00077\)</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">pt</span>(<span class="fl">3.9923</span>, <span class="at">df =</span> <span class="dv">13</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="co">#Si H1 es "&gt;" (MAYOR) se usa FALSE</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0007670832</code></pre>
+</div>
+</div></li>
+</ol>
+</section>
+<section id="ejemplo-7-en-r-paso-a-paso" class="slide level2">
+<h2>Ejemplo 7 en R, paso a paso</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a>secado <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.4</span>, <span class="fl">5.9</span>, <span class="fl">7.1</span>, <span class="fl">6.8</span>, <span class="fl">5.6</span>, <span class="fl">6.9</span>, <span class="fl">7.3</span>, <span class="fl">6.2</span>,</span>
+<span id="cb19-2"><a href="" aria-label="2"></a>            <span class="fl">6.6</span>, <span class="fl">7.0</span>, <span class="fl">5.8</span>, <span class="fl">6.7</span>, <span class="fl">7.2</span>, <span class="fl">6.5</span>)</span>
+<span id="cb19-3"><a href="" aria-label="3"></a></span>
+<span id="cb19-4"><a href="" aria-label="4"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">6</span>; </span>
+<span id="cb19-5"><a href="" aria-label="5"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb19-6"><a href="" aria-label="6"></a></span>
+<span id="cb19-7"><a href="" aria-label="7"></a>n  <span class="ot">&lt;-</span> <span class="fu">length</span>(secado)</span>
+<span id="cb19-8"><a href="" aria-label="8"></a>gl <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb19-9"><a href="" aria-label="9"></a>ee <span class="ot">&lt;-</span> <span class="fu">sd</span>(secado)<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb19-10"><a href="" aria-label="10"></a>tc <span class="ot">&lt;-</span> (<span class="fu">mean</span>(secado) <span class="sc">-</span> mu0)<span class="sc">/</span>ee</span>
+<span id="cb19-11"><a href="" aria-label="11"></a></span>
+<span id="cb19-12"><a href="" aria-label="12"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">n =</span> n, <span class="at">xbar =</span> <span class="fu">mean</span>(secado), <span class="at">s =</span> <span class="fu">sd</span>(secado), <span class="at">ee =</span> ee,</span>
+<span id="cb19-13"><a href="" aria-label="13"></a>        <span class="at">t_calculado =</span> tc, <span class="at">t_critico =</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, gl),</span>
+<span id="cb19-14"><a href="" aria-label="14"></a>        <span class="at">valor_p =</span> <span class="fu">pt</span>(tc, gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          n        xbar           s          ee t_calculado   t_critico 
+   14.00000     6.57143     0.53555     0.14313     3.99233     1.77093 
+    valor_p 
+    0.00077 </code></pre>
+</div>
+</div>
+<div title="Conclusión">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusión</strong></p>
+</div>
+<div class="callout-content">
+<p>Con un nivel de significancia del 5% hay suficiente evidencia estadística para rechazar la hipótesis nula de que la pintura seca en 6 horas. Se concluye que el tiempo promedio de secado es mayor al declarado.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-7-con-t.test" class="slide level2">
+<h2>Ejemplo 7 con t.test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a><span class="fu">t.test</span>(<span class="at">x =</span> secado, <span class="at">mu =</span> <span class="dv">6</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  secado
+t = 3.9923, df = 13, p-value = 0.000767
+alternative hypothesis: true mean is greater than 6
+95 percent confidence interval:
+ 6.317952      Inf
+sample estimates:
+mean of x 
+ 6.571429 </code></pre>
+</div>
+</div>
+<p>La salida contiene exactamente los mismos números: <code>t = 3.9923</code>, <code>df = 13</code>, <code>p-value = 0.000767</code>. La función no hace nada distinto de lo que se hizo a mano.</p>
+</section>
+<section id="qué-hace-t.test-exactamente" class="slide level2">
+<h2>¿Qué hace t.test exactamente?</h2>
+<div title="Los argumentos que importan">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Los argumentos que importan</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><code>x</code>: el vector de datos. La función calcula <span class="math inline">\(\bar x\)</span>, <span class="math inline">\(s\)</span> y <span class="math inline">\(n\)</span>.</li>
+<li><code>mu</code>: el valor <span class="math inline">\(\mu_0\)</span> de la hipótesis nula. Por omisión es 0.</li>
+<li><code>alternative</code>: <code>"two.sided"</code> por omisión, o <code>"less"</code> o <code>"greater"</code>.</li>
+<li><code>conf.level</code>: el nivel del intervalo que reporta, 0.95 por omisión.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p>Tres advertencias:</p>
+<ol type="1">
+<li>Si se olvida <code>mu</code>, R contrasta contra cero, que casi nunca es la hipótesis de interés.</li>
+<li>El intervalo que aparece en la salida es unilateral cuando <code>alternative</code> lo es: con <code>"greater"</code> reporta <span class="math inline">\((\text{límite inferior},\;\infty)\)</span>.</li>
+<li><code>t.test</code> siempre usa la distribución <span class="math inline">\(t\)</span>, incluso con <span class="math inline">\(n\)</span> grande. Con <span class="math inline">\(n &gt; 30\)</span> la diferencia frente a <span class="math inline">\(z\)</span> es despreciable.</li>
+</ol>
+</section>
+<section id="ejercicio-en-clase-3" class="slide level2">
+<h2>Ejercicio en clase 3</h2>
+<div title="Para resolver ahora">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Para resolver ahora</strong></p>
+</div>
+<div class="callout-content">
+<p>Un fabricante afirma que sus baterías industriales duran en promedio al menos 20 horas. Un comprador toma una muestra aleatoria de 15 baterías y obtiene una duración promedio de 18.9 horas con una desviación estándar muestral de 2.4 horas. Se puede suponer normalidad. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Plantee las hipótesis.</li>
+<li>Indique cuál caso del árbol corresponde y por qué.</li>
+<li>Calcule los grados de libertad, el error estándar y el estadístico.</li>
+<li>Obtenga el valor crítico y tome la decisión.</li>
+<li>Calcule el valor p y compárelo con <span class="math inline">\(\alpha\)</span>.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>¿Cambiaría la decisión con <span class="math inline">\(\alpha = 0.01\)</span>? Justifique sin repetir todo el cálculo.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contraste-de-hipótesis-para-la-proporción" class="slide level2">
+<h2>Contraste de hipótesis para la proporción</h2>
+<p><span class="math display">\[H_0: P = P_0 \qquad\text{contra}\qquad H_1: P &lt; P_0 \;\;\text{ó}\;\; H_1: P &gt; P_0 \;\;\text{ó}\;\; H_1: P \neq P_0\]</span></p>
+<p><span class="math display">\[z_c = \frac{\hat p - P_0}{\sqrt{\dfrac{P_0(1-P_0)}{n}}} \quad \text{;Estadístico de Prueba}\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>En el denominador va <span class="math inline">\(P_0\)</span>, el valor de la hipótesis nula, y no <span class="math inline">\(\hat p\)</span>. Esta es la diferencia con el intervalo de confianza: el estadístico se calcula suponiendo que <span class="math inline">\(H_0\)</span> es verdadera, así que el error estándar también se calcula bajo ese supuesto.</p>
+<p>Condiciones de validez: <span class="math inline">\(nP_0 \ge 10\)</span> y <span class="math inline">\(n(1-P_0) \ge 10\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-8-solución-a-mano" class="slide level2">
+<h2>Ejemplo 8: solución a mano</h2>
+<p>Un partido afirma que el 40% del electorado apoya una reforma. Una encuestadora entrevista a 400 personas seleccionadas al azar y 184 declaran apoyarla. ¿Difiere la proporción real de lo afirmado? Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="1">
+<li><p>Hipótesis: <span class="math inline">\(H_0: P = 0.40\)</span> contra <span class="math inline">\(H_1: P \neq 0.40\)</span>, bilateral</p></li>
+<li><p>Estimación puntual: <span class="math inline">\(\hat p = \dfrac{184}{400} = 0.46\)</span></p></li>
+<li><p>Condiciones: <span class="math inline">\(nP_0 = 160 \ge 10\)</span> y <span class="math inline">\(n(1-P_0) = 240 \ge 10\)</span></p></li>
+<li><p>Error estándar: <span class="math inline">\(\sqrt{\dfrac{0.40 \times 0.60}{400}} = \sqrt{0.0006} = 0.024495\)</span></p></li>
+<li><p>Estadístico: <span class="math inline">\(z_c = \dfrac{0.46 - 0.40}{0.024495} = \dfrac{0.06}{0.024495} = 2.4495\)</span></p></li>
+</ol>
+</section>
+<section id="ejemplo-8-decisión" class="slide level2">
+<h2>Ejemplo 8: decisión</h2>
+<ol start="6" type="1">
+<li><p>Valor crítico: <span class="math inline">\(\pm z_{0.975} = \pm 1.96\)</span>. Como <span class="math inline">\(2.4495 &gt; 1.96\)</span>, se rechaza.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a><span class="co">#Si H1 es  "(DIFERENTE)"</span></span>
+<span id="cb23-2"><a href="" aria-label="2"></a><span class="co">#se usa el cuantil de alpha/2 y el cuantil de 1-alpha/2</span></span>
+<span id="cb23-3"><a href="" aria-label="3"></a></span>
+<span id="cb23-4"><a href="" aria-label="4"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)    </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.959964</code></pre>
+</div>
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-label="1"></a><span class="fu">qnorm</span>(<span class="dv">1</span><span class="fl">-0.05</span><span class="sc">/</span><span class="dv">2</span>)  </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.959964</code></pre>
+</div>
+</div></li>
+<li><p>Valor p: <span class="math inline">\(p = 2\,P(Z \ge \, \mid2.4495\mid) = 2(0.00715) = 0.0143\)</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Ver el código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-label="1"></a><span class="co">#Si H1 es  "(DIFERENTE)" </span></span>
+<span id="cb27-2"><a href="" aria-label="2"></a><span class="co">#Se usa dos veces la probabilidad del valor absoluto de z, usando</span></span>
+<span id="cb27-3"><a href="" aria-label="3"></a><span class="co">#lower.tail = FALSE</span></span>
+<span id="cb27-4"><a href="" aria-label="4"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fl">2.4495</span>), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01430547</code></pre>
+</div>
+</div></li>
+<li><p>Decisión: <span class="math inline">\(0.0143 &lt; 0.05\)</span>, se rechaza <span class="math inline">\(H_0\)</span>.</p></li>
+</ol>
+<div title="Conclusión">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusión</strong></p>
+</div>
+<div class="callout-content">
+<p>Con un nivel de significancia del 5% hay suficiente evidencia estadística para rechazar la hipótesis nula de que el 40% del electorado apoya la reforma. La encuesta sugiere que el apoyo real es mayor.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-8-en-r-paso-a-paso" class="slide level2">
+<h2>Ejemplo 8 en R, paso a paso</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-label="1"></a>x <span class="ot">&lt;-</span> <span class="dv">184</span>; </span>
+<span id="cb29-2"><a href="" aria-label="2"></a>n <span class="ot">&lt;-</span> <span class="dv">400</span>; </span>
+<span id="cb29-3"><a href="" aria-label="3"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.40</span>; </span>
+<span id="cb29-4"><a href="" aria-label="4"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb29-5"><a href="" aria-label="5"></a></span>
+<span id="cb29-6"><a href="" aria-label="6"></a>p_hat <span class="ot">&lt;-</span> x<span class="sc">/</span>n</span>
+<span id="cb29-7"><a href="" aria-label="7"></a>ee    <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p0<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p0)<span class="sc">/</span>n)          </span>
+<span id="cb29-8"><a href="" aria-label="8"></a>zc    <span class="ot">&lt;-</span> (p_hat <span class="sc">-</span> p0)<span class="sc">/</span>ee</span>
+<span id="cb29-9"><a href="" aria-label="9"></a></span>
+<span id="cb29-10"><a href="" aria-label="10"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">p_hat =</span> p_hat, <span class="at">np0 =</span> n<span class="sc">*</span>p0, <span class="at">nq0 =</span> n<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p0),</span>
+<span id="cb29-11"><a href="" aria-label="11"></a>        <span class="at">ee =</span> ee, <span class="at">z_calculado =</span> zc,</span>
+<span id="cb29-12"><a href="" aria-label="12"></a>        <span class="at">z_critico =</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb29-13"><a href="" aria-label="13"></a>        <span class="at">valor_p =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(zc), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      p_hat         np0         nq0          ee z_calculado   z_critico 
+    0.46000   160.00000   240.00000     0.02449     2.44949     1.95996 
+    valor_p 
+    0.01431 </code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-8-con-prop.test" class="slide level2">
+<h2>Ejemplo 8 con prop.test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-label="1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">184</span>, <span class="at">n =</span> <span class="dv">400</span>, <span class="at">p =</span> <span class="fl">0.40</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test without continuity correction
+
+data:  184 out of 400, null probability 0.4
+X-squared = 6, df = 1, p-value = 0.01431
+alternative hypothesis: true p is not equal to 0.4
+95 percent confidence interval:
+ 0.4117698 0.5089912
+sample estimates:
+   p 
+0.46 </code></pre>
+</div>
+</div>
+<p>El <code>X-squared = 6</code> de la salida es exactamente <span class="math inline">\(z_c^2\)</span>, y el <code>p-value = 0.0143</code> coincide con el calculado.</p>
+</section>
+<section id="la-prueba-exacta-binom.test" class="slide level2">
+<h2>La prueba exacta: binom.test</h2>
+<p>Si no se quiere depender de la aproximación normal, el número de éxitos sigue exactamente una binomial bajo <span class="math inline">\(H_0\)</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">184</span>, <span class="at">n =</span> <span class="dv">400</span>, <span class="at">p =</span> <span class="fl">0.40</span>)<span class="sc">$</span>p.value</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01635465</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a><span class="co"># Los tres valores p sobre los mismos datos</span></span>
+<span id="cb35-2"><a href="" aria-label="2"></a><span class="fu">round</span>(<span class="fu">c</span>(</span>
+<span id="cb35-3"><a href="" aria-label="3"></a>  <span class="at">z_a_mano        =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(zc), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb35-4"><a href="" aria-label="4"></a>  <span class="at">prop_test_FALSE =</span> <span class="fu">prop.test</span>(<span class="dv">184</span>, <span class="dv">400</span>, <span class="at">p =</span> <span class="fl">0.40</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>p.value,</span>
+<span id="cb35-5"><a href="" aria-label="5"></a>  <span class="at">binom_test      =</span> <span class="fu">binom.test</span>(<span class="dv">184</span>, <span class="dv">400</span>, <span class="at">p =</span> <span class="fl">0.40</span>)<span class="sc">$</span>p.value), <span class="dv">6</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       z_a_mano prop_test_FALSE      binom_test 
+       0.014306        0.014306        0.016355 </code></pre>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Con <span class="math inline">\(n\)</span> grande los tres coinciden en lo sustantivo. Con <span class="math inline">\(n\)</span> pequeño o <span class="math inline">\(P_0\)</span> cerca de 0 o de 1 se separan, y ahí la exacta es la confiable. Lo importante es saber cuál está reportando R.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-en-clase-4" class="slide level2">
+<h2>Ejercicio en clase 4</h2>
+<div title="Para resolver ahora">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Para resolver ahora</strong></p>
+</div>
+<div class="callout-content">
+<p>Un proveedor afirma que a lo sumo el 5% de las piezas que entrega salen defectuosas. En una inspección de 300 piezas tomadas al azar se encontraron 22 defectuosas. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Plantee las hipótesis e identifique el parámetro.</li>
+<li>Verifique las condiciones de validez.</li>
+<li>Calcule la estimación puntual, el error estándar bajo <span class="math inline">\(H_0\)</span> y el estadístico de prueba.</li>
+<li>Obtenga el valor crítico y el valor p, y tome la decisión.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Reproduzca el resultado con <code>prop.test(..., correct = FALSE)</code> y verifique que el <code>X-squared</code> de la salida es el cuadrado de su estadístico.</li>
+<li>Corra la misma instrucción con la opción por omisión y explique por qué el valor p cambia.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="asociación-entre-dos-características" class="slide level2">
+<h2>Asociación entre dos características</h2>
+<p>Hasta aquí el parámetro era un número. Ahora la pregunta es distinta: ¿están relacionadas dos variables categóricas?</p>
+<p><span class="math display">\[H_0: \text{las dos variables son independientes}\]</span> <span class="math display">\[H_1: \text{las dos variables no son independientes}\]</span></p>
+<div title="La independencia, en términos de probabilidad">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>La independencia, en términos de probabilidad</strong></p>
+</div>
+<div class="callout-content">
+<p>Dos variables son independientes si</p>
+<p><span class="math display">\[P(A \cap B) = P(A)\,P(B)\]</span></p>
+<p>para toda combinación de categorías. La prueba traduce esa igualdad a frecuencias: si las variables fueran independientes, se sabría cuántas observaciones deberían caer en cada casilla.</p>
+</div>
+</div>
+</div>
+</div>
+<p>La nula es siempre la independencia, porque es la que permite calcular las frecuencias esperadas.</p>
+</section>
+<section id="tabla-de-contingencia" class="slide level2">
+<h2>Tabla de Contingencia</h2>
+
+<img data-src="figs/Tabla_Contingencia.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Tabla de Contingencia</p><p>Si las variables son independientes, la proporción de la columna <span class="math inline">\(j\)</span> debería ser la misma en todas las filas. De ahí:</p>
+<p><span class="math display">\[E_{ij} = N \times \frac{N_{i\cdot}}{N} \times \frac{N_{\cdot j}}{N} = \frac{N_{i\cdot} \times N_{\cdot j}}{N}\]</span></p>
+<p>donde <span class="math inline">\(N_{i\cdot}\)</span> es el total de la fila <span class="math inline">\(i\)</span>, <span class="math inline">\(N_{\cdot j}\)</span> el total de la columna <span class="math inline">\(j\)</span> y <span class="math inline">\(N\)</span> el total general.</p>
+</section>
+<section id="el-estadístico-ji-cuadrado" class="slide level2">
+<h2>El estadístico ji-cuadrado</h2>
+<p><span class="math display">\[\chi^2_c = \sum_{i=1}^{f}\sum_{j=1}^{c} \frac{\left(O_{ij} - E_{ij}\right)^2}{E_{ij}} \qquad\text{con } gl = (f-1)(c-1)\]</span></p>
+<p>Cada sumando mide cuánto se aparta una casilla de lo que se esperaba, en relación con lo que se esperaba.</p>
+<p>Condiciones de validez: todas las <span class="math inline">\(E_{ij} \ge 5\)</span>.</p>
+</section>
+<section id="ejemplo-9-las-frecuencias-esperadas" class="slide level2">
+<h2>Ejemplo 9: las frecuencias esperadas</h2>
+<p>Se clasificaron 400 personas según su nivel educativo y según si usan banca en línea.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Usa</th>
+<th>No usa</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primaria</td>
+<td>30</td>
+<td>70</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>Secundaria</td>
+<td>70</td>
+<td>80</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<td>Universitaria</td>
+<td>100</td>
+<td>50</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>200</td>
+<td>200</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[E_{11} = \frac{100 \times 200}{400} = 50 \qquad E_{21} = \frac{150 \times 200}{400} = 75 \qquad E_{31} = \frac{150 \times 200}{400} = 75\]</span></p>
+</section>
+<section id="ejemplo-9-el-estadístico" class="slide level2">
+<h2>Ejemplo 9: el estadístico</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th><span class="math inline">\(O\)</span> usa</th>
+<th><span class="math inline">\(O\)</span> no usa</th>
+<th><span class="math inline">\(E\)</span> usa</th>
+<th><span class="math inline">\(E\)</span> no usa</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Primaria</td>
+<td>30</td>
+<td>70</td>
+<td>50</td>
+<td>50</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Secundaria</td>
+<td>70</td>
+<td>80</td>
+<td>75</td>
+<td>75</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Universitaria</td>
+<td>100</td>
+<td>50</td>
+<td>75</td>
+<td>75</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\chi^2_c = \frac{(30-50)^2}{50} + \frac{(70-50)^2}{50} + \frac{(70-75)^2}{75} + \frac{(80-75)^2}{75} + \frac{(100-75)^2}{75} + \frac{(50-75)^2}{75}\]</span></p>
+<p><span class="math display">\[\chi^2_c = 8 + 8 + 0.3333 + 0.3333 + 8.3333 + 8.3333 = 33.3333\]</span></p>
+<p><span class="math display">\[gl = (3-1)(2-1) = 2 \qquad \chi^2_{0.95,\,2} = 5.9915\]</span></p>
+<p>Como <span class="math inline">\(33.3333 &gt; 5.9915\)</span>, se rechaza <span class="math inline">\(H_0\)</span>. El valor p es menor a 0.0001.</p>
+</section>
+<section id="ejemplo-9-conclusión" class="slide level2">
+<h2>Ejemplo 9: conclusión</h2>
+<div title="Conclusión">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conclusión</strong></p>
+</div>
+<div class="callout-content">
+<p>Con un nivel de significancia del 5% hay suficiente evidencia estadística para rechazar la hipótesis nula de independencia. Se concluye que el nivel educativo y el uso de banca en línea están asociados: el uso aumenta de 30% en primaria a 46.7% en secundaria y 66.7% en universitaria.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La prueba dice que hay asociación, pero no dice de qué tipo ni en qué dirección.</p>
+<p>Tampoco dice que una variable cause la otra. Asociación no es causalidad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-9-en-r-paso-a-paso" class="slide level2">
+<h2>Ejemplo 9 en R, paso a paso</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-label="1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">70</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">100</span>, <span class="dv">50</span>), <span class="at">nrow =</span> <span class="dv">3</span>, </span>
+<span id="cb37-2"><a href="" aria-label="2"></a>                <span class="at">byrow =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb37-3"><a href="" aria-label="3"></a>                <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="at">Nivel =</span> <span class="fu">c</span>(<span class="st">"Primaria"</span>, <span class="st">"Secundaria"</span>,</span>
+<span id="cb37-4"><a href="" aria-label="4"></a>                                          <span class="st">"Universitaria"</span>),</span>
+<span id="cb37-5"><a href="" aria-label="5"></a>                                <span class="at">Banca =</span> <span class="fu">c</span>(<span class="st">"Usa"</span>, <span class="st">"No usa"</span>)))</span>
+<span id="cb37-6"><a href="" aria-label="6"></a>tabla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Banca
+Nivel           Usa No usa
+  Primaria       30     70
+  Secundaria     70     80
+  Universitaria 100     50</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-label="1"></a>fila <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(tabla);            <span class="co">#totales de fila</span></span>
+<span id="cb39-2"><a href="" aria-label="2"></a>columna <span class="ot">&lt;-</span> <span class="fu">colSums</span>(tabla);         <span class="co">#totales de columna</span></span>
+<span id="cb39-3"><a href="" aria-label="3"></a>N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tabla)</span>
+<span id="cb39-4"><a href="" aria-label="4"></a>E <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila, columna)<span class="sc">/</span>N        <span class="co"># producto de totales entre el total</span></span>
+<span id="cb39-5"><a href="" aria-label="5"></a>E</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Usa No usa
+Primaria       50     50
+Secundaria     75     75
+Universitaria  75     75</code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-9-en-r-el-estadístico" class="slide level2">
+<h2>Ejemplo 9 en R: el estadístico</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a>aportes <span class="ot">&lt;-</span> (tabla <span class="sc">-</span> E)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>E</span>
+<span id="cb41-2"><a href="" aria-label="2"></a>aportes</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Banca
+Nivel                 Usa    No usa
+  Primaria      8.0000000 8.0000000
+  Secundaria    0.3333333 0.3333333
+  Universitaria 8.3333333 8.3333333</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-label="1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(aportes)</span>
+<span id="cb43-2"><a href="" aria-label="2"></a>gl <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(tabla) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(<span class="fu">ncol</span>(tabla) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb43-3"><a href="" aria-label="3"></a></span>
+<span id="cb43-4"><a href="" aria-label="4"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">X2 =</span> X2, <span class="at">gl =</span> gl,</span>
+<span id="cb43-5"><a href="" aria-label="5"></a>        <span class="at">critico =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, gl),</span>
+<span id="cb43-6"><a href="" aria-label="6"></a>        <span class="at">valor_p =</span> <span class="fu">pchisq</span>(X2, gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      X2       gl  critico  valor_p 
+33.33333  2.00000  5.99146  0.00000 </code></pre>
+</div>
+</div>
+<p>El cuadro de aportes identifica dónde está la asociación: las casillas de primaria y de universitaria aportan 8 y 8.33 cada una, mientras que secundaria aporta apenas 0.33.</p>
+</section>
+<section id="ejemplo-9-con-chisq.test" class="slide level2">
+<h2>Ejemplo 9 con chisq.test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="" aria-label="1"></a>prueba <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla)</span>
+<span id="cb45-2"><a href="" aria-label="2"></a>prueba</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tabla
+X-squared = 33.333, df = 2, p-value = 5.778e-08</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-label="1"></a>prueba<span class="sc">$</span>expected          <span class="co"># las mismas frecuencias esperadas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Banca
+Nivel           Usa No usa
+  Primaria       50     50
+  Secundaria     75     75
+  Universitaria  75     75</code></pre>
+</div>
+</div>
+<p>Los números coinciden con los calculados a mano: <code>X-squared = 33.333</code>, <code>df = 2</code>.</p>
+<div title="Lo que guarda el objeto">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lo que guarda el objeto</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>$statistic</code></td>
+<td>el valor de <span class="math inline">\(\chi^2_c\)</span></td>
+</tr>
+<tr class="even">
+<td><code>$parameter</code></td>
+<td>los grados de libertad</td>
+</tr>
+<tr class="odd">
+<td><code>$p.value</code></td>
+<td>el valor p</td>
+</tr>
+<tr class="even">
+<td><code>$expected</code></td>
+<td>las frecuencias esperadas</td>
+</tr>
+<tr class="odd">
+<td><code>$observed</code></td>
+<td>la tabla original</td>
+</tr>
+<tr class="even">
+<td><code>$residuals</code></td>
+<td><span class="math inline">\((O-E)/\sqrt{E}\)</span>, el aporte con signo</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-trampa-de-chisq.test-en-tablas-22" class="slide level2">
+<h2>La trampa de chisq.test en tablas 2×2</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>En una tabla de 2 filas y 2 columnas, <code>chisq.test</code> aplica por omisión la corrección de Yates, igual que <code>prop.test</code>:</p>
+<p><span class="math display">\[\chi^2_{\text{Yates}} = \sum\sum \frac{\big(|O_{ij}-E_{ij}| - 0.5\big)^2}{E_{ij}}\]</span></p>
+<p>En tablas más grandes no la aplica. Por eso el resultado a mano puede no coincidir con el de R justo en el caso 2×2, y no por un error de cálculo.</p>
+</div>
+</div>
+</div>
+<p>Para reproducir la fórmula de clase en una tabla 2×2 hay que escribir <code>chisq.test(tabla, correct = FALSE)</code>.</p>
+<p>R también avisa con un mensaje de advertencia cuando alguna frecuencia esperada es menor que 5. Ese aviso no debe ignorarse.</p>
+</section>
+<section id="ejercicio-en-clase-5" class="slide level2">
+<h2>Ejercicio en clase 5</h2>
+<div title="Para resolver ahora">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Para resolver ahora</strong></p>
+</div>
+<div class="callout-content">
+<p>Se clasificaron 300 estudiantes según su carrera y según si usan transporte público.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Carrera</th>
+<th>Usa</th>
+<th>No usa</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>45</td>
+<td>45</td>
+<td>90</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>84</td>
+<td>36</td>
+<td>120</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>51</td>
+<td>39</td>
+<td>90</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>180</td>
+<td>120</td>
+<td>300</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>Plantee las hipótesis.</li>
+<li>Calcule las seis frecuencias esperadas y verifique las condiciones de validez.</li>
+<li>Obtenga el estadístico y los grados de libertad.</li>
+<li>Compare con el valor crítico al 5% y tome la decisión.</li>
+<li>Escriba la conclusión e indique, a partir de los aportes, cuál carrera se aparta más de lo esperado.</li>
+<li>Reproduzca todo en R y compare con la salida de <code>chisq.test</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tabla-de-decisión" class="slide level2">
+<h2>Tabla de decisión</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parámetro</th>
+<th>Situación</th>
+<th>Estadístico</th>
+<th>Distribución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mu\)</span></td>
+<td>Normal, <span class="math inline">\(\sigma\)</span> conocida</td>
+<td><span class="math inline">\(\dfrac{\bar x - \mu_0}{\sigma/\sqrt n}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(n&gt;30\)</span>, <span class="math inline">\(\sigma\)</span> desconocida</td>
+<td><span class="math inline">\(\dfrac{\bar x - \mu_0}{s/\sqrt n}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu\)</span></td>
+<td>Normal, <span class="math inline">\(n\le 30\)</span>, <span class="math inline">\(\sigma\)</span> desconocida</td>
+<td><span class="math inline">\(\dfrac{\bar x - \mu_0}{s/\sqrt n}\)</span></td>
+<td><span class="math inline">\(t_{n-1}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P\)</span></td>
+<td><span class="math inline">\(nP_0 \ge 10\)</span> y <span class="math inline">\(n(1-P_0) \ge 10\)</span></td>
+<td><span class="math inline">\(\dfrac{\hat p - P_0}{\sqrt{P_0(1-P_0)/n}}\)</span></td>
+<td><span class="math inline">\(N(0,1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu_D\)</span></td>
+<td>Muestras pareadas</td>
+<td><span class="math inline">\(\dfrac{\bar d - 0}{s_d/\sqrt n}\)</span></td>
+<td><span class="math inline">\(t_{n-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>Independencia</td>
+<td>Todas las <span class="math inline">\(E_{ij}\ge 5\)</span></td>
+<td><span class="math inline">\(\sum\sum \dfrac{(O-E)^2}{E}\)</span></td>
+<td><span class="math inline">\(\chi^2_{(f-1)(c-1)}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="preguntas-guía-para-elegir-la-prueba" class="slide level2">
+<h2>Preguntas guía para elegir la prueba</h2>
+<div title="Siga este orden">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Siga este orden</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>¿Qué tipo de variable es? Cuantitativa lleva a medias; cualitativa con dos categorías lleva a proporciones; dos cualitativas cruzadas llevan a una tabla de contingencia.</p></li>
+<li><p>¿Cuál es el valor de referencia y de dónde sale? Nunca de la muestra.</p></li>
+<li><p>¿Qué se quiere demostrar? Eso define <span class="math inline">\(H_1\)</span> y por lo tanto si el contraste es unilateral o bilateral.</p></li>
+<li><p>¿Se conoce <span class="math inline">\(\sigma\)</span>? ¿Es <span class="math inline">\(n\)</span> mayor o menor que 30? ¿La población es normal?</p></li>
+<li><p>¿Se cumplen las condiciones de validez?</p></li>
+<li><p>¿Cuál es el nivel de significancia pedido?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="las-funciones-de-r" class="slide level2">
+<h2>Las funciones de R</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Uso</th>
+<th>Advertencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>qnorm</code>, <code>pnorm</code></td>
+<td>valor crítico y valor p con <span class="math inline">\(z\)</span></td>
+<td>la prueba z se programa a mano</td>
+</tr>
+<tr class="even">
+<td><code>qt</code>, <code>pt</code></td>
+<td>valor crítico y valor p con <span class="math inline">\(t\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>qchisq</code>, <code>pchisq</code></td>
+<td>valor crítico y valor p con <span class="math inline">\(\chi^2\)</span></td>
+<td>siempre cola derecha</td>
+</tr>
+<tr class="even">
+<td><code>t.test(x, mu=)</code></td>
+<td>media, <span class="math inline">\(\sigma\)</span> desconocida</td>
+<td>sin <code>mu</code> contrasta contra 0</td>
+</tr>
+<tr class="odd">
+<td><code>t.test(x, y, paired=TRUE)</code></td>
+<td>muestras pareadas</td>
+<td>equivale a <code>t.test(x-y)</code></td>
+</tr>
+<tr class="even">
+<td><code>prop.test(x, n, p=)</code></td>
+<td>proporción</td>
+<td>por omisión aplica Yates</td>
+</tr>
+<tr class="odd">
+<td><code>binom.test(x, n, p=)</code></td>
+<td>proporción, exacta</td>
+<td>sin aproximación normal</td>
+</tr>
+<tr class="even">
+<td><code>chisq.test(tabla)</code></td>
+<td>independencia</td>
+<td>aplica Yates en el caso 2×2</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="errores-frecuentes" class="slide level2">
+<h2>Errores frecuentes</h2>
+<ol type="1">
+<li><p>Escribir el valor muestral en <span class="math inline">\(H_0\)</span>. El valor de referencia viene de una norma, una afirmación previa o un estudio anterior.</p></li>
+<li><p>Escoger <span class="math inline">\(\alpha\)</span> después de ver el valor p.</p></li>
+<li><p>Decir se acepta <span class="math inline">\(H_0\)</span>. No rechazar no es probar.</p></li>
+<li><p>Confundir el valor p con la probabilidad de que <span class="math inline">\(H_0\)</span> sea verdadera.</p></li>
+<li><p>Usar <span class="math inline">\(\hat p\)</span> en el denominador del estadístico de la proporción. Ahí va <span class="math inline">\(P_0\)</span>.</p></li>
+<li><p>Confundir significancia estadística con importancia práctica.</p></li>
+<li><p>Decidir el tipo de contraste, unilateral o bilateral, después de mirar hacia dónde salió la muestra.</p></li>
+<li><p>Usar <code>chisq.test</code> en una tabla 2×2 sin notar la corrección de Yates, o ignorar el aviso de frecuencias esperadas pequeñas.</p></li>
+</ol>
+</section>
+<section id="ejercicios-para-el-examen" class="slide level2">
+<h2>Ejercicios para el examen</h2>
+<div title="Alcance">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Alcance</strong></p>
+</div>
+<div class="callout-content">
+<p>Esta primera lista cubre únicamente los tres contrastes que entran al examen:</p>
+<ol type="1">
+<li>Contraste de hipótesis para la media, en sus tres casos.</li>
+<li>Contraste de hipótesis para la proporción.</li>
+<li>Prueba ji-cuadrado de independencia.</li>
+</ol>
+<p>Antes de calcular, decida qué parámetro está en juego, qué afirma quien investiga, si el contraste es unilateral o bilateral, y si se cumplen las condiciones de validez. En todos los casos escriba las hipótesis, el estadístico, la decisión por los dos criterios y la conclusión en términos del problema.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="los-conjuntos-de-datos" class="slide level2 smaller">
+<h2>Los conjuntos de datos</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div title="clinica.csv — 200 pacientes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>clinica.csv — 200 pacientes</strong></p>
+</div>
+<div class="callout-content">
+<p>Clínica con dos sedes. La norma interna fija un tiempo de espera promedio de 30 minutos y una meta de satisfacción del 70%.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>paciente</code></td>
+<td>identificador</td>
+</tr>
+<tr class="even">
+<td><code>sede</code></td>
+<td>Central u Occidente</td>
+</tr>
+<tr class="odd">
+<td><code>edad</code></td>
+<td>edad en años</td>
+</tr>
+<tr class="even">
+<td><code>tiempo</code></td>
+<td>minutos de espera</td>
+</tr>
+<tr class="odd">
+<td><code>seguro</code></td>
+<td>CCSS, Privado o Mixto</td>
+</tr>
+<tr class="even">
+<td><code>satisfecho</code></td>
+<td>Si o No, encuesta de salida</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div title="cultivo.csv — 160 parcelas">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>cultivo.csv — 160 parcelas</strong></p>
+</div>
+<div class="callout-content">
+<p>Ensayo agrícola con dos variedades sembradas en tres regiones. La variedad tradicional rinde 42 kg por parcela.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>parcela</code></td>
+<td>identificador</td>
+</tr>
+<tr class="even">
+<td><code>variedad</code></td>
+<td>A, la nueva, o B, la tradicional</td>
+</tr>
+<tr class="odd">
+<td><code>region</code></td>
+<td>Norte, Centro o Sur</td>
+</tr>
+<tr class="even">
+<td><code>rendimiento</code></td>
+<td>kg cosechados en la parcela</td>
+</tr>
+<tr class="odd">
+<td><code>plaga</code></td>
+<td>Si o No, presencia de la plaga</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-label="1"></a>clinica <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"clinica.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-2"><a href="" aria-label="2"></a>cultivo <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"cultivo.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-3"><a href="" aria-label="3"></a><span class="fu">str</span>(clinica); <span class="fu">summary</span>(clinica)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ejercicios-1-a-3" class="slide level2 scrollable">
+<h2>Ejercicios 1 a 3</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1</a></li><li><a href="#tabset-1-2">2</a></li><li><a href="#tabset-1-3">3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Trabaje con <code>clinica.csv</code>. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Cargue el archivo y describa la variable <code>tiempo</code>: tamaño, media, desviación estándar y un histograma.</li>
+<li>La norma interna dice que el tiempo promedio de espera es de 30 minutos. La dirección sospecha que en la práctica es mayor. Plantee las hipótesis, decida cuál prueba corresponde y justifique con el árbol de decisión.</li>
+<li>Construya el estadístico paso a paso en R, usando solo <code>mean</code>, <code>sd</code>, <code>sqrt</code>, <code>qt</code> y <code>pt</code>. Reporte el estadístico, los grados de libertad, el valor crítico y el valor p.</li>
+<li>Verifique el inciso c con la función de R que corresponde e interprete cada línea de la salida.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>La salida de R reporta también un intervalo de confianza. Explique por qué ese intervalo es unilateral y cómo se relaciona con la decisión del inciso d.</li>
+<li>Repita el contraste suponiendo ahora que la dirección solo quiere saber si el tiempo difiere de 30 minutos, sin dirección. ¿Cambia el estadístico? ¿Cambia el valor p? ¿Cambia la decisión?</li>
+<li>Con los mismos datos, ¿qué decisión tomaría con <span class="math inline">\(\alpha = 0.01\)</span>?</li>
+</ol>
+</div>
+<div id="tabset-1-2">
+<p>Trabaje con <code>clinica.csv</code>, ahora con las variables cualitativas. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Construya la tabla de frecuencias de <code>satisfecho</code> y calcule la proporción de pacientes satisfechos.</li>
+<li>La meta institucional es una satisfacción del 70%. Plantee las hipótesis y verifique las condiciones de validez.</li>
+<li>Calcule el error estándar que corresponde al contraste y explique por qué no es el mismo que usaría para un intervalo de confianza.</li>
+<li>Obtenga el estadístico y el valor p a mano en R. Verifique con la función de R que corresponde, desactivando la corrección de continuidad, y confirme que el <code>X-squared</code> es el cuadrado de su estadístico.</li>
+<li>Corra la misma instrucción con la opción por omisión. ¿El valor p sube o baja? Explique por qué.</li>
+<li>Escriba la conclusión. ¿Cambiaría con <span class="math inline">\(\alpha = 0.01\)</span>?</li>
+<li>Construya la tabla cruzada de <code>seguro</code> por <code>satisfecho</code> con <code>table</code>. Plantee las hipótesis de independencia.</li>
+<li>Calcule las seis frecuencias esperadas con <code>outer</code> y verifique las condiciones de validez.</li>
+<li>Obtenga el cuadro de aportes, el estadístico, los grados de libertad y el valor p, primero a mano y luego con la función de R.</li>
+<li>Use los residuos para describir en qué dirección va la asociación. Escriba la conclusión y advierta explícitamente qué no permite concluir esta prueba.</li>
+</ol>
+</div>
+<div id="tabset-1-3">
+<p>Trabaje con <code>cultivo.csv</code>. Use <span class="math inline">\(\alpha = 0.05\)</span> salvo que se indique otra cosa.</p>
+<ol type="a">
+<li>Cargue el archivo y obtenga un resumen de <code>rendimiento</code>.</li>
+<li>La variedad tradicional rinde 42 kg por parcela. Contraste si el rendimiento promedio de todo el ensayo difiere de ese valor. Justifique cuál caso del árbol corresponde.</li>
+<li>Reporte el estadístico, los grados de libertad y el valor p, a mano y con la función de R.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Construya la tabla cruzada de <code>region</code> por <code>plaga</code>. Plantee las hipótesis de independencia y calcule las frecuencias esperadas.</li>
+<li>Verifique las condiciones de validez, obtenga el estadístico, los grados de libertad y el valor p.</li>
+<li>El resultado no rechaza al 5% pero sí al 10%. Escriba las dos conclusiones y explique por qué eso no es una contradicción.</li>
+<li>Construya ahora la tabla de <code>variedad</code> por <code>plaga</code>, que es de 2×2. Corra la función de R con la opción por omisión y con <code>correct = FALSE</code>. Explique a qué se debe la diferencia entre los dos resultados y cuál reproduce la fórmula vista en clase.</li>
+<li>Con los resultados de los incisos d, g y h, redacte un párrafo de recomendación para la finca, distinguiendo lo que la evidencia respalda de lo que no.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-4-a-7" class="slide level2 scrollable">
+<h2>Ejercicios 4 a 7</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">4</a></li><li><a href="#tabset-2-2">5</a></li><li><a href="#tabset-2-3">6</a></li><li><a href="#tabset-2-4">7</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>Una cooperativa cafetalera garantiza que el contenido de humedad promedio de sus lotes es de 11.5%. El equipo de medición está calibrado y se sabe que la desviación estándar del proceso es de 0.8 puntos porcentuales. Un comprador analiza 49 lotes seleccionados al azar y obtiene un promedio de 11.78%. El comprador quiere saber si el contenido promedio difiere de lo garantizado. Use <span class="math inline">\(\alpha = 0.05\)</span> y resuelva a mano.</p>
+<ol type="a">
+<li>Plantee las hipótesis e indique si el contraste es unilateral o bilateral.</li>
+<li>Justifique cuál estadístico y cuál distribución corresponden.</li>
+<li>Calcule el error estándar y el estadístico de prueba.</li>
+<li>Obtenga el valor crítico, dibuje la región de rechazo y tome la decisión.</li>
+<li>Calcule el valor p y verifique que lleva a la misma decisión.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Construya el intervalo de confianza del 95% para la humedad promedio y muestre que es coherente con la decisión del inciso d.</li>
+</ol>
+</div>
+<div id="tabset-2-2">
+<p>Un taller de reparación afirma que el tiempo promedio de atención de un servicio básico es de 45 minutos. Un cliente frecuente sospecha que tarda más y registra 12 visitas seleccionadas al azar, obteniendo un promedio de 49.5 minutos con una desviación estándar muestral de 6.0 minutos. Se puede suponer normalidad. Use <span class="math inline">\(\alpha = 0.05\)</span> y resuelva a mano.</p>
+<ol type="a">
+<li>Plantee las hipótesis.</li>
+<li>Indique cuál caso del árbol corresponde y por qué.</li>
+<li>Calcule los grados de libertad, el error estándar y el estadístico.</li>
+<li>Obtenga el valor crítico y tome la decisión.</li>
+<li>Calcule el valor p y compárelo con <span class="math inline">\(\alpha\)</span>.</li>
+<li>Escriba la conclusión.</li>
+<li>¿Cambiaría la decisión con <span class="math inline">\(\alpha = 0.01\)</span>? Justifique sin repetir todo el cálculo.</li>
+<li>El taller responde que 4.5 minutos de más no le importan a nadie. Comente esa respuesta usando la distinción entre significancia estadística e importancia práctica.</li>
+</ol>
+</div>
+<div id="tabset-2-3">
+<p>Una municipalidad reporta que el 25% de los hogares del cantón separa sus residuos. Una organización ambiental entrevista a 240 hogares seleccionados al azar y encuentra que 78 lo hacen. La organización quiere saber si la cifra real difiere de la reportada. Use <span class="math inline">\(\alpha = 0.05\)</span> y resuelva a mano.</p>
+<ol type="a">
+<li>Plantee las hipótesis e identifique el parámetro.</li>
+<li>Verifique las condiciones de validez.</li>
+<li>Calcule la estimación puntual y el error estándar que corresponde al contraste. Explique por qué ese error estándar no es el mismo que usaría para construir un intervalo de confianza.</li>
+<li>Calcule el estadístico, el valor crítico y el valor p, y tome la decisión.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Verifique en R con la función que corresponda, desactivando la corrección de continuidad, y confirme que el <code>X-squared</code> es el cuadrado de su estadístico.</li>
+<li>Corra la misma instrucción con la opción por omisión. ¿El valor p sube o baja? Explique por qué.</li>
+</ol>
+</div>
+<div id="tabset-2-4">
+<p>Una planta registró durante un mes los artículos producidos por turno y si salieron defectuosos.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Turno</th>
+<th>Defectuoso</th>
+<th>No defectuoso</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mañana</td>
+<td>30</td>
+<td>170</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td>Tarde</td>
+<td>32</td>
+<td>128</td>
+<td>160</td>
+</tr>
+<tr class="odd">
+<td>Noche</td>
+<td>38</td>
+<td>102</td>
+<td>140</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>100</td>
+<td>400</td>
+<td>500</td>
+</tr>
+</tbody>
+</table>
+<p>Use <span class="math inline">\(\alpha = 0.05\)</span> y resuelva a mano.</p>
+<ol type="a">
+<li>Plantee las hipótesis.</li>
+<li>Calcule las seis frecuencias esperadas y verifique las condiciones de validez.</li>
+<li>Calcule el aporte de cada casilla al estadístico y anótelos en un cuadro.</li>
+<li>Obtenga el estadístico y los grados de libertad.</li>
+<li>Compare con el valor crítico y tome la decisión.</li>
+<li>Escriba la conclusión e indique, a partir de los aportes, cuál turno se aparta más de lo esperado y en qué dirección.</li>
+<li>El jefe de planta concluye que el turno de noche causa los defectos. Corrija la afirmación.</li>
+<li>Reproduzca todo en R y compare con la salida de la función correspondiente.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-8-a-10" class="slide level2 scrollable">
+<h2>Ejercicios 8 a 10</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">8</a></li><li><a href="#tabset-3-2">9</a></li><li><a href="#tabset-3-3">10</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p>Para cada situación indique el parámetro de interés, escriba <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_1\)</span>, diga cuál prueba corresponde y si el contraste es unilateral o bilateral, y anote cuáles condiciones de validez habría que verificar. No haga ningún cálculo.</p>
+<ol type="a">
+<li>Una fábrica garantiza que el peso promedio de sus barras es de 250
+<ol start="7" type="a">
+<li>El equipo está calibrado y se sabe que <span class="math inline">\(\sigma = 6\)</span> g. Se pesan 80 barras tomadas al azar.</li>
+</ol></li>
+<li>Un colegio quiere saber si el tipo de beca y la provincia de procedencia están relacionados. La tabla resultante es de 4 filas y 7 columnas.</li>
+<li>Un partido afirma que el 30% del electorado lo apoya. Se entrevistan 500 personas seleccionadas al azar.</li>
+<li>Un laboratorio mide el pH de 14 muestras de agua y quiere saber si el pH promedio difiere de 7. Se supone normalidad y la desviación estándar poblacional es desconocida.</li>
+<li>Una tienda quiere saber si el método de pago y el rango de edad del cliente están asociados.</li>
+<li>Una empresa de mensajería promete que a lo sumo el 3% de los envíos llega tarde. Se revisan 600 envíos del último mes.</li>
+<li>Se toman 45 mediciones de una variable cuya distribución se desconoce y se quiere saber si el promedio supera 100. La desviación estándar poblacional es desconocida.</li>
+<li>Para el inciso f, verifique si se cumplirían las condiciones de validez con esos números. ¿Y si la muestra fuera de 200 envíos?</li>
+</ol>
+</div>
+<div id="tabset-3-2">
+<p>Marque con equis la única opción correcta en cada caso.</p>
+<ol type="1">
+<li>Un investigador quiere demostrar que un promedio poblacional supera
+<ol start="40" type="1">
+<li>La hipótesis alternativa correcta es:</li>
+</ol></li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox"><span class="math inline">\(H_1: \mu = 40\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(H_1: \mu \ge 40\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(H_1: \mu &gt; 40\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(H_1: \bar x &gt; 40\)</span></label></li>
+</ul>
+<ol start="2" type="1">
+<li>Con <span class="math inline">\(n = 18\)</span>, población normal y <span class="math inline">\(\sigma\)</span> desconocida, el valor crítico de un contraste bilateral al 5% se busca en:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">la normal estándar</label></li>
+<li><label><input type="checkbox">una <span class="math inline">\(t\)</span> con 18 grados de libertad</label></li>
+<li><label><input type="checkbox">una <span class="math inline">\(t\)</span> con 17 grados de libertad</label></li>
+<li><label><input type="checkbox">una ji-cuadrado con 17 grados de libertad</label></li>
+</ul>
+<ol start="3" type="1">
+<li>En el estadístico del contraste de una proporción, el denominador se calcula con:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox"><span class="math inline">\(\hat p\)</span></label></li>
+<li><label><input type="checkbox"><span class="math inline">\(P_0\)</span></label></li>
+<li><label><input type="checkbox">el promedio de <span class="math inline">\(\hat p\)</span> y <span class="math inline">\(P_0\)</span></label></li>
+<li><label><input type="checkbox">0.5, porque maximiza la varianza</label></li>
+</ul>
+<ol start="4" type="1">
+<li>En el contraste de una proporción con <span class="math inline">\(P_0 = 0.40\)</span> y <span class="math inline">\(n = 20\)</span>:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">se cumplen las condiciones de validez</label></li>
+<li><label><input type="checkbox">no se cumplen, porque <span class="math inline">\(nP_0 &lt; 10\)</span></label></li>
+<li><label><input type="checkbox">no se cumplen, porque <span class="math inline">\(n(1-P_0) &lt; 10\)</span></label></li>
+<li><label><input type="checkbox">hay que usar la distribución <span class="math inline">\(t\)</span></label></li>
+</ul>
+<ol start="5" type="1">
+<li>En una tabla de contingencia de 3 filas y 4 columnas los grados de libertad son:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">12</label></li>
+<li><label><input type="checkbox">11</label></li>
+<li><label><input type="checkbox">7</label></li>
+<li><label><input type="checkbox">6</label></li>
+</ul>
+<ol start="6" type="1">
+<li>La prueba ji-cuadrado de independencia es siempre:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">unilateral izquierda</label></li>
+<li><label><input type="checkbox">unilateral derecha</label></li>
+<li><label><input type="checkbox">bilateral</label></li>
+<li><label><input type="checkbox">unilateral en la dirección que marque <span class="math inline">\(H_1\)</span></label></li>
+</ul>
+<ol start="7" type="1">
+<li>Un contraste de independencia dio <span class="math inline">\(\chi^2_c = 2.1\)</span> con 2 grados de libertad. La decisión al 5% es:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">rechazar, porque el estadístico es positivo</label></li>
+<li><label><input type="checkbox">no rechazar, porque <span class="math inline">\(2.1 &lt; 5.9915\)</span></label></li>
+<li><label><input type="checkbox">rechazar, porque hay dos grados de libertad</label></li>
+<li><label><input type="checkbox">no se puede decidir sin el tamaño de muestra</label></li>
+</ul>
+<ol start="8" type="1">
+<li>El estadístico ji-cuadrado vale cero cuando:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">la muestra es muy pequeña</label></li>
+<li><label><input type="checkbox">las frecuencias observadas coinciden con las esperadas</label></li>
+<li><label><input type="checkbox">las variables están fuertemente asociadas</label></li>
+<li><label><input type="checkbox">la tabla tiene una casilla vacía</label></li>
+</ul>
+<ol start="9" type="1">
+<li><code>chisq.test</code> sobre una tabla 2×2, con la opción por omisión:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">no aplica ninguna corrección</label></li>
+<li><label><input type="checkbox">aplica la corrección de Yates</label></li>
+<li><label><input type="checkbox">da el mismo resultado que con <code>correct = FALSE</code></label></li>
+<li><label><input type="checkbox">no se puede aplicar</label></li>
+</ul>
+<ol start="10" type="1">
+<li>Si se escribe <code>t.test(x)</code> sin el argumento <code>mu</code>, R contrasta:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">contra la media de la muestra</label></li>
+<li><label><input type="checkbox">contra cero</label></li>
+<li><label><input type="checkbox">contra 0.5</label></li>
+<li><label><input type="checkbox">no corre, da error</label></li>
+</ul>
+<ol start="11" type="1">
+<li>Las frecuencias esperadas de una tabla de contingencia:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">siempre son enteras</label></li>
+<li><label><input type="checkbox">deben redondearse antes de calcular el estadístico</label></li>
+<li><label><input type="checkbox">pueden no ser enteras y no se redondean</label></li>
+<li><label><input type="checkbox">se obtienen de la muestra piloto</label></li>
+</ul>
+<ol start="12" type="1">
+<li>Se obtuvo <span class="math inline">\(p = 0.0943\)</span> habiendo fijado <span class="math inline">\(\alpha = 0.05\)</span>. La afirmación correcta es:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">se rechaza <span class="math inline">\(H_0\)</span> al 5%</label></li>
+<li><label><input type="checkbox">no se rechaza al 5%, pero sí se rechazaría al 10%</label></li>
+<li><label><input type="checkbox">se acepta <span class="math inline">\(H_0\)</span></label></li>
+<li><label><input type="checkbox">el resultado es imposible</label></li>
+</ul>
+</div>
+<div id="tabset-3-3">
+<p>Indique si cada afirmación es falsa o verdadera y justifique su respuesta en una línea.</p>
+<ol type="1">
+<li>El valor de referencia de la hipótesis nula se obtiene de la muestra.</li>
+<li>En el contraste de una proporción, el error estándar se calcula con <span class="math inline">\(P_0\)</span> y no con <span class="math inline">\(\hat p\)</span>.</li>
+<li>No rechazar <span class="math inline">\(H_0\)</span> equivale a demostrar que <span class="math inline">\(H_0\)</span> es verdadera.</li>
+<li>En un contraste bilateral al 5%, cada cola de la región de rechazo tiene un área de 0.025.</li>
+<li>La prueba ji-cuadrado de independencia permite concluir que una variable causa la otra.</li>
+<li>Las frecuencias esperadas de una tabla de contingencia deben redondearse a enteros antes de calcular el estadístico.</li>
+<li>El estadístico ji-cuadrado vale cero cuando las frecuencias observadas coinciden con las esperadas.</li>
+<li><code>t.test</code> usa la distribución <span class="math inline">\(t\)</span> aun cuando el tamaño de muestra es grande.</li>
+<li>Con muestras grandes, la diferencia entre usar <span class="math inline">\(z\)</span> y usar <span class="math inline">\(t\)</span> es despreciable.</li>
+<li>El estadístico que reporta <code>prop.test</code> es el cuadrado del estadístico <span class="math inline">\(z\)</span> cuando se desactiva la corrección de continuidad.</li>
+<li>Un valor p de 0.0001 indica que el efecto encontrado es grande.</li>
+<li>Si el intervalo de confianza del 95% para <span class="math inline">\(\mu\)</span> no contiene a <span class="math inline">\(\mu_0\)</span>, el contraste bilateral al 5% rechaza <span class="math inline">\(H_0\)</span>.</li>
+<li><code>chisq.test</code> aplica la corrección de Yates en cualquier tabla.</li>
+<li>Dos investigadores con los mismos datos y distinto <span class="math inline">\(\alpha\)</span> pueden llegar a decisiones distintas sin que ninguno se haya equivocado en los cálculos.</li>
+<li>Una tabla de contingencia con todas las frecuencias esperadas iguales a las observadas lleva necesariamente a rechazar <span class="math inline">\(H_0\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-11-y-12" class="slide level2 scrollable">
+<h2>Ejercicios 11 y 12</h2>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">11</a></li><li><a href="#tabset-4-2">12</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<p>Cada una de las siguientes frases apareció en un informe. Todas tienen al menos un error. Identifique el error y reescriba la frase de forma correcta.</p>
+<ol type="a">
+<li>Con un nivel de significancia del 5% se acepta la hipótesis nula de que el tiempo promedio de espera es de 30 minutos.</li>
+<li>El valor p dio 0.02, de modo que hay un 2% de probabilidad de que la hipótesis nula sea cierta.</li>
+<li>Como el valor p dio 0.094, trabajaremos al 10% para poder rechazar.</li>
+<li>Se rechazó la hipótesis nula, por lo tanto queda demostrado que el tiempo promedio de espera es de 31.4 minutos.</li>
+<li>No se rechazó la hipótesis nula de independencia, así que la región y la plaga son independientes.</li>
+<li>Se planteó <span class="math inline">\(H_0: \mu = 31.4\)</span>, que es el promedio observado en la muestra.</li>
+<li>La prueba ji-cuadrado demostró que tener seguro privado causa mayor satisfacción.</li>
+<li>El estadístico ji-cuadrado dio 33.33, un número muy grande, por lo tanto la asociación entre las variables es muy fuerte.</li>
+<li>Como la tabla tiene una casilla con frecuencia esperada de 3.1, redondeamos a 3 y seguimos con el cálculo.</li>
+<li>Obtuvimos <span class="math inline">\(\chi^2_c = 7.59\)</span> con 2 grados de libertad, de modo que rechazamos porque el estadístico quedó en la cola izquierda.</li>
+</ol>
+</div>
+<div id="tabset-4-2">
+<p>Primera parte. Complete cada enunciado con el concepto que corresponde.</p>
+<ol type="1">
+<li>En el contraste de una proporción el error estándar se calcula con _____ porque el estadístico se construye suponiendo que _____ es verdadera.</li>
+<li>Cuando <span class="math inline">\(\sigma\)</span> es desconocida y la muestra es pequeña, el valor crítico se busca en la distribución _____ con _____ grados de libertad.</li>
+<li>En una tabla de contingencia, la frecuencia esperada de una casilla es el total de su _____ por el total de su _____, dividido entre _____.</li>
+<li>Los grados de libertad de la prueba de independencia son _____.</li>
+<li>La prueba ji-cuadrado es siempre unilateral _____, porque el numerador del estadístico está _____.</li>
+<li><code>chisq.test</code> aplica la corrección de _____ únicamente cuando la tabla es de tamaño _____.</li>
+<li>Se rechaza <span class="math inline">\(H_0\)</span> cuando el valor p es _____ que _____.</li>
+<li>La condición de validez del contraste de una proporción exige que _____ y _____ sean al menos 10.</li>
+</ol>
+<p>Segunda parte. Responda de forma breve.</p>
+<ol type="a">
+<li>Explique por qué el error estándar del contraste de una proporción no coincide con el del intervalo de confianza para esa misma proporción.</li>
+<li>¿Por qué la prueba de independencia no distingue la dirección de la asociación? ¿Qué se mira entonces para describirla?</li>
+<li>Explique por qué la prueba ji-cuadrado es unilateral derecha aunque la alternativa no indique ninguna dirección.</li>
+<li>¿Por qué conviene revisar las frecuencias esperadas antes de aplicar una prueba ji-cuadrado?</li>
+<li>Explique la relación entre el intervalo de confianza del 95% para <span class="math inline">\(\mu\)</span> y el contraste bilateral al 5%.</li>
+<li>Un estudio con <span class="math inline">\(n = 40\,000\)</span> reporta un valor p menor a 0.0001 para una diferencia de 0.2 minutos en el tiempo de espera. Comente.</li>
+<li>¿Por qué <code>chisq.test</code> da un resultado distinto del cálculo a mano justo en las tablas 2×2, y qué habría que escribir para que coincidan?</li>
+<li>Dé un ejemplo propio, de su área de interés, en el que convenga una prueba de independencia, e indique cuáles serían las dos variables y el tamaño de la tabla.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="apartado-la-potencia-con-power.t.test" class="slide level2">
+<h2>Apartado: la potencia con power.t.test</h2>
+<div title="Qué se va a hacer aquí">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Qué se va a hacer aquí</strong></p>
+</div>
+<div class="callout-content">
+<p>En clase se definió la potencia como la probabilidad de rechazar <span class="math inline">\(H_0\)</span> cuando es falsa, pero no se calculó. R trae una función que la calcula y que también resuelve el problema inverso: cuántas observaciones hacen falta para alcanzar la potencia que se desea.</p>
+<p>Este apartado va paso a paso. En cada uno hay algo que usted debe deducir antes de seguir.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="potencia-paso-1-las-cinco-cantidades" class="slide level2">
+<h2>Potencia, paso 1: las cinco cantidades</h2>
+<p>En toda prueba <span class="math inline">\(t\)</span> hay cinco cantidades conectadas entre sí:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argumento</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>n</code></td>
+<td>el tamaño de muestra, por grupo si son dos grupos</td>
+</tr>
+<tr class="even">
+<td><code>delta</code></td>
+<td>la diferencia que se quiere detectar, en las unidades del problema</td>
+</tr>
+<tr class="odd">
+<td><code>sd</code></td>
+<td>la desviación estándar de la población</td>
+</tr>
+<tr class="even">
+<td><code>sig.level</code></td>
+<td>el nivel de significancia <span class="math inline">\(\alpha\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>power</code></td>
+<td>la potencia <span class="math inline">\(1-\beta\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>La regla de uso es una sola: se escriben cuatro y se deja la quinta sin escribir, o en <code>NULL</code>. R calcula la que falta.</p>
+</div>
+</div>
+</div>
+<ol type="a">
+<li>Antes de seguir, prediga el sentido de cada relación: si <code>delta</code> aumenta y todo lo demás queda igual, ¿la potencia sube o baja? ¿Y si <code>sd</code> aumenta? ¿Y si <code>sig.level</code> baja de 0.05 a 0.01?</li>
+</ol>
+</section>
+<section id="potencia-paso-2-una-salida-para-interpretar" class="slide level2">
+<h2>Potencia, paso 2: una salida para interpretar</h2>
+<p>Un ensayo quiere comparar el rendimiento promedio de dos variedades. Se considera relevante una diferencia de 3 kg por parcela y se sabe que la desviación estándar del rendimiento ronda los 5 kg. Se planean 25 parcelas por variedad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="" aria-label="1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">delta =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">5</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb50-2"><a href="" aria-label="2"></a>             <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>     Two-sample t test power calculation
+
+              n = 25
+          delta = 3
+             sd = 5
+      sig.level = 0.05
+          power = 0.5472862
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+<ol start="2" type="a">
+<li>Explique, en una línea cada una, qué significa cada línea de esa salida en el contexto del ensayo.</li>
+<li>La nota final dice que <code>n</code> es el número en cada grupo. ¿Cuántas parcelas en total exige este diseño?</li>
+<li>¿Cuál es el valor de <span class="math inline">\(\beta\)</span> en este ensayo? ¿Cómo lo interpreta?</li>
+<li>Si el ensayo se ejecuta tal cual y no rechaza <span class="math inline">\(H_0\)</span>, ¿puede concluirse que las dos variedades rinden igual? Justifique con el número del inciso d.</li>
+</ol>
+</section>
+<section id="potencia-paso-3-deducir-la-relación" class="slide level2">
+<h2>Potencia, paso 3: deducir la relación</h2>
+<p>Se repitió el cálculo cambiando únicamente <code>n</code>.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><code>n</code> por grupo</th>
+<th>Potencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>15</td>
+<td>0.3546</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td>0.5473</td>
+</tr>
+<tr class="odd">
+<td>40</td>
+<td>0.7549</td>
+</tr>
+<tr class="even">
+<td>50</td>
+<td>0.8439</td>
+</tr>
+<tr class="odd">
+<td>75</td>
+<td>0.9545</td>
+</tr>
+<tr class="even">
+<td>100</td>
+<td>0.9881</td>
+</tr>
+</tbody>
+</table>
+<ol start="6" type="a">
+<li>Describa en una oración el comportamiento de la potencia conforme crece <code>n</code>. ¿Crece de forma proporcional?</li>
+<li>Reproduzca el cuadro en R con <code>sapply</code> sobre el vector de tamaños y grafíquelo con <code>plot</code>.</li>
+<li>Se repitió ahora el cálculo con <span class="math inline">\(n = 25\)</span> fijo y variando <code>sig.level</code>: con 0.01 la potencia es 0.2990, con 0.05 es 0.5473 y con 0.10 es 0.6724. Explique este patrón y diga qué se paga a cambio de esa potencia.</li>
+<li>Vuelva a su predicción del inciso a. ¿Acertó en las tres?</li>
+</ol>
+</section>
+<section id="potencia-paso-4-el-problema-inverso" class="slide level2">
+<h2>Potencia, paso 4: el problema inverso</h2>
+<p>La pregunta útil en la práctica no es cuánta potencia tengo, sino cuántas observaciones necesito. Para eso se deja <code>n</code> sin escribir y se fija <code>power</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="" aria-label="1"></a><span class="fu">power.t.test</span>(<span class="at">delta =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">5</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>,</span>
+<span id="cb52-2"><a href="" aria-label="2"></a>             <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="10" type="a">
+<li>Corra esa instrucción. R devuelve <code>n = 44.58590</code>. ¿Por qué no es un número entero y qué valor debe usarse en la práctica? Justifique en qué dirección se redondea y por qué.</li>
+<li>Compare ese resultado con la fila de <span class="math inline">\(n = 40\)</span> del cuadro del paso 3 y verifique que son coherentes.</li>
+<li>Si el equipo solo consigue financiamiento para 30 parcelas por variedad, ¿qué potencia tendría el ensayo? ¿Qué le recomendaría al equipo: correr el estudio así o no correrlo?</li>
+</ol>
+</section>
+<section id="potencia-ejercicio-individual" class="slide level2">
+<h2>Potencia: ejercicio individual</h2>
+<div title="Para resolver">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Para resolver</strong></p>
+</div>
+<div class="callout-content">
+<p>Un laboratorio quiere comparar el tiempo de respuesta, en segundos, de dos equipos de medición. Se considera relevante una diferencia de 2.5 segundos y estudios previos indican que la desviación estándar del tiempo ronda los 6 segundos. Se trabajará al 5% de significancia con un contraste bilateral.</p>
+<ol type="a">
+<li>Con 20 mediciones por equipo, ¿cuál es la potencia? Interprete el resultado en términos del problema.</li>
+<li>¿Cuál es el valor de <span class="math inline">\(\beta\)</span> y qué significa aquí?</li>
+<li>Determine cuántas mediciones por equipo hacen falta para alcanzar una potencia de 0.80. Reporte el valor que devuelve R y el que usaría en la práctica.</li>
+<li>Repita el inciso c para una potencia de 0.90. ¿Cuántas mediciones adicionales cuesta ese 10% extra de potencia?</li>
+<li>El laboratorio dice que con 40 mediciones por equipo le alcanza. Calcule la potencia de ese diseño y escriba una recomendación de tres líneas.</li>
+<li>Suponga ahora que se logra reducir la variabilidad del procedimiento y que <code>sd</code> baja de 6 a 4. Recalcule el inciso c y explique por qué el tamaño de muestra cambia tanto.</li>
+<li>Escriba en una frase para qué sirve hacer este cálculo antes de recolectar los datos y no después.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-extra" class="slide level2">
+<h2>Ejercicios extra</h2>
+<div title="Fuera del alcance del examen">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Fuera del alcance del examen</strong></p>
+</div>
+<div class="callout-content">
+<p>Los ejercicios que siguen comparan dos poblaciones: diferencia de medias y diferencia de proporciones. No entran al examen.</p>
+<p>Se incluyen porque completan el panorama: la lógica es la misma de siempre, solo cambian el parámetro y el error estándar. Quien resuelva los anteriores sin dificultad debería poder con estos.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="recordatorio-los-dos-casos-de-comparación" class="slide level2">
+<h2>Recordatorio: los dos casos de comparación</h2>
+<div title="Diferencia de medias, muestras independientes">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Diferencia de medias, muestras independientes</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[H_0: \mu_1 = \mu_2 \qquad t_c = \frac{\bar x_1 - \bar x_2}{\sqrt{s_p^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}} \qquad s_p^2 = \frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\]</span></p>
+<p>con <span class="math inline">\(gl = n_1+n_2-2\)</span> cuando se pueden suponer varianzas iguales. Si no, se usa la aproximación de Welch, que es lo que <code>t.test</code> hace por omisión. Con <span class="math inline">\(n_1\)</span> y <span class="math inline">\(n_2\)</span> grandes se puede usar <span class="math inline">\(z\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div title="Diferencia de proporciones">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Diferencia de proporciones</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[H_0: P_1 = P_2 \qquad z_c = \frac{\hat p_1 - \hat p_2}{\sqrt{\hat p\,(1-\hat p)\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}} \qquad \hat p = \frac{x_1+x_2}{n_1+n_2}\]</span></p>
+<p>Bajo <span class="math inline">\(H_0\)</span> las dos proporciones son iguales, así que el error estándar se calcula con la proporción combinada <span class="math inline">\(\hat p\)</span>. Es la misma lógica que usar <span class="math inline">\(P_0\)</span> y no <span class="math inline">\(\hat p\)</span> en el caso de una sola proporción.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicios-extra-13-y-14" class="slide level2 scrollable">
+<h2>Ejercicios extra 13 y 14</h2>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">13</a></li><li><a href="#tabset-5-2">14</a></li><li><a href="#tabset-5-3">15</a></li><li><a href="#tabset-5-4">16</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<p>Trabaje con <code>clinica.csv</code>. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Obtenga las medias y desviaciones estándar del <code>tiempo</code> por <code>sede</code> con <code>tapply</code>, y compárelas con un <code>boxplot</code>.</li>
+<li>Plantee las hipótesis para comparar el tiempo promedio de espera entre las dos sedes y explique por qué las dos muestras son independientes.</li>
+<li>Realice la prueba con la función de R que corresponde. ¿Cuántos grados de libertad reporta? ¿Por qué no es un número entero?</li>
+<li>Repita suponiendo varianzas iguales. Compare el estadístico, los grados de libertad y el valor p, y diga si la conclusión cambia.</li>
+<li>Escriba la conclusión en términos del problema.</li>
+<li>Construya ahora la tabla cruzada de <code>sede</code> por <code>satisfecho</code> y calcule la proporción de satisfechos en cada sede.</li>
+<li>Plantee las hipótesis para comparar las dos proporciones y realice la prueba, desactivando la corrección de continuidad.</li>
+<li>Corra <code>chisq.test</code> sobre esa misma tabla 2×2 con <code>correct = FALSE</code>. Compare el <code>X-squared</code> con el de la prueba de proporciones del inciso g. Explique por qué coinciden.</li>
+<li>Escriba la conclusión del contraste de proporciones.</li>
+</ol>
+</div>
+<div id="tabset-5-2">
+<p>Trabaje con <code>cultivo.csv</code>. Use <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<ol type="a">
+<li>Obtenga un resumen de <code>rendimiento</code> por <code>variedad</code>.</li>
+<li>El equipo sostiene que la variedad A rinde más que la B. Plantee las hipótesis e indique la dirección del contraste.</li>
+<li>Realice la prueba con la función de R que corresponde y escriba la conclusión.</li>
+<li>Compare el estadístico obtenido suponiendo varianzas iguales y sin suponerlo. Los dos coinciden hasta el cuarto decimal pero los grados de libertad no. Explique por qué ocurre eso con estos datos en particular.</li>
+<li>Contraste si la proporción de parcelas con plaga difiere entre las dos variedades. Verifique las condiciones de validez antes de decidir.</li>
+<li>Compare el resultado del inciso e con el que obtuvo en el ejercicio 3 inciso h, donde la misma tabla se analizó como una prueba de independencia. ¿Son la misma prueba? Justifique.</li>
+<li>Con todos los resultados, redacte un párrafo de recomendación para la finca.</li>
+</ol>
+</div>
+<div id="tabset-5-3">
+<p>Una cadena compara el tiempo de atención en caja, en minutos, de dos de sus sucursales. En la sucursal del norte se cronometraron 12 clientes y se obtuvo un promedio de 8.4 minutos con una desviación estándar muestral de 1.6 minutos. En la del sur se cronometraron 14 clientes distintos, con un promedio de 7.1 minutos y una desviación estándar muestral de 1.4 minutos. Las dos poblaciones son normales y se pueden suponer varianzas iguales. Use <span class="math inline">\(\alpha = 0.05\)</span> y resuelva a mano.</p>
+<ol type="a">
+<li>Plantee las hipótesis e indique si el contraste es unilateral o bilateral.</li>
+<li>Explique por qué las dos muestras son independientes.</li>
+<li>Calcule la varianza ponderada y su raíz. Verifique que queda entre las dos varianzas muestrales y explique por qué.</li>
+<li>Calcule el error estándar de la diferencia y el estadístico de prueba.</li>
+<li>Indique los grados de libertad, obtenga el valor crítico y tome la decisión.</li>
+<li>Calcule el valor p y escriba la conclusión.</li>
+<li>¿Qué habría cambiado en el procedimiento si los 12 clientes del norte fueran los mismos 12 medidos en dos momentos distintos? Explique sin calcular.</li>
+<li>Verifique todo en R.</li>
+</ol>
+</div>
+<div id="tabset-5-4">
+<p>Primera parte. Marque con equis la única opción correcta.</p>
+<ol type="1">
+<li>Se contrasta si dos poblaciones tienen la misma media, con muestras independientes de 14 y 16 observaciones, poblaciones normales y varianzas desconocidas pero iguales. Los grados de libertad son:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">30</label></li>
+<li><label><input type="checkbox">29</label></li>
+<li><label><input type="checkbox">28</label></li>
+<li><label><input type="checkbox">13</label></li>
+</ul>
+<ol start="2" type="1">
+<li>En el estadístico de la diferencia de proporciones, el error estándar se calcula con:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox"><span class="math inline">\(\hat p_1\)</span> y <span class="math inline">\(\hat p_2\)</span> por separado</label></li>
+<li><label><input type="checkbox">la proporción combinada <span class="math inline">\(\hat p\)</span></label></li>
+<li><label><input type="checkbox">la proporción mayor de las dos</label></li>
+<li><label><input type="checkbox"><span class="math inline">\(P_0 = 0.5\)</span></label></li>
+</ul>
+<ol start="3" type="1">
+<li>La instrucción <code>t.test(x, y)</code> sin más argumentos realiza:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">una prueba pareada</label></li>
+<li><label><input type="checkbox">una prueba de varianzas iguales</label></li>
+<li><label><input type="checkbox">una prueba de Welch, bilateral, contra una diferencia de cero</label></li>
+<li><label><input type="checkbox">una prueba de una sola muestra</label></li>
+</ul>
+<ol start="4" type="1">
+<li>Dos muestras de 80 observaciones cada una dieron el mismo estadístico con Welch y con varianzas iguales. Eso ocurre porque:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">las varianzas muestrales son idénticas</label></li>
+<li><label><input type="checkbox">los dos tamaños de muestra son iguales</label></li>
+<li><label><input type="checkbox">las dos poblaciones son normales</label></li>
+<li><label><input type="checkbox">es una coincidencia sin explicación</label></li>
+</ul>
+<ol start="5" type="1">
+<li>Comparar dos proporciones con <code>prop.test(..., correct = FALSE)</code> y aplicar <code>chisq.test(..., correct = FALSE)</code> a la misma tabla 2×2:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">dan resultados distintos</label></li>
+<li><label><input type="checkbox">dan el mismo estadístico y el mismo valor p</label></li>
+<li><label><input type="checkbox">solo coinciden si los dos tamaños son iguales</label></li>
+<li><label><input type="checkbox">no son comparables</label></li>
+</ul>
+<p>Segunda parte. Indique si cada afirmación es falsa o verdadera y justifique.</p>
+<ol start="6" type="1">
+<li>La varianza ponderada siempre queda entre las dos varianzas muestrales.</li>
+<li>La aproximación de Welch exige que las dos muestras tengan el mismo tamaño.</li>
+<li>En el contraste de diferencia de medias, el valor de referencia de la nula siempre tiene que ser cero.</li>
+<li>Si el intervalo de confianza del 95% para <span class="math inline">\(\mu_1-\mu_2\)</span> no contiene al cero, el contraste bilateral al 5% rechaza la igualdad de medias.</li>
+<li>Tratar como independientes dos muestras que en realidad están pareadas produce un error estándar más pequeño.</li>
+</ol>
+<p>Tercera parte. Responda de forma breve.</p>
+<ol start="11" type="a">
+<li>Explique la diferencia entre comparar dos proporciones y hacer una prueba de independencia sobre una tabla 2×2.</li>
+<li>¿Por qué <code>t.test</code> reporta grados de libertad no enteros cuando no se suponen varianzas iguales?</li>
+<li>Explique por qué el error estándar de la diferencia de proporciones se calcula con la proporción combinada y no con las dos por separado.</li>
+</ol>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="XS-1130_15_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="XS-1130_15_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="XS-1130_15_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="XS-1130_15_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"right","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"width":"wide","numbers":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
