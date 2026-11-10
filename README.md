@@ -33,3 +33,4 @@ verificación de hipótesis y su aplicación
 | Estimación - Parte 2                                                                  | [Clase 12](XS-1130_12.html)   |    |
 | Estimación - Parte 3                                                                  | [Clase 13](XS-1130_13.html)   |    |
 | Contraste de hipótesis - Parte 1                                                      | [Clase 14](XS-1130_14.html)   |  Tema 5 [Antología](https://mv.mediacionvirtual.ucr.ac.cr/pluginfile.php/498430/mod_resource/content/1/Antologia.pdf)    |
+| Contraste de hipótesis - Parte 2                                                      | [Clase 15](XS-1130_15.html) | [clinica.csv](Datos/clinica.csv) · [cultivo.csv](Datos/cultivo.csv) | 
